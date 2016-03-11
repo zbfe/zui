@@ -16,6 +16,12 @@
      * @param {number} [options.time=2000] 自动关闭时间
      */
     var Tips = zui.Tips = function (options) {
+        var self = this;
+        
+        if (self.constructor  !== Tips) {
+            throw new Error('Please instance constructor');
+        }
+
         // 如果值为一个字符串，则认为这是一个内容
         if ('string' === typeof options) {
             options = {
@@ -24,13 +30,13 @@
         }
 
         // 合并参数
-        this.options = $.extend({
+        self.options = $.extend({
             autoClose: true,
             time: 2000
         }, options);
 
         // 初始化
-        this._init();
+        self._init();
     };
 
     $.extend(Tips.prototype, {
