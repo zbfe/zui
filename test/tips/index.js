@@ -67,7 +67,7 @@ describe('Tips', function () {
         expect($('.zui-tips-wrap').html().indexOf(str) > -1).toBe(true);
     });
 
-    it('zui.Tips({content: str})', function () {
+    it('{content: str}', function () {
         var str = getGuid();
 
         new zui.Tips({
@@ -77,6 +77,115 @@ describe('Tips', function () {
         expect($('.zui-tips-wrap').html().indexOf(str) > -1).toBe(true);
     });
 
+    it('autoClose: true', function (done) {
+        var app =new zui.Tips({
+            autoClose: true
+        });
+
+        expect(typeof app._timer).toBe('number');
+
+        setTimeout(function () {
+            expect($('.zui-tips-wrap').length).toBe(0);
+            done();
+        }, app.options.time + 500);
+    });
+
+    it('autoClose: false', function (done) {
+        new zui.Tips({
+            autoClose: false,
+            time: 200
+        });
+
+        expect($('.zui-tips-wrap').length).toBe(1);
+
+        setTimeout(function() {
+            expect($('.zui-tips-wrap').length).toBe(1);
+            done();
+        }, 200 + 500 + 200);
+    });
+
+    it('time: 200', function (done) {
+        new zui.Tips({
+            autoClose: true,
+            time: 200
+        });
+
+        expect($('.zui-tips-wrap').length).toBe(1);
+
+        setTimeout(function () {
+            expect($('.zui-tips-wrap').length).toBe(0);
+            done();
+        }, 200 + 500);
+    });
+
+    it('{lock: true}', function () {
+        new zui.Tips({
+            lock: true
+        });
+
+        expect($('.zui-tips-wrap.zui-tips-wrap-mask').length).toBe(1);
+    });
+
+    it('close()', function (done) {
+        var app = new zui.Tips({
+            autoClose: false
+        });
+
+        expect($('.zui-tips-wrap').length).toBe(1);
+
+        app.close();
+
+        setTimeout(function () {
+            expect($('.zui-tips-wrap').length).toBe(0);
+            done();
+        }, 500);
+    });
+
+    it('close().close()', function () {
+        var flag = true;
+
+        try {
+            new zui.Tips().close().close().close().close();
+        }
+        catch (e) {
+            flag = false;
+        }
+
+        expect(flag).toBe(true);
+    });
+
+    it('autoClose => close()', function (done) {
+        var app = new zui.Tips({
+            autoClose: true,
+            time: 500
+        });
+
+        setTimeout(function () {
+            var flag = true;
+            try {
+                app.close().close();
+            }
+            catch (e) {
+                flag = false;
+            }
+            expect(flag).toBe(true);
+            done();
+        }, 500 + 500);
+    });
+
+    it('close() => autoClose', function (done) {
+        var app = new zui.Tips({
+            autoClose: true,
+            time: 500
+        });
+
+        app.close();
+
+        setTimeout(function () {
+            expect(app._closed).toBe(true);
+            done();
+        }, 500 + 500);
+    });
 
     // lock=true
     // autoClose=true
