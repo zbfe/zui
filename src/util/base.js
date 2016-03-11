@@ -1,5 +1,5 @@
 /**
- * @name zui base
+ * @file zui-base
  * @author xiaowu
  */
 
