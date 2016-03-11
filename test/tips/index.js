@@ -78,7 +78,7 @@ describe('Tips', function () {
     });
 
     it('autoClose: true', function (done) {
-        var app =new zui.Tips({
+        var app = new zui.Tips({
             autoClose: true
         });
 
@@ -98,7 +98,7 @@ describe('Tips', function () {
 
         expect($('.zui-tips-wrap').length).toBe(1);
 
-        setTimeout(function() {
+        setTimeout(function () {
             expect($('.zui-tips-wrap').length).toBe(1);
             done();
         }, 200 + 500 + 200);

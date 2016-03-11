@@ -17,7 +17,7 @@
      */
     var Tips = zui.Tips = function (options) {
         var self = this;
-        
+
         if (self.constructor  !== Tips) {
             throw new Error('Please instance constructor');
         }
