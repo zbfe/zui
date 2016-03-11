@@ -9,8 +9,7 @@
     "hook-install": "prepush install",
     "hook-remove": "prepush remove",
     "start": "npm run server",
-    "server": "http-server",
-    "postinstall": "npm run hook-install"
+    "server": "http-server"
   },
   "prepush": [
     "npm run check"
