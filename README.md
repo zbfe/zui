@@ -1,6 +1,6 @@
 # zui
 
-Mobile ui library created zbfe
+Mobile ui library created by zbfe
 
 [![code style fecs](https://img.shields.io/badge/code%20style-fecs-brightgreen.svg)](https://github.com/ecomfe/fecs)
 [![Build Status](https://travis-ci.org/zbfe/zui.svg?branch=master)](https://travis-ci.org/zbfe/zui)
