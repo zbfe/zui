@@ -33,15 +33,16 @@
 
     Dialog.prototype = {
         _init: function () {
-            this.$wrap = $('<div class="zui-dialog-wrap">');
-            this.$mask = $('<div class="zui-dialog-mask">').appendTo(this.$wrap);
+            var $tempWrap = $('<div class="zui-dialog-wrap">');
+            this.$mask = $('<div class="zui-dialog-mask">').appendTo($tempWrap);
+            this.$wrap = $tempWrap.appendTo($('body'));
             this._eventProcess();
         },
         _render: function () {
-            this.$wrap.appendTo($('body'));
+
         },
         show: function () {
-
+            this.$wrap.addClass('zui-dialog-show');
         },
         hide: function () {
             this.$wrap.remove();
