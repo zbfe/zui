@@ -7,7 +7,7 @@ Mobile ui library created by zbfe
 [![Test Coverage](https://img.shields.io/coveralls/zbfe/zui/master.svg)](https://coveralls.io/r/zbfe/zui)
 [![DevDependencies](https://img.shields.io/david/dev/zbfe/zui.svg?style=flat)](https://david-dm.org/zbfe/zui#info=devDependencies)
 
-## specification
+## Specification
 
 * [目录规范](https://github.com/zbfe/zui/wiki/Directory-specification)
 * [js代码规范](https://github.com/zbfe/zui/wiki/js-style)
@@ -28,7 +28,7 @@ npm run hook-install
 
 ## Test
 
-> Test case by [jasmine](https://jasmine.github.io/), test environment by [karma](https://karma-runner.github.io/)、[phantomjs](http://phantomjs.org/)(请提前下载以防npm安装缓慢)
+BDD, Test case by [jasmine](https://jasmine.github.io/), test environment by [karma](https://karma-runner.github.io/)、[phantomjs](http://phantomjs.org/)(请提前下载以防npm安装缓慢)
 
 ```shell
 # 运行测试
