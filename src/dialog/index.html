@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Dialog - zui</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <!-- 引用reset -->
+    <link rel="stylesheet" href="/lib/reset.css">
+    <!-- 引用提示.css -->
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <p class="test">dialog1</p>
+    <p class="test">dialog2</p>
+    <p class="test">dialog3</p>
+    <div class="zui-dialog-wrap">
+        <div class="zui-dialog-mask">
+            <div class="zui-dialog-content">
+                <div class="zui-dialog-area">
+                    <header class="zui-dialog-title">
+                        Hi everyone.
+                    </header>
+                    <p class="zio-dialog-msg">
+                        这是内容内容内容...
+                    </p>
+                </div>
+                <div class="zui-dialog-buttons">
+                    <span class="zui-dialog-button">确定</span>
+                    <span class="zui-dialog-button">取消</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/lib/zepto.js"></script>
+    <script src="/src/util/base.js"></script>
+    <script src="./index.js"></script>
+    <script>
+        $('.test').on('click', function () {
+            new window.zui.Dialog('这是对话框...');
+        });
+    </script>
+</body>
+</html>
