@@ -68,6 +68,12 @@
                 self._timer = setTimeout(self.close.bind(this), options.time);
             }
 
+            setTimeout(function () {
+                // 如果有显示回调则运行，this为当前实例
+                if ('function' === typeof options.onShow) {
+                    options.onShow.call(self);
+                }
+            }, 200);
         },
 
         /**
@@ -100,6 +106,11 @@
 
             // 打上关闭标识，防止重复关闭
             self._closed = true;
+
+            // 如果有显示回调则运行，this为当前实例
+            if ('function' === typeof self.options.onClose) {
+                self.options.onClose.call(self);
+            }
 
             return self;
         }
