@@ -141,6 +141,12 @@ describe('Tips', function () {
         }, 500);
     });
 
+    it('close() 返回值', function () {
+        var app = new zui.Tips();
+
+        expect(app).toEqual(app.close().close());
+    });
+
     it('close().close()', function () {
         var flag = true;
 
@@ -187,8 +193,22 @@ describe('Tips', function () {
         }, 500 + 500);
     });
 
-    // lock=true
-    // autoClose=true
-    // _timer=true
-    // _closed
+    it('onShow', function (done) {
+        var app = new zui.Tips({
+            onShow: function () {
+                expect(this).toEqual(app);
+                done();
+            }
+        });
+    });
+
+    it('onClose', function (done) {
+        var app = new zui.Tips({
+            onClose: function () {
+                expect(this).toEqual(app);
+                app.close().close();
+                done();
+            }
+        });
+    });
 });
