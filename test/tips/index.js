@@ -17,6 +17,7 @@ describe('Tips', function () {
         {},
         []
     ];
+    var animationTimeout = zui.Tips.animationTimeout;
 
     var guid = 0;
     var getGuid = function () {
@@ -79,15 +80,18 @@ describe('Tips', function () {
 
     it('autoClose: true', function (done) {
         var app = new zui.Tips({
-            autoClose: true
+            autoClose: true,
+            time: 50,
+            onShow: function () {
+                expect(typeof app._timer).toBe('number');    
+            }
         });
-
-        expect(typeof app._timer).toBe('number');
-
+        
+        // 因为首先是animationTimeout显示完成后才会延迟time时间关闭，而再加个animationTimeout是动画结束时才删dom
         setTimeout(function () {
             expect($('.zui-tips-wrap').length).toBe(0);
             done();
-        }, app.options.time + 500);
+        }, app.options.time + animationTimeout + animationTimeout + 100);
     });
 
     it('autoClose: false', function (done) {
@@ -101,21 +105,36 @@ describe('Tips', function () {
         setTimeout(function () {
             expect($('.zui-tips-wrap').length).toBe(1);
             done();
-        }, 200 + 500 + 200);
+        }, 200 + animationTimeout + 10);
     });
 
     it('time: 200', function (done) {
         new zui.Tips({
             autoClose: true,
-            time: 200
+            time: 200,
+            onShow: function () {
+                setTimeout(function () {
+                    expect($('.zui-tips-wrap').length).toBe(0);
+                    done();
+                }, 200 + animationTimeout + 100);
+            }
         });
 
         expect($('.zui-tips-wrap').length).toBe(1);
+    });
 
-        setTimeout(function () {
-            expect($('.zui-tips-wrap').length).toBe(0);
-            done();
-        }, 200 + 500);
+    it('time: 200 => onClose', function (done) {
+        var start = Date.now();
+
+        new zui.Tips({
+            autoClose: true,
+            time: 200,
+            onClose: function () {
+                var diff = animationTimeout + animationTimeout + 200;
+                expect(Date.now() - start - diff < 100 ).toBe(true);
+                done();
+            }
+        });
     });
 
     it('{lock: true}', function () {
@@ -138,7 +157,7 @@ describe('Tips', function () {
         setTimeout(function () {
             expect($('.zui-tips-wrap').length).toBe(0);
             done();
-        }, 500);
+        }, animationTimeout);
     });
 
     it('close() 返回值', function () {
@@ -176,7 +195,7 @@ describe('Tips', function () {
             }
             expect(flag).toBe(true);
             done();
-        }, 500 + 500);
+        }, 500 + animationTimeout);
     });
 
     it('close() => autoClose', function (done) {
@@ -190,7 +209,7 @@ describe('Tips', function () {
         setTimeout(function () {
             expect(app._closed).toBe(true);
             done();
-        }, 500 + 500);
+        }, 500 + animationTimeout);
     });
 
     it('onShow', function (done) {
@@ -210,5 +229,22 @@ describe('Tips', function () {
                 done();
             }
         });
+    });
+
+    it('onClose 次数', function (done) {
+        var flag = 0;
+        var app = new zui.Tips({
+            time: 10,
+            onClose: function () {
+                flag += 1;
+            }
+        });
+
+        app.close().close().close();
+
+        setTimeout(function () {
+            expect(flag).toBe(1);
+            done();
+        }, 10 + animationTimeout + animationTimeout + 100);
     });
 });
