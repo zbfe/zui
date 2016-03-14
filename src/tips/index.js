@@ -9,8 +9,8 @@
      * 构造函数
      *
      * @param {Object} options 配置参数或者提示内容
-     * @param {Function} options.onShow 显示回调
-     * @param {Function} options.onClose 关闭回调
+     * @param {Function} options.onShow 显示成功后回调
+     * @param {Function} options.onClose 关闭层后回调
      * @param {boolean} options.lock 是否锁定屏幕
      * @param {boolean} options.autoClose 是否自动关闭
      * @param {number} [options.time=2000] 自动关闭时间
@@ -63,17 +63,17 @@
             // 添加显示类
             self.$wrap.addClass('zui-tips-wrap-show');
 
-            // 如果有自动关闭，则延迟关闭
-            if (options.autoClose) {
-                self._timer = setTimeout(self.close.bind(this), options.time);
-            }
-
             setTimeout(function () {
+                // 如果有自动关闭，则延迟关闭
+                if (options.autoClose) {
+                    self._timer = setTimeout(self.close.bind(self), options.time);
+                }
+
                 // 如果有显示回调则运行，this为当前实例
                 if ('function' === typeof options.onShow) {
                     options.onShow.call(self);
                 }
-            }, 200);
+            }, Tips.animationTimeout);
         },
 
         /**
@@ -102,17 +102,26 @@
             setTimeout(function () {
                 self.$wrap.remove();
                 delete self.$wrap;
-            }, 300);
+
+                // 如果有显示回调则运行，this为当前实例
+                if ('function' === typeof self.options.onClose) {
+                    self.options.onClose.call(self);
+                }
+            }, Tips.animationTimeout);
 
             // 打上关闭标识，防止重复关闭
             self._closed = true;
 
-            // 如果有显示回调则运行，this为当前实例
-            if ('function' === typeof self.options.onClose) {
-                self.options.onClose.call(self);
-            }
+            
 
             return self;
         }
     });
+
+    /**
+     * css动画运行时间
+     *
+     * @type {Number}
+     */
+    Tips.animationTimeout = 301;
 })(window.zui);
