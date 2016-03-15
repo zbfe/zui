@@ -19,11 +19,13 @@ module.exports = function(config) {
             pattern: 'lib/**/*.js', included: false
         },
         {
-            pattern: 'src/tips/*.js', included: false
+            pattern: 'src/**/*', included: false
         },
         {
             pattern: 'test/**/*.js', included: false
         },
+
+        'lib/requirejs2.1.22/config.js',
 
         // 加载初始化视图测试
         'karma.conf.require.js'

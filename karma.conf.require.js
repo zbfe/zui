@@ -17,31 +17,13 @@ Object.keys(window.__karma__.files).forEach(function (file) {
 
 });
 
-console.log(111, allTestFiles);
-
 require.config({
+    // 重新设置karma路径
     baseUrl: '/base/src/',
-    paths: {
-        text: '../lib/requirejs2.1.22/plugins/text',
-        tpl: '../lib/requirejs2.1.22/plugins/text',
-        css: '../lib/requirejs2.1.22/plugins/css',
-        zepto: '../lib/zepto',
-        test: '../test'
-    },
-    shim: {
-        zepto: {
-            exports: 'Zepto'
-        }
-    },
 
-    
-});
-
-require.config({
     // dynamically load all test files
     deps: allTestFiles,
 
     // we have to kickoff jasmine, as it is asynchronous
     callback: window.__karma__.start
 });
-
