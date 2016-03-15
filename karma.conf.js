@@ -10,15 +10,23 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'requirejs'],
 
 
     // list of files / patterns to load in the browser
     files: [
-        'lib/zepto.js',
-        'src/util/base.js',
-        'src/**/*.js',
-        'test/**/*.js'
+        {
+            pattern: 'lib/**/*.js', included: false
+        },
+        {
+            pattern: 'src/tips/*.js', included: false
+        },
+        {
+            pattern: 'test/**/*.js', included: false
+        },
+
+        // 加载初始化视图测试
+        'karma.conf.require.js'
     ],
 
 
