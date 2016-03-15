@@ -6,9 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
     <!-- 引用reset -->
-    <link rel="stylesheet" href="/lib/reset.css">
-    <!-- 引用提示.css -->
-    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="../../lib/reset.css">
 </head>
 <body>
     <p>
@@ -161,13 +159,14 @@
     <p>
         050
     </p>
-    <script src="/lib/zepto.js"></script>
-    <script src="/src/util/base.js"></script>
-    <script src="./index.js"></script>
+    <script src="../../lib/requirejs2.1.22/require.js"></script>
+    <script src="../../lib/requirejs2.1.22/config.js"></script>
     <script>
-    $('p').on('click', function () {
-        new window.zui.Tips('正在请求数据...');
-    });
+        require(['zepto', 'tips/index'], function ($$, Tips) {
+            $$('p').on('click', function () {
+                new Tips('正在请求数据...');
+            });
+        });
     </script>
 </body>
 </html>

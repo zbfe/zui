@@ -3,7 +3,11 @@
  * @author xiaowu
  */
 
-(function (zui) {
+define(function (require) {
+    var $ = require('zepto');
+
+    // 加载样式
+    require('css!./index.css');
 
     /**
      * 构造函数
@@ -15,7 +19,7 @@
      * @param {boolean} options.autoClose 是否自动关闭
      * @param {number} [options.time=2000] 自动关闭时间
      */
-    var Tips = zui.Tips = function (options) {
+    var Tips = function (options) {
         var self = this;
 
         if (self.constructor  !== Tips) {
@@ -124,4 +128,6 @@
      * @type {Number}
      */
     Tips.animationTimeout = 301;
-})(window.zui);
+
+    return Tips;
+});

@@ -8,14 +8,17 @@
     <link rel="stylesheet" href="../../lib/jasmine2.4.1/jasmine.css">
 </head>
 <body>
-    <script src="../../lib/zepto.js"></script>
     <script src="../../lib/jasmine2.4.1/jasmine.js"></script>
     <script src="../../lib/jasmine2.4.1/jasmine-html.js"></script>
     <script src="../../lib/jasmine2.4.1/boot.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="../../src/tips/index.css">
-    <script src="../../src/util/base.js"></script>
-    <script src="../../src/tips/index.js"></script>
-    <script src="index.js"></script>
+    <script src="../../lib/requirejs2.1.22/require.js"></script>
+    <script src="../../lib/requirejs2.1.22/config.js"></script>
+
+    <script>
+        require(['test/tips/index'], function () {
+            window.onload();
+        });
+    </script>
 </body>
 </html>
