@@ -32,7 +32,8 @@
         // 合并参数
         self.options = $.extend({
             autoClose: true,
-            time: 2000
+            time: 2000,
+            lock: true
         }, options);
 
         // 初始化
