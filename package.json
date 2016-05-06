@@ -6,6 +6,7 @@
     "check": "fecs check src/ test/ --reporter=baidu",
     "test": "karma start karma.conf.js",
     "test-cov": "karma start karma.conf.cov.js",
+    "test-watch": "npm test -- --auto-watch --no-single-run",
     "hook-install": "prepush install",
     "hook-remove": "prepush remove",
     "start": "npm run server",
