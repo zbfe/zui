@@ -4,8 +4,9 @@
  */
 
 define([
-    'tips/index'
-], function (Tips) {
+    'tips/index',
+    'zepto'
+], function (Tips, $) {
     describe('Tips', function () {
         var types = [
             '',
@@ -18,7 +19,7 @@ define([
             {},
             []
         ];
-        var animationTimeout = Tips.animationTimeout;
+        var animationTimeout = Tips.animationTimeout * 1.2;
 
         var guid = 0;
         var getGuid = function () {
@@ -80,25 +81,40 @@ define([
         });
 
         it('autoClose: true', function (done) {
-            var app = new Tips({
+            new Tips({
                 autoClose: true,
                 time: 50,
                 onShow: function () {
-                    expect(typeof app._timer).toBe('number');
+                    expect(typeof this._timer).toBe('number');
+
+                    setTimeout(function () {
+                        expect($('.zui-tips-wrap').length).toBe(0);
+                        done();
+                    }, animationTimeout + 50);
                 }
             });
+        });
 
-            // 因为首先是animationTimeout显示完成后才会延迟time时间关闭，而再加个animationTimeout是动画结束时才删dom
-            setTimeout(function () {
-                expect($('.zui-tips-wrap').length).toBe(0);
-                done();
-            }, app.options.time + animationTimeout + animationTimeout + 100);
+        it('callback this', function (done) {
+            var app = new Tips({
+                autoClose: false,
+                onClose: function () {
+                    expect(this).toBe(app);
+                    expect($('.zui-tips-wrap').length).toBe(0);
+                    done();
+                },
+                onShow: function () {
+                    this.close();
+                    expect($('.zui-tips-wrap').length).toBe(1);
+                    expect(this).toBe(app);
+                }
+            });
         });
 
         it('autoClose: false', function (done) {
             new Tips({
                 autoClose: false,
-                time: 200
+                time: 0
             });
 
             expect($('.zui-tips-wrap').length).toBe(1);
@@ -106,32 +122,32 @@ define([
             setTimeout(function () {
                 expect($('.zui-tips-wrap').length).toBe(1);
                 done();
-            }, 200 + animationTimeout + 10);
+            }, 100 + animationTimeout);
         });
 
-        it('time: 200', function (done) {
+        it('time: 1', function (done) {
             new Tips({
                 autoClose: true,
-                time: 200,
+                time: 1,
                 onShow: function () {
                     setTimeout(function () {
                         expect($('.zui-tips-wrap').length).toBe(0);
                         done();
-                    }, 200 + animationTimeout + 100);
+                    }, 1 + animationTimeout);
                 }
             });
 
             expect($('.zui-tips-wrap').length).toBe(1);
         });
 
-        it('time: 200 => onClose', function (done) {
+        it('time: 1 => onClose', function (done) {
             var start = Date.now();
 
             new Tips({
                 autoClose: true,
-                time: 200,
+                time: 1,
                 onClose: function () {
-                    var diff = animationTimeout + animationTimeout + 200;
+                    var diff = Tips.animationTimeout + Tips.animationTimeout + 1;
                     expect(Date.now() - start - diff < 100).toBe(true);
                     done();
                 }
@@ -158,13 +174,13 @@ define([
             setTimeout(function () {
                 expect($('.zui-tips-wrap').length).toBe(0);
                 done();
-            }, animationTimeout);
+            }, animationTimeout + 100);
         });
 
         it('close() 返回值', function () {
             var app = new Tips();
 
-            expect(app).toEqual(app.close().close());
+            expect(app).toEqual(app.close());
         });
 
         it('close().close()', function () {
@@ -183,7 +199,7 @@ define([
         it('autoClose => close()', function (done) {
             var app = new Tips({
                 autoClose: true,
-                time: 500
+                time: 1
             });
 
             setTimeout(function () {
@@ -196,13 +212,13 @@ define([
                 }
                 expect(flag).toBe(true);
                 done();
-            }, 500 + animationTimeout);
+            }, 1 + animationTimeout);
         });
 
         it('close() => autoClose', function (done) {
             var app = new Tips({
                 autoClose: true,
-                time: 500
+                time: 1
             });
 
             app.close();
@@ -210,7 +226,7 @@ define([
             setTimeout(function () {
                 expect(app._closed).toBe(true);
                 done();
-            }, 500 + animationTimeout);
+            }, 1 + animationTimeout);
         });
 
         it('onShow', function (done) {
@@ -235,7 +251,7 @@ define([
         it('onClose 次数', function (done) {
             var flag = 0;
             var app = new Tips({
-                time: 10,
+                time: 1,
                 onClose: function () {
                     flag += 1;
                 }
@@ -246,7 +262,7 @@ define([
             setTimeout(function () {
                 expect(flag).toBe(1);
                 done();
-            }, 10 + animationTimeout + animationTimeout + 100);
+            }, 1 + animationTimeout + animationTimeout);
         });
     });
 });

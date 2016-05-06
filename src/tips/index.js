@@ -34,24 +34,23 @@ define(function (require) {
         }
 
         // 合并参数
-        self.options = $.extend({
-            autoClose: true,
-            time: 2000
-        }, options);
+        self.options = $.extend({}, Tips.defaults, options);
 
         // 初始化
-        self._init();
+        self.__init();
     };
 
     $.extend(Tips.prototype, {
-        _init: function () {
+        __init: function () {
             var self = this;
             var options = self.options;
             var $inner;
 
             self.$wrap = $('<div />').addClass('zui-tips-wrap');
 
-            $inner = $('<div />').addClass('zui-tips-inner').text(options.content || 'loading');
+            $inner = $('<div />').css({
+                transform: 'translate(-50%, -50%) scale3d(1.3, 1.3, 1)'
+            }).addClass('zui-tips-inner').html(options.content);
 
             // 如果要锁屏
             if (options.lock === true) {
@@ -61,13 +60,10 @@ define(function (require) {
             // 把dom插入到页面中
             self.$wrap.append($inner).appendTo('body');
 
-            // 强制重排
-            self.$wrap[0].offsetWidth;
-
-            // 添加显示类
-            self.$wrap.addClass('zui-tips-wrap-show');
-
-            setTimeout(function () {
+            $inner.animate({
+                transform: 'translate(-50%, -50%) scale3d(1, 1, 1)',
+                opacity: 1
+            }, Tips.animationTimeout, 'ease', function () {
                 // 如果有自动关闭，则延迟关闭
                 if (options.autoClose) {
                     self._timer = setTimeout(self.close.bind(self), options.time);
@@ -77,7 +73,7 @@ define(function (require) {
                 if ('function' === typeof options.onShow) {
                     options.onShow.call(self);
                 }
-            }, Tips.animationTimeout);
+            });
         },
 
         /**
@@ -99,11 +95,10 @@ define(function (require) {
                 delete self._timer;
             }
 
-            // 移除显示的类，就是隐藏了，交给css3控制了
-            self.$wrap.removeClass('zui-tips-wrap-show');
-
-            // 延迟是为了让css3的动画执行完成
-            setTimeout(function () {
+            self.$wrap.find('.zui-tips-inner').animate({
+                transform: 'translate(-50%, -50%) scale3d(0.7, 0.7, 1)',
+                opacity: 0
+            }, Tips.animationTimeout, 'ease', function () {
                 self.$wrap.remove();
                 delete self.$wrap;
 
@@ -111,23 +106,32 @@ define(function (require) {
                 if ('function' === typeof self.options.onClose) {
                     self.options.onClose.call(self);
                 }
-            }, Tips.animationTimeout);
+            });
 
             // 打上关闭标识，防止重复关闭
             self._closed = true;
-
-            
 
             return self;
         }
     });
 
     /**
-     * css动画运行时间
+     * 配置参数
+     *
+     * @type {Object}
+     */
+    Tips.defaults = {
+        autoClose: true,
+        time: 2000,
+        content: 'loading'
+    };
+
+    /**
+     * 动画显示时长
      *
      * @type {Number}
      */
-    Tips.animationTimeout = 301;
+    Tips.animationTimeout = 200;
 
     return Tips;
 });
