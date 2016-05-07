@@ -170,6 +170,14 @@ define([
             expect($('.zui-tips-wrap.zui-tips-wrap-mask').length).toBe(1);
         });
 
+        it('{lock: false}', function () {
+            new Tips({
+                lock: false
+            });
+
+            expect($('.zui-tips-wrap.zui-tips-wrap-mask').length).toBe(0);
+        });
+
         it('close()', function (done) {
             var app = new Tips({
                 autoClose: false
