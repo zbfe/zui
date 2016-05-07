@@ -11,14 +11,15 @@
     <script src="../../lib/jasmine2.4.1/jasmine.js"></script>
     <script src="../../lib/jasmine2.4.1/jasmine-html.js"></script>
     <script src="../../lib/jasmine2.4.1/boot.js"></script>
-
     <script src="../../lib/requirejs2.1.22/require.js"></script>
     <script src="../../lib/requirejs2.1.22/config.js"></script>
-
     <script>
-        require(['test/tips/index', 'test/tips/loading'], function () {
-            window.onload();
-        });
+    require([
+        'test/tips/index',
+        'test/tips/loading'
+    ], function () {
+        window.onload();
+    });
     </script>
 </body>
 </html>

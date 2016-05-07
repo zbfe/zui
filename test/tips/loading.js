@@ -3,6 +3,7 @@
  * @author xiaowu
  */
 
+
 define([
     'tips/loading',
     'tips/index',
@@ -61,10 +62,13 @@ define([
 
             loading.hide();
 
+            /* eslint-disable max-nested-callbacks */
             setTimeout(function () {
                 expect($('.zui-tips-loading').length).toBe(0);
                 done();
             }, Tips.animationTimeout * 1.2);
+
+            /* eslint-enable max-nested-callbacks */
         });
 
         it('loading.hide().hide()', function () {

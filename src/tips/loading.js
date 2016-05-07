@@ -33,7 +33,7 @@ define(function (require) {
         });
 
         return loading;
-    };
+    }
 
     loading.show = loading;
 

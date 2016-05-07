@@ -162,15 +162,19 @@
     <script src="../../lib/requirejs2.1.22/require.js"></script>
     <script src="../../lib/requirejs2.1.22/config.js"></script>
     <script>
-        require(['zepto', 'tips/index', 'tips/loading'], function ($$, Tips, loading) {
-            $$('p').on('click', function () {
-                loading();
-                setTimeout(() => loading.hide(), 1000);
-                new Tips({
-                    content: '正在请求数据...'
-                });
+    require([
+        'zepto',
+        'tips/index',
+        'tips/loading'
+    ], function ($$, Tips, loading) {
+        $$('p').on('click', function () {
+            loading();
+            setTimeout(() => loading.hide(), 1000);
+            new Tips({
+                content: '正在请求数据...'
             });
         });
+    });
     </script>
 </body>
 </html>
