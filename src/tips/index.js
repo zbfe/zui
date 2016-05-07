@@ -40,6 +40,7 @@ define(function (require) {
         self.__init();
     };
 
+    // 扩展原型
     $.extend(Tips.prototype, {
         __init: function () {
             var self = this;
@@ -50,7 +51,7 @@ define(function (require) {
 
             $inner = $('<div />').css({
                 transform: 'translate(-50%, -50%) scale3d(1.3, 1.3, 1)'
-            }).addClass('zui-tips-inner').html(options.content);
+            }).addClass('zui-tips-inner ' + options.className).text(options.content);
 
             // 如果要锁屏
             if (options.lock === true) {
@@ -123,7 +124,9 @@ define(function (require) {
     Tips.defaults = {
         autoClose: true,
         time: 2000,
-        content: 'loading'
+        content: 'loading',
+        lock: true,
+        className: 'zui-tips-default'
     };
 
     /**

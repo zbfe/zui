@@ -5,23 +5,16 @@
 
 /*动画元素*/
 .zui-tips-inner {
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 22px;
-    color: #fff;
-    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.8) !important;
     left: 50%;
-    line-height: 24px;
-    max-width: 40%;
     opacity: 0;
-    padding: 8px 18px;
     position: fixed;
-    text-align: center;
     top: 50%;
     z-index: 900;
 }
 
 /*遮罩元素，使用伪对象实现*/
-.zui-tips-wrap-mask::after {
+.zui-tips-wrap-mask:after {
     background-color: #fff;
     content: "";
     height: 100%;
@@ -30,4 +23,13 @@
     right: 0;
     top: 0;
     width: 100%;
+}
+.zui-tips-default {
+    text-align: center;
+    padding: 5px 15px;
+    line-height: 24px;
+    max-width: 40%;
+    border-radius: 22px;
+    color: #fff;
+    font-size: 14px;
 }
