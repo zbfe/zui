@@ -19,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/zbfe/zui.git"
   },
-  "author": "xiaowu",
+  "author": "zbfe",
   "license": "MIT",
   "devDependencies": {
     "fecs": ">=0.6.3",
