@@ -18,6 +18,7 @@ define(function (require) {
      * @param {boolean} options.lock 是否锁定屏幕
      * @param {boolean} options.autoClose 是否自动关闭
      * @param {number} [options.time=2000] 自动关闭时间
+     * @param {string} optoins.className 样式名
      */
     var Tips = function (options) {
         var self = this;
