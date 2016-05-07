@@ -70,6 +70,14 @@ define([
             expect($('.zui-tips-wrap').html().indexOf(str) > -1).toBe(true);
         });
 
+        it('Tips({className})', function () {
+            expect($('.test-test').length).toBe(0);
+            new Tips({
+                className: 'test-test'
+            });
+            expect($('.test-test').length).toBe(1);
+        });
+
         it('{content: str}', function () {
             var str = getGuid();
 
