@@ -1,6 +1,6 @@
 /**
  * @file 提示层测试用例
- * @author xiaowu
+ * @author fe.xiaowu@gmail.com
  */
 
 define([

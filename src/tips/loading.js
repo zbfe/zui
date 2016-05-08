@@ -1,6 +1,6 @@
 /**
  * @file 提示层 - loading
- * @author xiaowu
+ * @author fe.xiaowu@gmail.com
  * @example
  *     显示加载层: loading.show();
  *     隐藏加载层: loading.hide();

@@ -1,8 +1,8 @@
 /**
  * @file 下浮层基类测试
- * @author fe.xiaowu
+ * @author fe.xiaowu@gmail.com
  */
-
+/* eslint-disable max-nested-callbacks */
 define([
     'popup/base',
     'zepto'
@@ -37,7 +37,7 @@ define([
         it('mask click', function (done) {
             new Base();
 
-            $('.zui-popup-mask').trigger('click')
+            $('.zui-popup-mask').trigger('click');
 
             setTimeout(function () {
                 expect($('.zui-popup-wrap').length).toBe(0);

@@ -1,6 +1,6 @@
 /**
  * @file 下浮层select测试
- * @author fe.xiaowu
+ * @author fe.xiaowu@gmail.com
  */
 
 define([
@@ -59,7 +59,7 @@ define([
         });
 
         it('options.data', function () {
-            var app = new Select({
+            new Select({
                 data: [
                     {
                         text: '我是一个兵'

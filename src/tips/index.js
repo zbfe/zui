@@ -1,6 +1,6 @@
 /**
  * @file 提示层
- * @author xiaowu
+ * @author fe.xiaowu@gmail.com
  */
 
 define(function (require) {

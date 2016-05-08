@@ -1,6 +1,6 @@
 /**
  * @file 弹出下浮层，模拟下拉
- * @author fe.xiaowu
+ * @author fe.xiaowu@gmail.com
  */
 
 define(function (require) {
