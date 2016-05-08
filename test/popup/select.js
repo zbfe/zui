@@ -92,6 +92,7 @@ define([
 
             app.close = done;
 
+            expect($('.zui-popup-select-cancel').length).toBe(1);
             $('.zui-popup-select-cancel').trigger('click');
         });
 
@@ -116,7 +117,7 @@ define([
             });
 
             app.close = done;
-
+            expect($('.zui-popup-select-cancel').length).toBe(1);
             $('.zui-popup-select-item').eq(0).trigger('click');
         });
 
