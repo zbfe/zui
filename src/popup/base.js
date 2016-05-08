@@ -1,9 +1,23 @@
+/**
+ * @file 下浮层基类
+ * @author fe.xiaowu
+ */
+
 define(function (require) {
+    'use strict';
+
     var $ = require('zepto');
 
     // 加载样式
-    require('css!./index.css');
+    require('css!./base.css');
 
+    /**
+     * 构造函数
+     *
+     * @param {Object} options 配置对象
+     * @param {string} options.content 内容
+     * @param {string} options.className 窗口的类
+     */
     function Base(options) {
         this.options = $.extend({}, Base.defaults, options);
         this.__init();
@@ -13,7 +27,7 @@ define(function (require) {
         __init: function () {
             var self = this;
             var $wrap = this.$wrap = $('<div />').addClass('zui-popup-wrap');
-            var $inner = $('<div />').addClass('zui-popup-inner '+ this.options.className).html(this.options.content);
+            var $inner = $('<div />').addClass('zui-popup-inner ' + this.options.className).html(this.options.content);
 
             // 添加遮罩层
             $wrap.append('<div class="zui-popup-mask"></div>');
@@ -29,8 +43,15 @@ define(function (require) {
             }, 200);
 
             $wrap.find('.zui-popup-mask').on('click', self.close.bind(self)).on('touchmove', false);
+
+            $inner = null;
         },
 
+        /**
+         * 关闭
+         *
+         * @return {Object} this
+         */
         close: function () {
             var self = this;
 
@@ -53,6 +74,11 @@ define(function (require) {
         }
     });
 
+    /**
+     * 默认参数
+     *
+     * @type {Object}
+     */
     Base.defaults = {
         className: '',
         content: ''

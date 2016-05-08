@@ -164,11 +164,23 @@
     <script>
     require([
         'zepto',
-        'popup/base'
-    ], function ($$, Popup) {
+        'popup/select'
+    ], function ($$, Select) {
         $$('p').on('click', function () {
-            new Popup({
-                content: '测试'
+            new Select({
+                data: [
+                    {
+                        text: '测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1',
+                        value: '菜单1'
+                    },
+                    {
+                        text: '测试菜单2',
+                        value: '菜单2'
+                    }
+                ],
+                onSelect: function (data) {
+                    console.log(data);
+                }
             });
         });
     });
