@@ -167,6 +167,17 @@ define([
             expect($('.zui-tips-wrap.zui-tips-wrap-mask').length).toBe(0);
         });
 
+        it('.$wrap', function (done) {
+            var app = new Tips({
+                onClose: function () {
+                    expect(typeof app.$wrap === 'undefined').toBe(true);
+                    done();
+                }
+            });
+
+            expect(typeof app.$wrap !== 'undefined').toBe(true);
+        });
+
         it('close()', function (done) {
             var app = new Tips({
                 autoClose: false

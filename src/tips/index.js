@@ -78,6 +78,8 @@ define(function (require) {
                     options.onShow.call(self);
                 }
             });
+
+            $inner = null;
         },
 
         /**
