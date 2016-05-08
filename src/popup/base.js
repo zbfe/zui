@@ -40,7 +40,7 @@ define(function (require) {
 
             $inner.animate({
                 transform: 'translateY(0)'
-            }, 200);
+            }, Base.animationTimeout);
 
             $wrap.find('.zui-popup-mask').on('click', self.close.bind(self)).on('touchmove', false);
 
@@ -65,7 +65,7 @@ define(function (require) {
 
             self.$wrap.find('.zui-popup-inner').animate({
                 transform: 'translateY(100%)'
-            }, 200, 'ease', function () {
+            }, Base.animationTimeout, 'ease', function () {
                 self.$wrap.remove();
                 delete self.$wrap;
             });
@@ -83,6 +83,13 @@ define(function (require) {
         className: '',
         content: ''
     };
+
+    /**
+     * 动画显示时长
+     *
+     * @type {Number}
+     */
+    Base.animationTimeout = 200;
 
     return Base;
 });
