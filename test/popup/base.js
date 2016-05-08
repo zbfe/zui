@@ -34,6 +34,17 @@ define([
             expect($('.zui-popup-mask').length).toBe(1);
         });
 
+        it('mask click', function (done) {
+            new Base();
+
+            $('.zui-popup-mask').trigger('click')
+
+            setTimeout(function () {
+                expect($('.zui-popup-wrap').length).toBe(0);
+                done();
+            }, animationTimeout);
+        });
+
         it('base.close', function () {
             var app = new Base();
 

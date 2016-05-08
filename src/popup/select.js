@@ -101,7 +101,7 @@ define(function (require) {
          *
          * @return {Object} this
          */
-        cloes: function () {
+        close: function () {
             var self = this;
 
             if (!self._popup) {
