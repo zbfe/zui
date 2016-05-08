@@ -6,11 +6,12 @@ script:
     - npm run test-cov
 after_script: 
   - npm install coveralls && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+  - npm run build:gh-pages
+  - cd gh-pages/
+  - git init
   - git config user.name xuexb
   - git config user.email fe.xiaowu@gmail.com
-  - git checkout gh-pages
-  - git merge master
-  - git commit -m merge
+  - git commit -m "build gh-pages"
   - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
 env:
  global:
