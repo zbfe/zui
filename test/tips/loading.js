@@ -9,6 +9,8 @@ define([
     'tips/index',
     'zepto'
 ], function (loading, Tips, $) {
+    'use strict';
+
     describe('tips/loading', function () {
         afterEach(function () {
             $('.zui-tips-wrap').remove();

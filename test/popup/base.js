@@ -7,6 +7,8 @@ define([
     'popup/base',
     'zepto'
 ], function (Base, $) {
+    'use strict';
+
     describe('popup/base', function () {
         var animationTimeout = Base.animationTimeout * 1.2;
 

@@ -4,6 +4,8 @@
  */
 
 define(function (require) {
+    'use strict';
+
     var $ = require('zepto');
 
     // 加载样式

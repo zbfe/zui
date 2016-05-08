@@ -8,6 +8,8 @@ define([
     'popup/select',
     'zepto'
 ], function (Base, Select, $) {
+    'use strict';
+
     describe('popup/select', function () {
         var animationTimeout = Base.animationTimeout * 1.2;
         var tempData = [

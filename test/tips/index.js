@@ -7,6 +7,8 @@ define([
     'tips/index',
     'zepto'
 ], function (Tips, $) {
+    'use strict';
+
     describe('Tips', function () {
         var types = [
             '',

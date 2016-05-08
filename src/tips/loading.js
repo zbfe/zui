@@ -7,6 +7,8 @@
  */
 
 define(function (require) {
+    'use strict';
+
     var Tips = require('./index');
 
     // 获取当前的loading对象
