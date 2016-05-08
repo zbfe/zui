@@ -1,0 +1,100 @@
+/**
+ * @file 下浮层基类测试
+ * @author fe.xiaowu
+ */
+
+define([
+    'popup/base',
+    'zepto'
+], function (Base, $) {
+    describe('popup/base', function () {
+        var animationTimeout = Base.animationTimeout * 1.2;
+
+        afterEach(function () {
+            $('.zui-popup-wrap').remove();
+        });
+
+        it('base', function () {
+            expect(typeof Base).toBe('function');
+        });
+
+        it('create Element', function () {
+            expect($('.zui-popup-wrap').length).toBe(0);
+
+            new Base();
+
+            expect($('.zui-popup-wrap').length).toBe(1);
+        });
+
+        it('mask Element', function () {
+            expect($('.zui-popup-mask').length).toBe(0);
+
+            new Base();
+
+            expect($('.zui-popup-mask').length).toBe(1);
+        });
+
+        it('base.close', function () {
+            var app = new Base();
+
+            expect(typeof app.close).toBe('function');
+        });
+
+        it('base.close()', function (done) {
+            var app = new Base();
+
+            expect($('.zui-popup-wrap').length).toBe(1);
+
+            expect(app.close()).toBe(app);
+
+            setTimeout(function () {
+                expect($('.zui-popup-wrap').length).toBe(0);
+                done();
+            }, animationTimeout);
+        });
+
+        it('base.close().close()', function () {
+            var app = new Base();
+
+            expect(app.close().close()).toBe(app);
+        });
+
+        it('base({className})', function (done) {
+            expect($('.xxoo').length).toBe(0);
+            var app = new Base({
+                className: 'xxoo'
+            });
+
+            expect($('.xxoo').length).toBe(1);
+
+            app.close();
+
+            setTimeout(function () {
+                expect($('.xxoo').length).toBe(0);
+                done();
+            }, animationTimeout);
+        });
+
+        it('.$wrap', function (done) {
+            var app = new Base();
+
+            expect(typeof app.$wrap !== 'undefined').toBe(true);
+            expect(app.$wrap.get(0).className.indexOf('zui-popup-wrap') > -1).toBe(true);
+
+            app.close();
+
+            setTimeout(function () {
+                expect(typeof app.$wrap !== 'undefined').toBe(false);
+                done();
+            }, animationTimeout);
+        });
+
+        it('base({content})', function () {
+            var app = new Base({
+                content: 'xxoo'
+            });
+
+            expect(app.$wrap.html().indexOf('xxoo') > -1).toBe(true);
+        });
+    });
+});
