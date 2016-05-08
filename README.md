@@ -2,6 +2,8 @@
 
 Mobile ui library created by zbfe
 
+> 只是玩玩，别当真～
+
 [![code style fecs](https://img.shields.io/badge/code%20style-fecs-brightgreen.svg)](https://github.com/ecomfe/fecs)
 [![Build Status](https://travis-ci.org/zbfe/zui.svg?branch=master)](https://travis-ci.org/zbfe/zui)
 [![Test Coverage](https://img.shields.io/coveralls/zbfe/zui/master.svg)](https://coveralls.io/r/zbfe/zui)
@@ -10,30 +12,46 @@ Mobile ui library created by zbfe
 ## specification
 
 * [目录规范](docs/dir-style.md)
-* [js代码规范](docs/js-style.md#js)
+* [js代码规范](docs/js-style.md)
 * [css代码规范](docs/css-style.md)
-* [测试maodian](#test)
 
 ## demo
 
-todo
+* [tips](src/tips/)
+    * tips/index
+    * tips/loading
+* [popup](src/popup/)
+    * popup/base
+    * popup/select
+    * popup/multiple
+    * popup/radio
+* dialog
+    * dialog/base
+    * dialog/alert
+    * dialog/confirm
+    * dialog/iframe
 
 ## develop
 
 ```shell
-git clone https://github.com/zbfe/zui.git
+# 克隆项目
+git clone https://github.com/zbfe/zui.git && cd zui
 
-cd zui
-
+# 安装依赖
 npm install
 
 # 安装push前检查代码勾子
 npm run hook-install
+
+# 本地开启web server查看、开发
+npm start
 ```
 
 ## test
 
-BDD, Test case by [jasmine](https://jasmine.github.io/), test environment by [karma](https://karma-runner.github.io/)、[phantomjs](http://phantomjs.org/)(请提前下载以防npm安装缓慢)
+> [测试Case](test/index.html)
+
+基于BDD, 使用 [jasmine](https://jasmine.github.io/) 测试, 使用 [phantomjs](http://phantomjs.org/)(请提前下载以防npm安装缓慢) 并基于 [karma](https://karma-runner.github.io/) 测试～
 
 ```shell
 # 运行测试
