@@ -3,5 +3,16 @@ node_js:
   - '4'
 sudo: false
 script:
-    - "npm run test-cov"
-after_script: "npm install coveralls && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+    - npm run test-cov
+after_script: 
+  - npm install coveralls && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+  - git config user.name xuexb
+  - git config user.email fe.xiaowu@gmail.com
+  - git checkout gh-pages
+  - git merge master
+  - git commit -m merge
+  - git push -f "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+env:
+ global:
+   - GH_REF: github.com/zbfe/zui
+   - secure: "q9klpzd11pmnn/Ht5JQsrdyFb2TGFtYav0KoTTja8DkqZwB1SBT++ZdppV5JuUDzH4WeSgvoAAF4lc6KiYsx66MYTalbN4/Dr4E4Cm1e6I3Ylo0V2Q2FJZUG4lU9cvMb8hSUpJZlKdMm1R4qjh8gofSqBanyaAWJlnzfQ18hN/9sb7SN6VUzMrUvEdeCjMk2yclo8K3xMEsF2jHmJRSzCrwmV+3xG19ZqMVUQqWfbQynuJFiD3Q73NUpV5S4camY70o/3+fjqjk+j8lPfvujp8+ZK798z5a9fdj81L4+GkL6vXiAkrXXyYqsKlQYIvJ3Qa+u0RwphRpxiDqXR3t9u3GmQ2sVP7ffQ2a+KiR4nXZUP5uWNKwwqWmDz7vfEOqrVWHxpmM80/w7FJZGaO6ExTBcU/l4JIXRpykpUmUOPXdhAsu0WKqNbwVCEm3VhaBHQqORnFAQ9OvmbE8qu8j65yijmeU7E9ByEInpIUjnrYK9p5GrkfGIr9lWC9/xLEXNYvDwAfV7dXuutvfW105gHU4jhWdUEHjOUXHZGv25K+0vLtvpZHzZ5PA9sg6FqsN+LsM3t5zKJYlX6+cg6Cdo2JCVxJTNYuNY0FowkqglduVYFykjZaNL5qzPoV+21e+39t5V/TG02LDRXvKuu9LZ9g5127cNzHkgQHhzjKPyGOI="
