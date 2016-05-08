@@ -9,7 +9,7 @@ define([
 ], function (Tips, $) {
     'use strict';
 
-    describe('Tips', function () {
+    describe('tips/index', function () {
         var types = [
             '',
             0,
