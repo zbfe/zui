@@ -6,8 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
     <link rel="stylesheet" href="../lib/jasmine2.4.1/jasmine.css">
+    <style>
+    #Loading {
+        width: 100%; 
+        height: 100%; 
+        position: fixed; 
+        left: 0; 
+        top: 0; 
+        background: rgba(0, 0, 0, 0.5) url('../src/tips/loading.gif') no-repeat center; 
+        -webkit-background-size: 30px; 
+        background-size: 30px; 
+    }
+    </style>
 </head>
 <body>
+    <div id="Loading"></div>
     <script src="../lib/jasmine2.4.1/jasmine.js"></script>
     <script src="../lib/jasmine2.4.1/jasmine-html.js"></script>
     <script src="../lib/jasmine2.4.1/boot.js"></script>
@@ -18,9 +31,10 @@
         'test/tips/index',
         'test/tips/loading',
         'test/popup/base',
-        'test/popup/select'
+        'test/popup/select',
     ], function () {
         window.onload();
+        document.getElementById('Loading').style.display = 'none';
     });
     </script>
 </body>
