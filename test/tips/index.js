@@ -37,19 +37,6 @@ define([
             expect(typeof Tips).toBe('function');
         });
 
-        it('Tips()', function () {
-            var flag = true;
-            try {
-                var tips = Tips;
-                tips();
-            }
-            catch (e) {
-                flag = false;
-            }
-
-            expect(flag).toBe(false);
-        });
-
         it('check params', function () {
             var flag = true;
 

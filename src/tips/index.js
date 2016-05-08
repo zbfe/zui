@@ -25,9 +25,9 @@ define(function (require) {
     var Tips = function (options) {
         var self = this;
 
-        if (self.constructor  !== Tips) {
-            throw new Error('Please instance constructor');
-        }
+        // if (self.constructor  !== Tips) {
+        //     throw new Error('Please instance constructor');
+        // }
 
         // 如果值为一个字符串，则认为这是一个内容
         if ('string' === typeof options) {
