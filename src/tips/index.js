@@ -1,9 +1,15 @@
 /**
  * @file 提示层
- * @author xiaowu
+ * @author fe.xiaowu@gmail.com
  */
 
-(function (zui) {
+define(function (require) {
+    'use strict';
+
+    var $ = require('zepto');
+
+    // 加载样式
+    require('css!./index.css');
 
     /**
      * 构造函数
@@ -14,13 +20,14 @@
      * @param {boolean} options.lock 是否锁定屏幕
      * @param {boolean} options.autoClose 是否自动关闭
      * @param {number} [options.time=2000] 自动关闭时间
+     * @param {string} optoins.className 样式名
      */
-    var Tips = zui.Tips = function (options) {
+    var Tips = function (options) {
         var self = this;
 
-        if (self.constructor  !== Tips) {
-            throw new Error('Please instance constructor');
-        }
+        // if (self.constructor  !== Tips) {
+        //     throw new Error('Please instance constructor');
+        // }
 
         // 如果值为一个字符串，则认为这是一个内容
         if ('string' === typeof options) {
@@ -30,25 +37,24 @@
         }
 
         // 合并参数
-        self.options = $.extend({
-            autoClose: true,
-            time: 2000,
-            lock: true
-        }, options);
+        self.options = $.extend({}, Tips.defaults, options);
 
         // 初始化
-        self._init();
+        self.__init();
     };
 
+    // 扩展原型
     $.extend(Tips.prototype, {
-        _init: function () {
+        __init: function () {
             var self = this;
             var options = self.options;
             var $inner;
 
             self.$wrap = $('<div />').addClass('zui-tips-wrap');
 
-            $inner = $('<div />').addClass('zui-tips-inner').text(options.content || 'loading');
+            $inner = $('<div />').css({
+                transform: 'translate(-50%, -50%) scale3d(1.3, 1.3, 1)'
+            }).addClass('zui-tips-inner ' + options.className).text(options.content);
 
             // 如果要锁屏
             if (options.lock === true) {
@@ -58,13 +64,10 @@
             // 把dom插入到页面中
             self.$wrap.append($inner).appendTo('body');
 
-            // 强制重排
-            self.$wrap[0].offsetWidth;
-
-            // 添加显示类
-            self.$wrap.addClass('zui-tips-wrap-show');
-
-            setTimeout(function () {
+            $inner.animate({
+                transform: 'translate(-50%, -50%) scale3d(1, 1, 1)',
+                opacity: 1
+            }, Tips.animationTimeout, 'ease', function () {
                 // 如果有自动关闭，则延迟关闭
                 if (options.autoClose) {
                     self._timer = setTimeout(self.close.bind(self), options.time);
@@ -74,7 +77,7 @@
                 if ('function' === typeof options.onShow) {
                     options.onShow.call(self);
                 }
-            }, Tips.animationTimeout);
+            });
         },
 
         /**
@@ -96,11 +99,10 @@
                 delete self._timer;
             }
 
-            // 移除显示的类，就是隐藏了，交给css3控制了
-            self.$wrap.removeClass('zui-tips-wrap-show');
-
-            // 延迟是为了让css3的动画执行完成
-            setTimeout(function () {
+            self.$wrap.find('.zui-tips-inner').animate({
+                transform: 'translate(-50%, -50%) scale3d(0.7, 0.7, 1)',
+                opacity: 0
+            }, Tips.animationTimeout, 'ease', function () {
                 self.$wrap.remove();
                 delete self.$wrap;
 
@@ -108,21 +110,34 @@
                 if ('function' === typeof self.options.onClose) {
                     self.options.onClose.call(self);
                 }
-            }, Tips.animationTimeout);
+            });
 
             // 打上关闭标识，防止重复关闭
             self._closed = true;
-
-            
 
             return self;
         }
     });
 
     /**
-     * css动画运行时间
+     * 配置参数
+     *
+     * @type {Object}
+     */
+    Tips.defaults = {
+        autoClose: true,
+        time: 2000,
+        content: 'loading',
+        lock: true,
+        className: 'zui-tips-default'
+    };
+
+    /**
+     * 动画显示时长
      *
      * @type {Number}
      */
-    Tips.animationTimeout = 301;
-})(window.zui);
+    Tips.animationTimeout = 200;
+
+    return Tips;
+});

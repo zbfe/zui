@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>提示层 - zui</title>
+    <title>popup - zui</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
     <!-- 引用reset -->
@@ -164,14 +164,23 @@
     <script>
     require([
         'zepto',
-        'tips/index',
-        'tips/loading'
-    ], function ($$, Tips, loading) {
+        'popup/select'
+    ], function ($$, Select) {
         $$('p').on('click', function () {
-            loading();
-            setTimeout(() => loading.hide(), 1000);
-            new Tips({
-                content: '正在请求数据...'
+            new Select({
+                data: [
+                    {
+                        text: '测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1测试菜单1',
+                        value: '菜单1'
+                    },
+                    {
+                        text: '测试菜单2',
+                        value: '菜单2'
+                    }
+                ],
+                onSelect: function (data) {
+                    console.log(data);
+                }
             });
         });
     });

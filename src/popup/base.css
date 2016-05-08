@@ -1,0 +1,31 @@
+/**
+ * @file 下浮层基类
+ * @author fe.xiaowu@gmail.com
+ */
+
+.zui-popup-mask {
+    background: rgba(0, 0, 0, 0.4);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    -webkit-transition: opacity .2s;
+            transition: opacity .2s;
+    width: 100%;
+    z-index: 1;
+    opacity: 0; 
+}
+.zui-popup-show .zui-popup-mask {
+    opacity: 1;
+}
+.zui-popup-inner {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+    width: 100%;
+    z-index: 2;
+}

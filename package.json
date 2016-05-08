@@ -6,6 +6,7 @@
     "check": "fecs check src/ test/ --reporter=baidu",
     "test": "karma start karma.conf.js",
     "test-cov": "karma start karma.conf.cov.js",
+    "test-watch": "npm test -- --auto-watch --no-single-run",
     "hook-install": "prepush install",
     "hook-remove": "prepush remove",
     "start": "npm run server",
@@ -18,7 +19,7 @@
     "type": "git",
     "url": "https://github.com/zbfe/zui.git"
   },
-  "author": "xiaowu",
+  "author": "zbfe",
   "license": "MIT",
   "devDependencies": {
     "fecs": ">=0.6.3",
@@ -28,6 +29,8 @@
     "karma-coverage": ">=0.5.5",
     "karma-jasmine": ">=0.3.7",
     "karma-phantomjs-launcher": ">=1.0.0",
-    "prepush": ">=3.1.8"
+    "karma-requirejs": "^0.2.5",
+    "prepush": ">=3.1.8",
+    "requirejs": "^2.1.22"
   }
 }
