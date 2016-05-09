@@ -15,10 +15,9 @@
 
 /*遮罩元素，使用伪对象实现*/
 .zui-tips-wrap-mask:after {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, .1);
     content: "";
     height: 100%;
-    opacity: .1;
     position: fixed;
     right: 0;
     top: 0;
