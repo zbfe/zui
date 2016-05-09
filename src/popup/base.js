@@ -16,7 +16,7 @@ define(function (require) {
      *
      * @param {Object} options 配置对象
      * @param {string} options.content 内容
-     * @param {string} options.className 窗口的类
+     * @param {string} options.className 自定义样式
      */
     function Base(options) {
         this.options = $.extend({}, Base.defaults, options);
