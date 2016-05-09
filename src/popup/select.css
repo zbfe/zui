@@ -3,11 +3,18 @@
  * @author fe.xiaowu@gmail.com
  */
 
-.zui-popup-select {
-    background-color: #fff;
+/*reset*/
+.zui-popup-select-list,
+.zui-popup-select-item {
+    margin: 0;
+    padding: 0;
 }
 .zui-popup-select-list {
     list-style: none;
+}
+
+.zui-popup-select {
+    background-color: #fff;
 }
 .zui-popup-select-item {
     border-top: 1px solid #d9d9d9;
