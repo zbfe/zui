@@ -14,13 +14,13 @@ define(function (require) {
     /**
      * 构造函数
      *
-     * @param {Object} options 配置参数或者提示内容
+     * @param {Object|string} options 配置参数或者提示内容
      * @param {Function} options.onShow 显示成功后回调
      * @param {Function} options.onClose 关闭层后回调
      * @param {boolean} options.lock 是否锁定屏幕
-     * @param {boolean} options.autoClose 是否自动关闭
+     * @param {boolean} [options.autoClose=true] 是否自动关闭
      * @param {number} [options.time=2000] 自动关闭时间
-     * @param {string} optoins.className 样式名
+     * @param {string} options.className 自定义样式名
      */
     var Tips = function (options) {
         var self = this;
