@@ -169,7 +169,9 @@
     ], function ($$, Tips, loading) {
         $$('p').on('click', function () {
             loading();
-            setTimeout(() => loading.hide(), 1000);
+            setTimeout(function () {
+                loading.hide()
+            }, 1000);
             new Tips({
                 content: '正在请求数据...'
             });
