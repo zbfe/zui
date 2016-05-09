@@ -17,9 +17,9 @@ Mobile ui library created by zbfe
 
 ## demo
 
-* [tips](src/tips/)
-    * tips/index
-    * tips/loading
+* [tips](src/tips/README.md)
+    * [tips/index](src/tips/README.md#tips/index)
+    * [tips/loading](src/tips/README.md#tips/loading)
 * [popup](src/popup/)
     * popup/base
     * popup/select
