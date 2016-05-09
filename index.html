@@ -27,6 +27,29 @@
         color: #fff;
         text-decoration: none;
     }
+    .runjs-btn {
+        background-color: #04BE02; 
+        position: relative;
+        display: block;
+        padding-left: 14px;
+        padding-right: 14px;
+        box-sizing: border-box;
+        font-size: 18px;
+        text-align: center;
+        text-decoration: none;
+        color: #FFFFFF;
+        line-height: 2.33333333;
+        border-radius: 5px;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        overflow: hidden;
+        outline: none;
+        border: none; 
+    }
+    @media screen and (max-width: 700px) {
+        .runjs-btn {
+            width: 100%; 
+        }
+    }
     </style>
 </head>
 <body>
@@ -48,6 +71,8 @@
     </section>
     <script src="lib/gh-pages/jquery2.2.3.js"></script>
     <script src="lib/gh-pages/marked.js"></script>
+    <script src="lib/requirejs/require.js"></script>
+    <script src="lib/requirejs/config.js"></script>
     <script src="lib/gh-pages/page.js"></script>
 </body>
 </html>
