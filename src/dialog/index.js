@@ -6,12 +6,14 @@
 
 // TODO 留坑待完成
 
-(function (zui) {
+define(function (require) {
+
+    require('css!./index.css');
 
     /**
      * Dialog构造函数
      */
-    var Dialog = zui.Dialog = function (options) {
+    var Dialog = function (options) {
         var self = this;
         var loop = function () {};
         self.opts = $.extend({
@@ -52,5 +54,5 @@
         }
     };
 
-
-})(window.zui);
+    return Dialog;
+});
