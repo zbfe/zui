@@ -11,9 +11,8 @@ Mobile ui library created by zbfe
 
 ## specification
 
-* [目录规范](docs/dir-style.md)
-* [js代码规范](docs/js-style.md)
-* [css代码规范](docs/css-style.md)
+* [设计思想](docs/design-idea.md)
+* [开发模块](docs/quick-start.md)
 
 ## demo
 
