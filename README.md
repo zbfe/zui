@@ -23,7 +23,7 @@ Mobile ui library created by zbfe
     * [popup/base](src/popup/README.md#popup/base)
     * [popup/select](src/popup/README.md#popup/select)
     * [popup/radio](src/popup/README.md#popup/radio)
-    * popup/multiple
+    * [popup/multiple](src/popup/README.md#popup/multiple)
 * dialog
     * dialog/base
     * dialog/alert

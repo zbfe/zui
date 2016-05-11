@@ -141,3 +141,40 @@ require([
     new Radio(options);
 });
 ```
+## popup/multiple
+
+```runjs
+require([
+    'popup/multiple'
+], function (Multiple) {
+    var options = {
+        data: [
+            {
+                text: '菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1',
+                value: '1',
+                selected: true
+            },
+            {
+                text: '菜单2',
+                value: '2',
+                selected: true
+            },
+            {
+                text: '菜单3',
+                value: '3',
+                selected: true
+            },
+            {
+                text: '菜单4',
+                value: '4'
+            }
+        ],
+        onSelect: function (data) {
+            console.log(data);
+        },
+        onCancel: function () {
+        }
+    };
+    new Multiple(options);
+});
+```

@@ -4,6 +4,8 @@
  */
 .zui-popup-radio {
     background-color: #fff;
+    font-size: 14px; 
+    color: #333; 
 }
 .zui-popup-radio-list,
 .zui-popup-radio-list > li {
@@ -18,9 +20,36 @@
     height: 42px;
     line-height: 42px;
     overflow: hidden;
+    width: auto;
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-box-pack: justify;
+    -webkit-box-align: stretch;
+    -webkit-box-lines: single;
+    display: -webkit-flex;
+    -webkit-flex-direction: row;
+    -webkit-justify-content: space-between;
+    -webkit-align-items: stretch;
+    -webkit-align-content: flex-start;
+    -webkit-flex-wrap: nowrap;
+    padding-left: 21px;
+    padding-right: 21px;
+}
+.zui-popup-radio-header-done,
+.zui-popup-radio-header-all {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+}
+.zui-popup-radio-header-disabled {
+    color: #999; 
+}
+.zui-popup-radio-header-title {
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
+    overflow: hidden; 
+    padding: 0 10px; 
 }
 
 .zui-popup-radio-list > li {
