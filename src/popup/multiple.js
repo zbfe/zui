@@ -36,10 +36,6 @@ define(function (require) {
             var html = '';
             var $wrap;
 
-            var isAll = options.data.every(function (val) {
-                return !!val.selected;
-            });
-
             // 拼标题
             html += [
                 '<div class="zui-popup-multiple-header">',
