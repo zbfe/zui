@@ -104,3 +104,40 @@ require([
     new Select(options);
 });
 ```
+
+## popup/radio
+
+```runjs
+require([
+    'popup/radio'
+], function (Radio) {
+    var options = {
+        data: [
+            {
+                text: '菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1',
+                value: '1',
+                selected: true
+            },
+            {
+                text: '菜单2',
+                value: '2'
+            },
+            {
+                text: '菜单3',
+                value: '3',
+                selected: true
+            },
+            {
+                text: '菜单4',
+                value: '4'
+            }
+        ],
+        onSelect: function (data) {
+            console.log(data);
+        },
+        onCancel: function () {
+        }
+    };
+    new Radio(options);
+});
+```
