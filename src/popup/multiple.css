@@ -1,0 +1,74 @@
+/**
+ * @file 下浮层基类
+ * @author fe.xiaowu@gmail.com
+ */
+.zui-popup-radio {
+    background-color: #fff;
+}
+.zui-popup-radio-list,
+.zui-popup-radio-list > li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.zui-popup-radio-header {
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 18px;
+    height: 42px;
+    line-height: 42px;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.zui-popup-radio-list > li {
+    border-bottom: 1px solid #ebebeb;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 21px;
+    position: relative;
+}
+.zui-popup-radio-list > li:last-child {
+    border-bottom: none;
+}
+
+.zui-popup-radio-text {
+    margin-right: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.zui-popup-radio-icon {
+    border: 1px solid #ddd;
+    height: 16px;
+    margin-top: 12px;
+    overflow: hidden;
+    position: absolute;
+    right: 21px;
+    top: 0;
+    width: 16px;
+}
+.zui-popup-radio-selected .zui-popup-radio-icon:after {
+    background-color: #3fa1ff;
+    content: "";
+    height: 6px;
+    left: 4px;
+    position: absolute;
+    top: 6px;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    width: 1px;
+}
+.zui-popup-radio-selected .zui-popup-radio-icon:before {
+    background: #3fa1ff;
+    content: "";
+    height: 10px;
+    left: 9px;
+    position: absolute;
+    top: 2px;
+    -webkit-transform: rotate(36deg);
+            transform: rotate(36deg);
+    width: 1px;
+}
