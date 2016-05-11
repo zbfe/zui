@@ -2,74 +2,74 @@
  * @file 下浮层基类
  * @author fe.xiaowu@gmail.com
  */
-.zui-popup-radio {
+.zui-popup-multiple {
     background-color: #fff;
-    font-size: 14px; 
-    color: #333; 
+    color: #333;
+    font-size: 14px;
 }
-.zui-popup-radio-list,
-.zui-popup-radio-list > li {
+.zui-popup-multiple-list,
+.zui-popup-multiple-list > li {
     list-style: none;
     margin: 0;
     padding: 0;
 }
-.zui-popup-radio-header {
+.zui-popup-multiple-header {
+    -webkit-align-content: flex-start;
+    -webkit-align-items: stretch;
     background-color: #f0f0f0;
+    -webkit-box-align: stretch;
+    -webkit-box-direction: normal;
+    -webkit-box-lines: single;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: justify;
     color: #333;
+    display: -webkit-flex;
+    display: -webkit-box;
+    -webkit-flex-direction: row;
+    -webkit-flex-wrap: nowrap;
     font-size: 18px;
     height: 42px;
+    -webkit-justify-content: space-between;
     line-height: 42px;
     overflow: hidden;
-    width: auto;
-    display: -webkit-box;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-box-pack: justify;
-    -webkit-box-align: stretch;
-    -webkit-box-lines: single;
-    display: -webkit-flex;
-    -webkit-flex-direction: row;
-    -webkit-justify-content: space-between;
-    -webkit-align-items: stretch;
-    -webkit-align-content: flex-start;
-    -webkit-flex-wrap: nowrap;
     padding-left: 21px;
     padding-right: 21px;
+    width: auto;
 }
-.zui-popup-radio-header-done,
-.zui-popup-radio-header-all {
+.zui-popup-multiple-header-done,
+.zui-popup-multiple-header-all {
     -webkit-box-flex: 0;
     -webkit-flex: none;
 }
-.zui-popup-radio-header-disabled {
-    color: #999; 
+.zui-popup-multiple-header-disabled {
+    color: #999;
 }
-.zui-popup-radio-header-title {
+.zui-popup-multiple-header-title {
+    overflow: hidden;
+    padding: 0 10px;
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
-    overflow: hidden; 
-    padding: 0 10px; 
 }
 
-.zui-popup-radio-list > li {
+.zui-popup-multiple-list > li {
     border-bottom: 1px solid #ebebeb;
     height: 42px;
     line-height: 42px;
     padding: 0 21px;
     position: relative;
 }
-.zui-popup-radio-list > li:last-child {
+.zui-popup-multiple-list > li:last-child {
     border-bottom: none;
 }
 
-.zui-popup-radio-text {
+.zui-popup-multiple-text {
     margin-right: 24px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
-.zui-popup-radio-icon {
+.zui-popup-multiple-icon {
     border: 1px solid #ddd;
     height: 16px;
     margin-top: 12px;
@@ -79,7 +79,7 @@
     top: 0;
     width: 16px;
 }
-.zui-popup-radio-selected .zui-popup-radio-icon:after {
+.zui-popup-multiple-selected .zui-popup-multiple-icon:after {
     background-color: #3fa1ff;
     content: "";
     height: 6px;
@@ -90,7 +90,7 @@
             transform: rotate(-45deg);
     width: 1px;
 }
-.zui-popup-radio-selected .zui-popup-radio-icon:before {
+.zui-popup-multiple-selected .zui-popup-multiple-icon:before {
     background: #3fa1ff;
     content: "";
     height: 10px;
