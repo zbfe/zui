@@ -30,6 +30,7 @@ Mobile ui library created by zbfe
     * dialog/confirm
     * dialog/iframe
 * upload
+    * upload/base
     * upload/file
     * upload/photo
     * upload/multiple-photo
