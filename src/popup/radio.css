@@ -4,6 +4,8 @@
  */
 .zui-popup-radio {
     background-color: #fff;
+    font-size: 14px; 
+    color: #333; 
 }
 .zui-popup-radio-list,
 .zui-popup-radio-list > li {
