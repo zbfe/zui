@@ -12,6 +12,15 @@ define(function (require) {
     // 引用css
     require('css!./radio.css');
 
+    /**
+     * 构造函数
+     *
+     * @param {Object} options 配置对象
+     * @param {string} [options.title=请选择] 标题
+     * @param {Array} options.data 数据列表，[{value, text, selected}]
+     * @param {Function} options.onSelect 选择回调，this为当前实例，参数为{value, index, old, oldValue}
+     * @param {Function} options.onCancel 取消回调，this为当前实例
+     */
     function Radio(options) {
         this.options = $.extend({}, Radio.defaults, options);
 
@@ -24,6 +33,12 @@ define(function (require) {
     }
 
     $.extend(Radio.prototype, {
+
+        /**
+         * 初始化
+         *
+         * @private
+         */
         __init: function () {
             var self = this;
             var options = self.options;
@@ -75,10 +90,10 @@ define(function (require) {
                     val.selected = i === index;
                 });
 
-                options.onSelect({
+                options.onSelect.call(self, {
                     index: index,
-                    value: (options.data[index] || '').value,
-                    old: old === -1 ? null : old,
+                    value: options.data[index].value,
+                    old: old === -1 ? undefined : old,
                     oldValue: (options.data[old] || '').value,
                     event: old === index ? 'none' : 'change'
                 });
@@ -114,7 +129,7 @@ define(function (require) {
     Radio.defaults = {
         data: [],
         title: '请选择',
-        onSelect: null,
+        onSelect: function () {},
         onCancel: null
     };
 
