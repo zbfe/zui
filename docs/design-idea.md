@@ -52,9 +52,17 @@ test/popup/select.js
 </script>
 ```
 
-## css、tpl、text的加载
+## css样式
 
-添加了`requirejs`的`css`、`text`插件支持，使用如：
+* 模块要独立
+* 不依赖`reset`样式
+* 必须以`.zui-`为前缀
+
+> 正在考虑是否写个`zui.css`基类
+
+## requirejs里css、tpl、text的加载
+
+添加了`requirejs`的`css`、`text`、`tpl`插件支持，使用如：
 
 ```
 define(function (require) {

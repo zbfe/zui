@@ -19,28 +19,48 @@ git clone https://github.com/zbfe/zui.git && cd zui
 npm install
 ```
 
+## 运行命令
+
+```shell
+# 本地开启http-server来预览
+npm start
+
+# 运行测试
+npm test
+
+# 以watch方式运行测试
+npm run test-watch
+
+# 运行代码覆盖率测试
+npm run test-cov
+
+# 运行fecs检查代码
+npm run check
+```
+
 ## 目录规范
 
-模块应该具有以下目录：
+[设计思想](docs/design-idea.md#目录)
 
+### css
+
+`src/[module]/index.css`:
+
+```css
+/**
+ * @file 模块名称
+ * @author 作者信息
+ */
+
+以.zui-开头
+.zui-* {
+    
+}
 ```
-# 模块目录
-src/[module]/
 
-# 模块js
-src/[module]/index.js
+### js
 
-# 看情况是否需要css，如果需要则在index.js里require该css文件
-src/[module]/index.css
-
-# 模块的文档
-src/[module]/README.md
-
-# 模块index.js的测试用例
-test/[module]/index.js
-```
-
-### index.js
+`src/[module]/index.js`:
 
 ```js
 /**
@@ -59,7 +79,7 @@ define(function (require) {
 });
 ```
 
-## 测试用例
+### 测试用例
 
 `test/[module]/index.js`:
 
@@ -82,6 +102,48 @@ define([
 
 测试用例`api`请看： [https://jasmine.github.io/2.4/introduction.html](https://jasmine.github.io/2.4/introduction.html)
 
-## 文档
+### 文档
 
-todo
+`src/[module]/README.md`:
+
+    # 模块名称
+
+    > 作者信息
+
+    模块介绍
+
+    ## 模块一的uri
+
+    描述
+
+    ### use
+
+    ```js
+    使用说明
+    ```
+
+    ### api - options
+
+    ```js
+    api介绍
+    ```
+
+    ### example
+
+    #### 例子1
+
+    ```runjs
+    可运行代码，这里的代码将可直接在浏览器打开
+    并且会在该代码之后添加可执行按钮～
+    自动的哦～
+    ```
+
+    #### 例子2
+
+    ```runjs
+    可运行代码，这里的代码将可直接在浏览器打开
+    并且会在该代码之后添加可执行按钮～
+    自动的哦～
+    ```
+
+参考：[tips/README.md](src/tips/README.md)
