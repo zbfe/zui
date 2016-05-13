@@ -16,10 +16,10 @@ Mobile ui library created by zbfe
 
 ## demo
 
-* [tips](src/tips/README.md)
+* [tips](src/tips/README.md) ![](http://progressed.io/bar/95)
     * [tips/index](src/tips/README.md#tips/index)
     * [tips/loading](src/tips/README.md#tips/loading)
-* [popup](src/popup/README.md)
+* [popup](src/popup/README.md) ![](http://progressed.io/bar/90)
     * [popup/base](src/popup/README.md#popup/base)
     * [popup/select](src/popup/README.md#popup/select)
     * [popup/radio](src/popup/README.md#popup/radio)
@@ -34,6 +34,9 @@ Mobile ui library created by zbfe
     * upload/file
     * upload/photo
     * upload/multiple-photo
+* tools
+    * cookie
+    * localStorage
 
 ## develop
 
