@@ -35,5 +35,77 @@ define([
 
             expect($('.zui-popup-multiple').length).toBe(1);
         });
+
+        it('options.data empty', function () {
+            var temp1;
+            var temp2;
+
+            try {
+                new Multiple();
+            }
+            catch (e) {
+                temp1 = true;
+            }
+
+            try {
+                new Multiple({
+                    data: []
+                });
+            }
+            catch (e) {
+                temp2 = true;
+            }
+
+            expect(temp1).toBe(true);
+            expect(temp2).toBe(true);
+        });
+
+        it('options.data', function () {
+            new Multiple({
+                data: [
+                    {
+                        text: '我是一个兵'
+                    }
+                ]
+            });
+
+            expect($('.zui-popup-multiple').html().indexOf('我是一个兵') > -1).toBe(true);
+        });
+
+        it('options.title', function () {
+            var title = Date.now();
+
+            expect($('body').html().indexOf(title) === -1).toBe(true);
+
+            new Multiple({
+                data: tempData,
+                title: title
+            });
+
+            expect($('body').html().indexOf(title) === -1).toBe(false);
+        });
+
+        it('options.onSelect', function (done) {
+            var app = new Multiple({
+                data: tempData,
+                onSelect: function (data) {
+                    expect(this).toBe(app);
+                    expect(Array.isArray(data.index)).toBe(true);
+                    expect(Array.isArray(data.value)).toBe(true);
+                    expect(Array.isArray(data.old)).toBe(true);
+                    expect(Array.isArray(data.oldValue)).toBe(true);
+                    expect(data.index.length).toBe(1);
+                    expect(data.index).toContain(0);
+                    expect(data.value.length).toBe(1);
+                    expect(data.value[0]).toBeUndefined();
+                    expect(data.old.length).toBe(0);
+                    expect(data.oldValue.length).toBe(0);
+                    expect(typeof data.event).toBe('string');
+                    expect(data.event).toBe('change');
+                    done();
+                }
+            });
+            $('.zui-popup-multiple-header-all').eq(0).triggerHandler('click');
+        });
     });
 });
