@@ -88,7 +88,7 @@ define(function (require) {
                     val.selected = $.inArray(i, index) !== -1;
                 });
 
-                options.onSelect({
+                options.onSelect.call(self, {
                     index: index,
                     value: index.map(function (val) {
                         return (options.data[val] || '').value;
