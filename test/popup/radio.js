@@ -72,6 +72,19 @@ define([
             expect($('.zui-popup-radio').html().indexOf('我是一个兵') > -1).toBe(true);
         });
 
+        it('options.title', function () {
+            var title = Date.now();
+
+            expect($('body').html().indexOf(title) === -1).toBe(true);
+
+            new Radio({
+                data: tempData,
+                title: title
+            });
+
+            expect($('body').html().indexOf(title) === -1).toBe(false);
+        });
+
         it('options.onSelect', function (done) {
             var app = new Radio({
                 data: tempData,
