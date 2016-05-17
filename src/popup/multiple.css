@@ -45,6 +45,8 @@
     color: #999;
 }
 .zui-popup-multiple-header-title {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
     overflow: hidden;
     padding: 0 10px;
     text-align: center;
