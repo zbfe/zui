@@ -26,6 +26,7 @@ require([
  * @param {Object} options 配置对象
  * @param {string} options.content 内容
  * @param {string} options.className 自定义样式
+ * @param {Function} options.onCancel 点击遮罩层取消时回调函数
  */
 ```
 
@@ -63,13 +64,13 @@ require([
  * @param {Object} options 配置对象
  * @param {Array} options.data 数据列表，[{value, text}]
  * @param {Function} options.onSelect 选择回调，this为当前实例，参数为{value, index}
- * @param {Function} options.onCancel 取消回调，this为当前实例
+ * @param {Function} options.onCancel 取消回调
  */
 ```
 
 ### example
 
-需要注意的是`onCancel`只有在点击菜单中的“取消”才会执行，点击遮罩层是关闭操作
+需要注意的是`onCancel`是在点击菜单中的“取消”也会执行
 
 ```runjs
 require([
