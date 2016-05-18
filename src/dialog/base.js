@@ -1,49 +1,118 @@
 define(function(require, factory) {
     'use strict';
     
-    // 加载样式
+    /**
+     * 加载样式
+     */
     require('css!./base.css');
     
     var loop = function (){};
     
     var $ = require('zepto');
-    
+
+    /**
+     * 默认参数
+     */
     var defaultOptions = {
         vertical: false,
-        okCallback: loop,
-        cancelCallback: loop,
-        buttons: [
-            {
+        hideCallBack: loop,
+        hideTime: 400,
+        horizontal: true,
+        content:'',
+        headerTitle: '提示',
+        buttons: [{
                 text: '确定',
-                callback: function (){
-                    okCallback();
-                }
+                callback: loop
             },
             {
                 text: '取消',
-                callback: function () {
-                    cancelCallback();
-                }
-            }
-        ] 
+                callback: loop
+            }]
     };
     
     /**
-     * Dialog构造函数 
+     * Dialog构造函数
+     *
+     * @param {Object} options 配置对象
      */
     function Dialog(options) {
         this.options = $.extend(defaultOptions, options);
         this.__init();
     }
-    
+
+
+    /**
+     * 扩展Dialog原型,添加弹窗基本API
+     */
     $.extend(Dialog.prototype, {
+        /**
+         * 初始化弹窗
+         */
         __init: function () {
-            
+            var me = this;
+            me.ele = $('<div class="zui-dialog-wrap-mask">');
+            var btns = me.buttons;
+
+            var btnsStr = '';
+            me.callback = [];
+            btns.forEach(function (it, i) {
+                btnsStr += '<div>' + it.text + '</div>';
+                me.callback.push(it.callback);
+            });
+
+            var htmlCodes = [
+                '       <div class="zui-dialog-wrap">',
+                '            <header class="zui-dialog-header">' + me.headerTitle + '</header>',
+                '            <div class="zui-dialog-content">',
+                 me.content,
+                '            </div>',
+                '            <footer class="zui-dialog-btngroup-v">',
+                 btnsStr,
+                '            </footer>',
+                '        </div>'
+            ].join("");
+
+            me.ele.append(htmlCodes);
+            $('body').append(me.ele);
+
+            me.__bindEvt();
+        },
+
+        /**
+         * Dialog#show方法
+         */
+        show: function () {
+            this.ele.css({opacity:1,display:'block'});
+        },
+
+
+        /**
+         * Dialog#hide方法
+         */
+        hide: function () {
+            var me = this;
+            me.ele.animate({
+                opacity:0
+            },function (){
+                $(this).hide();
+                me.hideCallBack.call(me);
+            }, me.hideTime)
+        },
+
+
+        /**
+         * 事件处理绑定
+         */
+        __bindEvt: function () {
+            var me = this;
+            var cbs = me.callback || [];
+            me.ele.find('.zui-dialog-btngroup-v>div', function (e) {
+                var $target = $(this);
+                var idx = $target.index();
+                cbs[idx].call(me, idx);
+            });
         }
     });
-    
-    
-    
+
     return Dialog;
-    
 });
