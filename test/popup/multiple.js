@@ -36,6 +36,26 @@ define([
             expect($('.zui-popup-multiple').length).toBe(1);
         });
 
+        it('._popup', function () {
+            var app = new Multiple({
+                data: tempData
+            });
+
+            expect('object' === typeof app._popup).toBe(true);
+        });
+
+        it('options.onCancel', function (done) {
+            var app = new Multiple({
+                data: tempData,
+                onCancel: function (a) {
+                    expect(a).toBeUndefined();
+                    done();
+                }
+            });
+
+            app._popup.$wrap.find('.zui-popup-mask').triggerHandler('click');
+        });
+
         it('options.data empty', function () {
             var temp1;
             var temp2;

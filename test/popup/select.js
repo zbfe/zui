@@ -75,8 +75,8 @@ define([
         it('options.onCancel', function (done) {
             var app = new Select({
                 data: tempData,
-                onCancel: function () {
-                    expect(this).toBe(app);
+                onCancel: function (a) {
+                    expect(a).toBeUndefined();
                     done();
                 }
             });

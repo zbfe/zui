@@ -36,6 +36,14 @@ define([
             expect($('.zui-popup-radio').length).toBe(1);
         });
 
+        it('app._popup', function () {
+            var app = new Radio({
+                data: tempData
+            });
+
+            expect('object' === typeof app._popup).toBe(true);
+        });
+
         it('options.data empty', function () {
             var temp1;
             var temp2;
@@ -123,6 +131,18 @@ define([
             });
 
             $('.zui-popup-radio-list > li').eq(0).trigger('click');
+        });
+
+        it('options.onCancel', function (done) {
+            var app = new Radio({
+                data: tempData,
+                onCancel: function (a) {
+                    expect(a).toBeUndefined();
+                    done();
+                }
+            });
+
+            app._popup.$wrap.find('.zui-popup-mask').triggerHandler('click');
         });
 
         it('多选中的验证只选中第一个', function () {

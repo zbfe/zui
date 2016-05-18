@@ -72,7 +72,7 @@ define([
             expect(app.close().close()).toBe(app);
         });
 
-        it('base({className})', function (done) {
+        it('options.className', function (done) {
             expect($('.xxoo').length).toBe(0);
             var app = new Base({
                 className: 'xxoo'
@@ -102,12 +102,22 @@ define([
             }, animationTimeout);
         });
 
-        it('base({content})', function () {
+        it('options.content', function () {
             var app = new Base({
                 content: 'xxoo'
             });
 
             expect(app.$wrap.html().indexOf('xxoo') > -1).toBe(true);
+        });
+
+        it('options.onCancel', function (done) {
+            new Base({
+                content: 'xxoo',
+                onCancel: function (a) {
+                    expect(a).toBeUndefined();
+                    done();
+                }
+            }).$wrap.find('.zui-popup-mask').triggerHandler('click');
         });
     });
 });
