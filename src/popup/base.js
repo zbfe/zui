@@ -17,6 +17,7 @@ define(function (require) {
      * @param {Object} options 配置对象
      * @param {string} options.content 内容
      * @param {string} options.className 自定义样式
+     * @param {Function} options.onCancel 点击遮罩层取消时回调函数
      */
     function Base(options) {
         this.options = $.extend({}, Base.defaults, options);
@@ -42,7 +43,13 @@ define(function (require) {
                 transform: 'translateY(0)'
             }, Base.animationTimeout);
 
-            $wrap.find('.zui-popup-mask').on('click', self.close.bind(self)).on('touchmove', false);
+            $wrap.find('.zui-popup-mask').on('click', function () {
+                self.close();
+
+                if ('function' === typeof self.options.onCancel) {
+                    self.options.onCancel();
+                }
+            }).on('touchmove', false);
 
             $inner = null;
         },
@@ -81,7 +88,8 @@ define(function (require) {
      */
     Base.defaults = {
         className: '',
-        content: ''
+        content: '',
+        onCancel: null
     };
 
     /**
