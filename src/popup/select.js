@@ -18,7 +18,7 @@ define(function (require) {
      * @param {Object} options 配置对象
      * @param {Array} options.data 数据列表，[{value, text}]
      * @param {Function} options.onSelect 选择回调，this为当前实例，参数为{value, index}
-     * @param {Function} options.onCancel 取消回调，this为当前实例
+     * @param {Function} options.onCancel 取消回调
      */
     function Select(options) {
         this.options = $.extend({}, Select.defaults, options);
@@ -68,14 +68,15 @@ define(function (require) {
             // 弹出来
             self._popup = new Base({
                 content: html,
-                className: 'zui-popup-select'
+                className: 'zui-popup-select',
+                onCancel: options.onCancel
             });
 
             // 点击取消
             self._popup.$wrap.find('.zui-popup-select-cancel').on('click', function () {
                 self.close();
                 if ('function' === typeof options.onCancel) {
-                    options.onCancel.call(self);
+                    options.onCancel();
                 }
             });
 

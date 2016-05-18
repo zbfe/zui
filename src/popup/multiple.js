@@ -64,7 +64,8 @@ define(function (require) {
             // 弹出来
             self._popup = new Base({
                 content: html,
-                className: 'zui-popup-multiple'
+                className: 'zui-popup-multiple',
+                onCancel: options.onCancel
             });
 
             $wrap = self._popup.$wrap;

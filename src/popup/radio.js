@@ -77,7 +77,8 @@ define(function (require) {
             // 弹出来
             self._popup = new Base({
                 content: html,
-                className: 'zui-popup-radio'
+                className: 'zui-popup-radio',
+                onCancel: options.onCancel
             });
 
             // 绑定点击列表时触发事件并关闭
