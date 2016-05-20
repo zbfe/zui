@@ -92,11 +92,11 @@ define(function (require) {
                 options.onSelect.call(self, {
                     index: index,
                     value: index.map(function (val) {
-                        return (options.data[val] || '').value;
+                        return options.data[val].value;
                     }),
                     old: old,
                     oldValue: old.map(function (val) {
-                        return (options.data[val] || '').value;
+                        return options.data[val].value;
                     }),
                     event: String(index) === String(old) ? 'none' : 'change'
                 });
@@ -142,7 +142,7 @@ define(function (require) {
      */
     Multiple.defaults = {
         data: [],
-        title: '菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1',
+        title: '请选择',
         onSelect: null,
         onCancel: null
     };
