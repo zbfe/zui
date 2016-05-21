@@ -12,11 +12,13 @@ define([
 
     describe('popup/radio', function () {
         var animationTimeout = Base.animationTimeout * 1.2;
-        var tempData = [
-            {
-                text: 'text'
-            }
-        ];
+        var getTempData = function () {
+            return [
+                {
+                    text: 'text'
+                }
+            ];
+        };
 
         afterEach(function () {
             $('.zui-popup-wrap').remove();
@@ -30,7 +32,7 @@ define([
             expect($('.zui-popup-radio').length).toBe(0);
 
             new Radio({
-                data: tempData
+                data: getTempData()
             });
 
             expect($('.zui-popup-radio').length).toBe(1);
@@ -38,7 +40,7 @@ define([
 
         it('app._popup', function () {
             var app = new Radio({
-                data: tempData
+                data: getTempData()
             });
 
             expect('object' === typeof app._popup).toBe(true);
@@ -86,16 +88,29 @@ define([
             expect($('body').html().indexOf(title) === -1).toBe(true);
 
             new Radio({
-                data: tempData,
+                data: getTempData(),
                 title: title
             });
 
             expect($('body').html().indexOf(title) === -1).toBe(false);
         });
 
+        it('options.onSelect null', function (done) {
+            new Radio({
+                data: getTempData(),
+                onSelect: null
+            });
+            expect($('.zui-popup-radio').length).toBe(1);
+            $('.zui-popup-radio-list > li').eq(0).triggerHandler('click');
+            setTimeout(function () {
+                expect($('.zui-popup-radio').length).toBe(0);
+                done();
+            }, animationTimeout);
+        });
+
         it('options.onSelect', function (done) {
             var app = new Radio({
-                data: tempData,
+                data: getTempData(),
                 onSelect: function (data) {
                     expect(this).toBe(app);
                     expect(data.index).toBe(0);
@@ -133,9 +148,42 @@ define([
             $('.zui-popup-radio-list > li').eq(0).trigger('click');
         });
 
+        it('options.onSelect(data.event=none)', function (done) {
+            var app = new Radio({
+                data: [
+                    {
+                        text: 'text1',
+                        selected: true
+                    }
+                ],
+                onSelect: function (data) {
+                    expect(typeof data.event).toBe('string');
+                    expect(data.event).toBe('none');
+                    done();
+                }
+            });
+            $('.zui-popup-radio-list > li').eq(0).trigger('click');
+        });
+
+        it('options.onSelect(data.event=change)', function (done) {
+            var app = new Radio({
+                data: [
+                    {
+                        text: 'text1'
+                    }
+                ],
+                onSelect: function (data) {
+                    expect(typeof data.event).toBe('string');
+                    expect(data.event).toBe('change');
+                    done();
+                }
+            });
+            $('.zui-popup-radio-list > li').eq(0).trigger('click');
+        });
+
         it('options.onCancel', function (done) {
             var app = new Radio({
-                data: tempData,
+                data: getTempData(),
                 onCancel: function (a) {
                     expect(a).toBeUndefined();
                     done();
@@ -214,13 +262,13 @@ define([
         });
 
         it('close', function () {
-            expect(typeof new Radio({data: tempData}).close).toBe('function');
+            expect(typeof new Radio({data: getTempData()}).close).toBe('function');
         });
 
         it('close()', function (done) {
             expect($('.zui-popup-radio').length).toBe(0);
             var app = new Radio({
-                data: tempData
+                data: getTempData()
             });
             expect($('.zui-popup-radio').length).toBe(1);
             app.close();
@@ -232,7 +280,7 @@ define([
 
         it('close().close()', function () {
             var app = new Radio({
-                data: tempData
+                data: getTempData()
             });
 
             expect(app.close().close()).toBe(app);
@@ -240,7 +288,7 @@ define([
 
         it('Element click close', function (done) {
             var app = new Radio({
-                data: tempData
+                data: getTempData()
             });
 
             expect($('.zui-popup-radio').length).toBe(1);

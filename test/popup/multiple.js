@@ -107,6 +107,19 @@ define([
             expect($('body').html().indexOf(title) === -1).toBe(false);
         });
 
+        it('options.onSelect null', function (done) {
+            new Multiple({
+                data: tempData(),
+                onSelect: null
+            });
+            expect($('.zui-popup-multiple').length).toBe(1);
+            $('.zui-popup-multiple-header-done').eq(0).triggerHandler('click');
+            setTimeout(function () {
+                expect($('.zui-popup-multiple').length).toBe(0);
+                done();
+            }, animationTimeout);
+        });
+
         it('options.onSelect', function (done) {
             var app = new Multiple({
                 data: tempData(),
