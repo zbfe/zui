@@ -64,8 +64,10 @@ define(function(require, factory) {
 
             me.callback = [];
             btns.forEach(function (it, i) {
+                var callback = it.callback;
                 btnsStr += '<div class="zui-dialog-btns">' + it.text + '</div>';
-                me.callback.push(it.callback);
+
+                me.callback.push($.isFunction(callback) ? callback : null);
             });
 
             if (!options.horizontal) {
@@ -82,7 +84,7 @@ define(function(require, factory) {
                  btnsStr,
                 '     </footer>',
                 '</div>'
-            ].join("");
+            ].join('');
 
             me.ele.append(htmlCodes);
             $('body').append(me.ele);
@@ -97,11 +99,16 @@ define(function(require, factory) {
             var me = this;
             var aniTime = me.options.aniTime;
 
-            me.ele.css({display:'block'}).animate({opacity:1}, aniTime);
+            me.ele.css({display:'block'}).animate({
+                opacity:1
+            }, aniTime);
+            
             me.ele.find('.zui-dialog-wrap')
-                .css({transform:'translate(50%, -50%) scale3d(.7,.7,1)'})
+                .css({
+                    transform:'translate(50%, -50%) scale3d(.7,.7,1)'
+                })
                 .animate({
-                transform: 'translate(50%, -50%) scale3d(1,1,1)'
+                    transform: 'translate(50%, -50%) scale3d(1,1,1)'
             }, aniTime, function (){
                 me.options.showCallback.call(me);
             });
@@ -122,7 +129,10 @@ define(function(require, factory) {
                 opacity:0,
                 transform: 'translate(50%, -50%) scale3d(.7,.7,1)'
             }, aniTime, function (){
-                me.options.hideCallback.call(me);
+                var hideFn = me.options.hideCallback;
+                if ($.isFunction(hideFn)) {
+                    hideFn.call(me);
+                }
                 me.destroy();
             })
         },
@@ -136,7 +146,7 @@ define(function(require, factory) {
             me.ele.find('.zui-dialog-btns').one('click', function (e) {
                 var $target = $(this);
                 var idx = $target.index();
-                cbs[idx].call(me, idx);
+                cbs[idx] && cbs[idx].call(me, idx);
                 me.hide();
             });
         },
@@ -146,8 +156,15 @@ define(function(require, factory) {
          */
         destroy: function () {
             var me = this;
+            var destroyFn = me.options.destroyCallback;
+
             me.ele.remove();
-            me.options.destroyCallback.call(me);
+
+            if ($.isFunction(destroyFn)) {
+                destroyFn.call(me);
+            }
+
+
         }
 
     });
