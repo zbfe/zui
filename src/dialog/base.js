@@ -1,3 +1,7 @@
+/**
+ * @file Dialog基类
+ * @author schoeu1110@gmail.com
+ */
 define(function(require, factory) {
     'use strict';
     
@@ -50,23 +54,35 @@ define(function(require, factory) {
          */
         __init: function () {
             var me = this;
+            var options = me.options;
+            var showStyle = 'zui-dialog-btngroup-h';
+
+
+            if (!options.content) {
+                throw new Error('please input invaild content.');
+            }
+
             me.ele = $('<div class="zui-dialog-wrap-mask">');
-            var btns = me.buttons;
+            var btns = options.buttons || [];
 
             var btnsStr = '';
             me.callback = [];
             btns.forEach(function (it, i) {
-                btnsStr += '<div>' + it.text + '</div>';
+                btnsStr += '<div class="zui-dialog-btns">' + it.text + '</div>';
                 me.callback.push(it.callback);
             });
 
+            if (!options.horizontal) {
+                showStyle = 'zui-dialog-btngroup-v';
+            }
+
             var htmlCodes = [
                 '       <div class="zui-dialog-wrap">',
-                '            <header class="zui-dialog-header">' + me.headerTitle + '</header>',
+                '            <header class="zui-dialog-header">' + options.headerTitle + '</header>',
                 '            <div class="zui-dialog-content">',
-                 me.content,
+                options.content,
                 '            </div>',
-                '            <footer class="zui-dialog-btngroup-v">',
+                '            <footer class="' + showStyle + '">',
                  btnsStr,
                 '            </footer>',
                 '        </div>'
@@ -106,7 +122,7 @@ define(function(require, factory) {
         __bindEvt: function () {
             var me = this;
             var cbs = me.callback || [];
-            me.ele.find('.zui-dialog-btngroup-v>div', function (e) {
+            me.ele.find('.zui-dialog-btns', function (e) {
                 var $target = $(this);
                 var idx = $target.index();
                 cbs[idx].call(me, idx);

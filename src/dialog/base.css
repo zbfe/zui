@@ -1,3 +1,7 @@
+/**
+ * @file Dialog基本样式
+ * @author schoeu1110@gmail.com
+ */
 .zui-dialog-wrap-mask{
     position: fixed;
     height: 100%;
