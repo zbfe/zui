@@ -56,6 +56,7 @@ define(function (require) {
                 if (index !== 0) {
                     delete val.selected;
                 }
+
             });
 
             // 拼列表
@@ -91,13 +92,15 @@ define(function (require) {
                     val.selected = i === index;
                 });
 
-                options.onSelect.call(self, {
-                    index: index,
-                    value: options.data[index].value,
-                    old: old === -1 ? undefined : old,
-                    oldValue: (options.data[old] || '').value,
-                    event: old === index ? 'none' : 'change'
-                });
+                if ('function' === typeof options.onSelect) {
+                    options.onSelect.call(self, {
+                        index: index,
+                        value: options.data[index].value,
+                        old: old === -1 ? undefined : old,
+                        oldValue: (options.data[old] || '').value,
+                        event: old === index ? 'none' : 'change'
+                    });
+                }
 
                 self.close();
             });
@@ -130,7 +133,7 @@ define(function (require) {
     Radio.defaults = {
         data: [],
         title: '请选择',
-        onSelect: function () {},
+        onSelect: null,
         onCancel: null
     };
 

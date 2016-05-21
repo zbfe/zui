@@ -89,17 +89,20 @@ define(function (require) {
                     val.selected = $.inArray(i, index) !== -1;
                 });
 
-                options.onSelect.call(self, {
-                    index: index,
-                    value: index.map(function (val) {
-                        return options.data[val].value;
-                    }),
-                    old: old,
-                    oldValue: old.map(function (val) {
-                        return options.data[val].value;
-                    }),
-                    event: String(index) === String(old) ? 'none' : 'change'
-                });
+                // 如果有选择回调
+                if ('function' === typeof options.onSelect) {
+                    options.onSelect.call(self, {
+                        index: index,
+                        value: index.map(function (val) {
+                            return options.data[val].value;
+                        }),
+                        old: old,
+                        oldValue: old.map(function (val) {
+                            return options.data[val].value;
+                        }),
+                        event: String(index) === String(old) ? 'none' : 'change'
+                    });
+                }
 
                 self.close();
             });
