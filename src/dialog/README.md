@@ -24,51 +24,20 @@ require([
 ```js
 /**
  * @param {Object} options 配置对象
- * @param {string} options.content 内容
- * @param {string} options.className 自定义样式
- * @param {Function} options.onCancel 点击遮罩层取消时回调函数
+ * @param {boolean} options.horizontal 按钮排列方向,默认为横向
+ * @param {Function} options.hideCallback 隐藏回调
+ * @param {Function} options.showCallback 显示回调
+ * @param {Function} options.destroyCallback 销毁实例回调
+ * @param {number} options.aniTime 动画时间
+ * @param {string} options.content Dialog正文内容
+ * @param {string} options.title 弹窗标题
+ * @param {Array} options.buttons 按钮信息数据
  */
 ```
 
 ### example
 
 #### 简单
-
-```runjs
-require(['dialog/base'], function (Base) {
-    new Base({
-        content: '测试内容'
-    }).show();
-});
-```
-
-## dialog/base
-
-在`popup/base`上扩展的一个弹出选择菜单
-
-### use
-
-```js
-require([
-    'dialog/base'
-], function (Dialog) {
-    var options = {};
-    new Dialog(options);
-});
-```
-
-### api - options
-
-```js
-/**
- * @param {Object} options 配置对象
- * @param {Array} options.data 数据列表，[{value, text}]
- */
-```
-
-### example
-
-需要注意的是`onCancel`是在点击菜单中的“取消”也会执行
 
 ```runjs
 require([
@@ -90,5 +59,47 @@ require([
     };
     var dialog = new Dialog(options);
     dialog.show();
+});
+```
+
+## dialog/alert
+
+在`popup/base`上扩展的一个提示框
+
+### use
+
+```js
+require([
+    'dialog/alert'
+], function (alert) {
+    var a = new Dialog({
+        content: '这是alert!'
+    });
+    a.show();
+});
+```
+
+### api - options
+
+```js
+/**
+ * @param {Object} options 配置对象
+ */
+```
+
+### example
+
+需要注意的是`onCancel`是在点击菜单中的“取消”也会执行
+
+```runjs
+require([
+    'dialog/alert'
+], function (Alert) {
+    var options = {
+        content: '我是alert内容~',
+
+    };
+    var a = new Alert(options);
+    a.show();
 });
 ```

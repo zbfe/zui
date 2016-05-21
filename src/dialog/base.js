@@ -18,13 +18,13 @@ define(function(require, factory) {
      * 默认参数
      */
     var defaultOptions = {
-        vertical: false,
         hideCallback: loop,
         showCallback: loop,
-        hideTime: 200,
+        destroyCallback: loop,
+        aniTime: 200,
         horizontal: true,
         content:'',
-        headerTitle: '提示',
+        title: '提示',
         buttons: [{
             text: '确定',
             callback: loop
@@ -74,7 +74,7 @@ define(function(require, factory) {
 
             var htmlCodes = [
                 '<div class="zui-dialog-wrap">',
-                '     <header class="zui-dialog-header">' + options.headerTitle + '</header>',
+                '     <header class="zui-dialog-header">' + options.title + '</header>',
                 '     <div class="zui-dialog-content">',
                 options.content,
                 '     </div>',
@@ -95,7 +95,7 @@ define(function(require, factory) {
          */
         show: function () {
             var me = this;
-            var aniTime = me.options.hideTime;
+            var aniTime = me.options.aniTime;
 
             me.ele.css({display:'block'}).animate({opacity:1}, aniTime);
             me.ele.find('.zui-dialog-wrap')
@@ -113,7 +113,7 @@ define(function(require, factory) {
          */
         hide: function () {
             var me = this;
-            var aniTime = me.options.hideTime;
+            var aniTime = me.options.aniTime;
             me.ele.animate({
                 opacity:0
             }, aniTime);
@@ -147,6 +147,7 @@ define(function(require, factory) {
         destroy: function () {
             var me = this;
             me.ele.remove();
+            me.options.destroyCallback.call(me);
         }
 
     });

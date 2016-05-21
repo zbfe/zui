@@ -7,7 +7,7 @@ define(function (require) {
     'use strict';
 
     var $ = require('zepto');
-    var base = require('./base');
+    var Base = require('./base');
 
     // 引用css
     require('css!./base.css');
@@ -23,11 +23,20 @@ define(function (require) {
     }
     
     $.extend(Alert.prototype, {
+        __init: function () {
+            var me = this;
+            var options = me.options;
+            me.options.buttons = [{
+                text: options.confirmText || '',
+                callback: options.confirmCallback || ''
+            }];
+            me.super = new Base(me.options);
+        },
         hide: function () {
-            
+            this.super.hide();
         },
         show: function () {
-            
+            this.super.show();
         }
     });
     
