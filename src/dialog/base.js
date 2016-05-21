@@ -19,19 +19,16 @@ define(function(require, factory) {
      */
     var defaultOptions = {
         vertical: false,
-        hideCallBack: loop,
-        hideTime: 400,
+        hideCallback: loop,
+        showCallback: loop,
+        hideTime: 200,
         horizontal: true,
         content:'',
         headerTitle: '提示',
         buttons: [{
-                text: '确定',
-                callback: loop
-            },
-            {
-                text: '取消',
-                callback: loop
-            }]
+            text: '确定',
+            callback: loop
+        }]
     };
     
     /**
@@ -56,16 +53,15 @@ define(function(require, factory) {
             var me = this;
             var options = me.options;
             var showStyle = 'zui-dialog-btngroup-h';
-
+            var btns = options.buttons || [];
+            var btnsStr = '';
 
             if (!options.content) {
                 throw new Error('please input invaild content.');
             }
 
             me.ele = $('<div class="zui-dialog-wrap-mask">');
-            var btns = options.buttons || [];
 
-            var btnsStr = '';
             me.callback = [];
             btns.forEach(function (it, i) {
                 btnsStr += '<div class="zui-dialog-btns">' + it.text + '</div>';
@@ -77,15 +73,15 @@ define(function(require, factory) {
             }
 
             var htmlCodes = [
-                '       <div class="zui-dialog-wrap">',
-                '            <header class="zui-dialog-header">' + options.headerTitle + '</header>',
-                '            <div class="zui-dialog-content">',
+                '<div class="zui-dialog-wrap">',
+                '     <header class="zui-dialog-header">' + options.headerTitle + '</header>',
+                '     <div class="zui-dialog-content">',
                 options.content,
-                '            </div>',
-                '            <footer class="' + showStyle + '">',
+                '     </div>',
+                '     <footer class="' + showStyle + '">',
                  btnsStr,
-                '            </footer>',
-                '        </div>'
+                '     </footer>',
+                '</div>'
             ].join("");
 
             me.ele.append(htmlCodes);
@@ -98,7 +94,17 @@ define(function(require, factory) {
          * Dialog#show方法
          */
         show: function () {
-            this.ele.css({opacity:1,display:'block'});
+            var me = this;
+            var aniTime = me.options.hideTime;
+
+            me.ele.css({display:'block'}).animate({opacity:1}, aniTime);
+            me.ele.find('.zui-dialog-wrap')
+                .css({transform:'translate(50%, -50%) scale3d(.7,.7,1)'})
+                .animate({
+                transform: 'translate(50%, -50%) scale3d(1,1,1)'
+            }, aniTime, function (){
+                me.options.showCallback.call(me);
+            });
         },
 
 
@@ -107,14 +113,19 @@ define(function(require, factory) {
          */
         hide: function () {
             var me = this;
+            var aniTime = me.options.hideTime;
             me.ele.animate({
                 opacity:0
-            },function (){
-                $(this).hide();
-                me.hideCallBack.call(me);
-            }, me.hideTime)
-        },
+            }, aniTime);
 
+            me.ele.find('.zui-dialog-wrap').animate({
+                opacity:0,
+                transform: 'translate(50%, -50%) scale3d(.7,.7,1)'
+            }, aniTime, function (){
+                me.options.hideCallback.call(me);
+                me.destroy();
+            })
+        },
 
         /**
          * 事件处理绑定
@@ -122,12 +133,22 @@ define(function(require, factory) {
         __bindEvt: function () {
             var me = this;
             var cbs = me.callback || [];
-            me.ele.find('.zui-dialog-btns', function (e) {
+            me.ele.find('.zui-dialog-btns').one('click', function (e) {
                 var $target = $(this);
                 var idx = $target.index();
                 cbs[idx].call(me, idx);
+                me.hide();
             });
+        },
+
+        /**
+         * 事件处理绑定
+         */
+        destroy: function () {
+            var me = this;
+            me.ele.remove();
         }
+
     });
 
     return Dialog;

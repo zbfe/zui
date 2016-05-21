@@ -35,10 +35,10 @@ require([
 #### 简单
 
 ```runjs
-require(['popup/base'], function (Base) {
+require(['dialog/base'], function (Base) {
     new Base({
-        content: '测试的了'
-    });
+        content: '测试内容'
+    }).show();
 });
 ```
 
