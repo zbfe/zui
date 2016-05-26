@@ -7,44 +7,39 @@ define(function (require) {
     'use strict';
 
     var $ = require('zepto');
+    var Zui = require('zui');
 
     // 加载样式
     require('css!./index.css');
 
-    /**
-     * 构造函数
-     *
-     * @param {Object|string} options 配置参数或者提示内容
-     * @param {Function} options.onShow 显示成功后回调
-     * @param {Function} options.onClose 关闭层后回调
-     * @param {boolean} options.lock 是否锁定屏幕
-     * @param {boolean} [options.autoClose=true] 是否自动关闭
-     * @param {number} [options.time=2000] 自动关闭时间
-     * @param {string} options.className 自定义样式名
-     */
-    var Tips = function (options) {
-        var self = this;
+    var Tips = Zui.extend({
+        /**
+         * 构造函数
+         *
+         * @param {Object|string} options 配置参数或者提示内容
+         * @param {Function} options.onShow 显示成功后回调
+         * @param {Function} options.onClose 关闭层后回调
+         * @param {boolean} options.lock 是否锁定屏幕
+         * @param {boolean} [options.autoClose=true] 是否自动关闭
+         * @param {number} [options.time=2000] 自动关闭时间
+         * @param {string} options.className 自定义样式名
+         */
+        constructor: function (options) {
+            var self = this;
 
-        // if (self.constructor  !== Tips) {
-        //     throw new Error('Please instance constructor');
-        // }
+            // 如果值为一个字符串，则认为这是一个内容
+            if ('string' === typeof options) {
+                options = {
+                    content: options
+                };
+            }
 
-        // 如果值为一个字符串，则认为这是一个内容
-        if ('string' === typeof options) {
-            options = {
-                content: options
-            };
-        }
+            // 初始化
+            Tips.super.constructor.call(self, Tips.defaults, options);
 
-        // 合并参数
-        self.options = $.extend({}, Tips.defaults, options);
+            self.__init();
+        },
 
-        // 初始化
-        self.__init();
-    };
-
-    // 扩展原型
-    $.extend(Tips.prototype, {
         __init: function () {
             var self = this;
             var options = self.options;
