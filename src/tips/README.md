@@ -86,7 +86,7 @@ require(['tips/index'], function (Tips) {
 
 ## tips/loading
 
-`loading`是基于`tips/index`扩展的一个加载遮罩层，只提示`show`显示和`hide`隐藏方法，一个页面只能有一个并且不能自动关闭，常用于异步加载数据时“锁屏”提示处理
+`loading`是基于`tips/index`扩展的一个加载遮罩层，只提供`show`显示和`hide`隐藏方法，一个页面只能有一个并且不能自动关闭，常用于异步加载数据时“锁屏”提示处理
 
 ### use
 
