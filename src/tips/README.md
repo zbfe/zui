@@ -25,8 +25,6 @@ require([
 ```js
 /**
  * @param {Object|string} options 配置参数或者提示内容
- * @param {Function} options.onShow 显示成功后回调
- * @param {Function} options.onClose 关闭层后回调
  * @param {boolean} options.lock 是否锁定屏幕
  * @param {boolean} [options.autoClose=true] 是否自动关闭
  * @param {number} [options.time=2000] 自动关闭时间
@@ -74,14 +72,14 @@ require(['tips/index'], function (Tips) {
 
 ```runjs
 require(['tips/index'], function (Tips) {
-    new Tips({
-        content: 'loading',
-        onShow: function () {
-            alert('onShow');
-        },
-        onClose: function () {
-            alert('onClose');
-        }
+    var app = new Tips({
+        content: 'loading'
+    });
+
+    app.on('show', function () {
+        alert('show');
+    }).on('close', function () {
+        alert('close');
     });
 });
 ```

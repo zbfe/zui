@@ -80,31 +80,32 @@ define([
         it('autoClose: true', function (done) {
             new Tips({
                 autoClose: true,
-                time: 50,
-                onShow: function () {
-                    expect(typeof this._timer).toBe('number');
+                time: 50
+            }).on('show', function () {
+                expect(typeof this._timer).toBe('number');
 
-                    setTimeout(function () {
-                        expect($('.zui-tips-wrap').length).toBe(0);
-                        done();
-                    }, animationTimeout + 50);
-                }
+                setTimeout(function () {
+                    expect($('.zui-tips-wrap').length).toBe(0);
+                    done();
+                }, animationTimeout + 50);
             });
         });
 
         it('callback this', function (done) {
             var app = new Tips({
-                autoClose: false,
-                onClose: function () {
-                    expect(this).toBe(app);
-                    expect($('.zui-tips-wrap').length).toBe(0);
-                    done();
-                },
-                onShow: function () {
-                    this.close();
-                    expect($('.zui-tips-wrap').length).toBe(1);
-                    expect(this).toBe(app);
-                }
+                autoClose: false
+            });
+
+            app.on('show', function () {
+                this.close();
+                expect($('.zui-tips-wrap').length).toBe(1);
+                expect(this).toBe(app);
+            });
+
+            app.on('close', function () {
+                expect(this).toBe(app);
+                expect($('.zui-tips-wrap').length).toBe(0);
+                done();
             });
         });
 
@@ -125,29 +126,27 @@ define([
         it('time: 1', function (done) {
             new Tips({
                 autoClose: true,
-                time: 1,
-                onShow: function () {
-                    setTimeout(function () {
-                        expect($('.zui-tips-wrap').length).toBe(0);
-                        done();
-                    }, 1 + animationTimeout);
-                }
+                time: 1
+            }).on('show', function () {
+                setTimeout(function () {
+                    expect($('.zui-tips-wrap').length).toBe(0);
+                    done();
+                }, 1 + animationTimeout);
             });
 
             expect($('.zui-tips-wrap').length).toBe(1);
         });
 
-        it('time: 1 => onClose', function (done) {
+        it('time: 1 => close', function (done) {
             var start = Date.now();
 
             new Tips({
                 autoClose: true,
-                time: 1,
-                onClose: function () {
-                    var diff = Tips.animationTimeout + Tips.animationTimeout + 1;
-                    expect(Date.now() - start - diff < 100).toBe(true);
-                    done();
-                }
+                time: 1
+            }).on('close', function () {
+                var diff = Tips.animationTimeout + Tips.animationTimeout + 1;
+                expect(Date.now() - start - diff < 100).toBe(true);
+                done();
             });
         });
 
@@ -169,10 +168,13 @@ define([
 
         it('.$wrap', function (done) {
             var app = new Tips({
-                onClose: function () {
-                    expect(typeof app.$wrap === 'undefined').toBe(true);
-                    done();
-                }
+                autoClose: true,
+                time: 100
+            }).on('close', function () {
+                expect(typeof app.$wrap === 'undefined').toBe(false);
+            }).on('destroy', function () {
+                expect(typeof app.$wrap === 'undefined').toBe(true);
+                done();
             });
 
             expect(typeof app.$wrap !== 'undefined').toBe(true);
@@ -245,32 +247,33 @@ define([
             }, 1 + animationTimeout);
         });
 
-        it('onShow', function (done) {
+        it('event show', function (done) {
             var app = new Tips({
-                onShow: function () {
-                    expect(this).toEqual(app);
-                    done();
-                }
+            });
+
+            app.on('show', function () {
+                expect(this).toEqual(app);
+                done();
             });
         });
 
-        it('onClose', function (done) {
+        it('event close', function (done) {
             var app = new Tips({
-                onClose: function () {
-                    expect(this).toEqual(app);
-                    app.close().close();
-                    done();
-                }
+            });
+
+            app.on('close', function () {
+                expect(this).toEqual(app);
+                app.close().close();
+                done();
             });
         });
 
-        it('onClose 次数', function (done) {
+        it('close 次数', function (done) {
             var flag = 0;
             var app = new Tips({
-                time: 1,
-                onClose: function () {
-                    flag += 1;
-                }
+                time: 1
+            }).on('close', function () {
+                flag += 1;
             });
 
             app.close().close().close();

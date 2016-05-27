@@ -26,6 +26,7 @@ define(function (require) {
          */
         constructor: function (options) {
             var self = this;
+            var $inner;
 
             // 如果值为一个字符串，则认为这是一个内容
             if ('string' === typeof options) {
@@ -37,22 +38,14 @@ define(function (require) {
             // 初始化
             Tips.super.constructor.call(self, Tips.defaults, options);
 
-            self.__init();
-        },
-
-        __init: function () {
-            var self = this;
-            var options = self.options;
-            var $inner;
-
             self.$wrap = $('<div />').addClass('zui-tips-wrap');
 
             $inner = $('<div />').css({
                 transform: 'translate(-50%, -50%) scale3d(1.3, 1.3, 1)'
-            }).addClass('zui-tips-inner ' + options.className).text(options.content);
+            }).addClass('zui-tips-inner ' + self.get('className')).text(self.get('content'));
 
             // 如果要锁屏
-            if (options.lock === true) {
+            if (self.get('lock') === true) {
                 self.$wrap.addClass('zui-tips-wrap-mask');
             }
 
@@ -64,14 +57,11 @@ define(function (require) {
                 opacity: 1
             }, Tips.animationTimeout, 'ease', function () {
                 // 如果有自动关闭，则延迟关闭
-                if (options.autoClose) {
-                    self._timer = setTimeout(self.close.bind(self), options.time);
+                if (self.get('autoClose')) {
+                    self._timer = setTimeout(self.close.bind(self), self.get('time'));
                 }
 
-                // 如果有显示回调则运行，this为当前实例
-                if ('function' === typeof options.onShow) {
-                    options.onShow.call(self);
-                }
+                self.trigger('show');
             });
 
             $inner = null;
@@ -96,17 +86,16 @@ define(function (require) {
                 delete self._timer;
             }
 
+
+console.log(self)
             self.$wrap.find('.zui-tips-inner').animate({
                 transform: 'translate(-50%, -50%) scale3d(0.7, 0.7, 1)',
                 opacity: 0
             }, Tips.animationTimeout, 'ease', function () {
                 self.$wrap.remove();
-                delete self.$wrap;
 
-                // 如果有显示回调则运行，this为当前实例
-                if ('function' === typeof self.options.onClose) {
-                    self.options.onClose.call(self);
-                }
+                self.trigger('close');
+                self.trigger('destroy');
             });
 
             // 打上关闭标识，防止重复关闭
