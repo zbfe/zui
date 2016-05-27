@@ -86,8 +86,6 @@ define(function (require) {
                 delete self._timer;
             }
 
-
-console.log(self)
             self.$wrap.find('.zui-tips-inner').animate({
                 transform: 'translate(-50%, -50%) scale3d(0.7, 0.7, 1)',
                 opacity: 0
