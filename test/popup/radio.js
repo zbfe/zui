@@ -3,6 +3,7 @@
  * @author fe.xiaowu@gmail.com
  */
 
+/* eslint-disable max-nested-callbacks */
 define([
     'popup/base',
     'popup/radio',
@@ -36,14 +37,6 @@ define([
             });
 
             expect($('.zui-popup-radio').length).toBe(1);
-        });
-
-        it('app._popup', function () {
-            var app = new Radio({
-                data: getTempData()
-            });
-
-            expect('object' === typeof app._popup).toBe(true);
         });
 
         it('options.data empty', function () {
@@ -95,10 +88,9 @@ define([
             expect($('body').html().indexOf(title) === -1).toBe(false);
         });
 
-        it('options.onSelect null', function (done) {
+        it('event select null', function (done) {
             new Radio({
-                data: getTempData(),
-                onSelect: null
+                data: getTempData()
             });
             expect($('.zui-popup-radio').length).toBe(1);
             $('.zui-popup-radio-list > li').eq(0).triggerHandler('click');
@@ -108,23 +100,22 @@ define([
             }, animationTimeout);
         });
 
-        it('options.onSelect', function (done) {
+        it('event select', function (done) {
             var app = new Radio({
-                data: getTempData(),
-                onSelect: function (data) {
-                    expect(this).toBe(app);
-                    expect(data.index).toBe(0);
-                    expect(data.value).toBeUndefined();
-                    expect(data.old).toBeUndefined();
-                    expect(data.oldValue).toBeUndefined();
-                    done();
-                }
+                data: getTempData()
+            }).on('select', function (data) {
+                expect(this).toBe(app);
+                expect(data.index).toBe(0);
+                expect(data.value).toBeUndefined();
+                expect(data.old).toBeUndefined();
+                expect(data.oldValue).toBeUndefined();
+                done();
             });
 
             $('.zui-popup-radio-list > li').eq(0).triggerHandler('click');
         });
 
-        it('options.onSelect old', function (done) {
+        it('event select old', function (done) {
             var app = new Radio({
                 data: [
                     {
@@ -134,63 +125,59 @@ define([
                         text: 2,
                         selected: true
                     }
-                ],
-                onSelect: function (data) {
-                    expect(this).toBe(app);
-                    expect(data.index).toBe(0);
-                    expect(data.value).toBeUndefined();
-                    expect(data.old).toBe(1);
-                    expect(data.oldValue).toBeUndefined();
-                    done();
-                }
+                ]
+            }).on('select', function (data) {
+                expect(this).toBe(app);
+                expect(data.index).toBe(0);
+                expect(data.value).toBeUndefined();
+                expect(data.old).toBe(1);
+                expect(data.oldValue).toBeUndefined();
+                done();
             });
 
             $('.zui-popup-radio-list > li').eq(0).trigger('click');
         });
 
-        it('options.onSelect(data.event=none)', function (done) {
-            var app = new Radio({
+        it('event select(data.event=none)', function (done) {
+            new Radio({
                 data: [
                     {
                         text: 'text1',
                         selected: true
                     }
-                ],
-                onSelect: function (data) {
-                    expect(typeof data.event).toBe('string');
-                    expect(data.event).toBe('none');
-                    done();
-                }
+                ]
+            }).on('select', function (data) {
+                expect(typeof data.event).toBe('string');
+                expect(data.event).toBe('none');
+                done();
             });
             $('.zui-popup-radio-list > li').eq(0).trigger('click');
         });
 
-        it('options.onSelect(data.event=change)', function (done) {
-            var app = new Radio({
+        it('event select(data.event=change)', function (done) {
+            new Radio({
                 data: [
                     {
                         text: 'text1'
                     }
-                ],
-                onSelect: function (data) {
-                    expect(typeof data.event).toBe('string');
-                    expect(data.event).toBe('change');
-                    done();
-                }
+                ]
+            }).on('select', function (data) {
+                expect(typeof data.event).toBe('string');
+                expect(data.event).toBe('change');
+                done();
             });
             $('.zui-popup-radio-list > li').eq(0).trigger('click');
         });
 
-        it('options.onCancel', function (done) {
+        it('event cancel', function (done) {
             var app = new Radio({
-                data: getTempData(),
-                onCancel: function (a) {
-                    expect(a).toBeUndefined();
-                    done();
-                }
+                data: getTempData()
+            }).on('cancel', function (a) {
+                expect(a).toBeUndefined();
+                done();
             });
 
-            app._popup.$wrap.find('.zui-popup-mask').triggerHandler('click');
+            app.$wrap.find('.zui-popup-mask').triggerHandler('click');
         });
 
         it('多选中的验证只选中第一个', function () {
@@ -235,27 +222,25 @@ define([
                 }
             ];
             new Radio({
-                data: data,
-                onSelect: function (data) {
-                    expect(data.index).toBe(1);
-                    expect(data.old).toBe(0);
-                    expect(data.value).toBe('222');
-                    expect(data.oldValue).toBe('111');
-                }
+                data: data
+            }).on('select', function (data) {
+                expect(data.index).toBe(1);
+                expect(data.old).toBe(0);
+                expect(data.value).toBe('222');
+                expect(data.oldValue).toBe('111');
             });
 
             $('.zui-popup-radio-list > li').eq(1).triggerHandler('click');
 
             setTimeout(function () {
                 new Radio({
-                    data: data,
-                    onSelect: function (data) {
-                        expect(data.index).toBe(0);
-                        expect(data.old).toBe(1);
-                        expect(data.value).toBe('111');
-                        expect(data.oldValue).toBe('222');
-                        done();
-                    }
+                    data: data
+                }).on('select', function (data) {
+                    expect(data.index).toBe(0);
+                    expect(data.old).toBe(1);
+                    expect(data.value).toBe('111');
+                    expect(data.oldValue).toBe('222');
+                    done();
                 });
                 $('.zui-popup-radio-list > li').eq(0).triggerHandler('click');
             }, animationTimeout);

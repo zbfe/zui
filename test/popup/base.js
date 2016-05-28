@@ -110,13 +110,12 @@ define([
             expect(app.$wrap.html().indexOf('xxoo') > -1).toBe(true);
         });
 
-        it('options.onCancel', function (done) {
+        it('event cancel', function (done) {
             new Base({
-                content: 'xxoo',
-                onCancel: function (a) {
-                    expect(a).toBeUndefined();
-                    done();
-                }
+                content: 'xxoo'
+            }).on('cancel', function (a) {
+                expect(a).toBeUndefined();
+                done();
             }).$wrap.find('.zui-popup-mask').triggerHandler('click');
         });
     });

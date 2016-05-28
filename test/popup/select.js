@@ -3,6 +3,7 @@
  * @author fe.xiaowu@gmail.com
  */
 
+/* eslint-disable max-nested-callbacks */
 define([
     'popup/base',
     'popup/select',
@@ -72,22 +73,20 @@ define([
             expect($('.zui-popup-select').html().indexOf('我是一个兵') > -1).toBe(true);
         });
 
-        it('options.onCancel', function (done) {
-            var app = new Select({
-                data: tempData,
-                onCancel: function (a) {
-                    expect(a).toBeUndefined();
-                    done();
-                }
+        it('event cancel', function (done) {
+            new Select({
+                data: tempData
+            }).on('cancel', function (a) {
+                expect(a).toBeUndefined();
+                done();
             });
 
             $('.zui-popup-select-cancel').trigger('click');
         });
 
-        it('options.onCancel:null', function (done) {
+        it('event cancel:null', function (done) {
             var app = new Select({
-                data: tempData,
-                onCancel: null
+                data: tempData
             });
 
             app.close = done;
@@ -96,24 +95,22 @@ define([
             $('.zui-popup-select-cancel').trigger('click');
         });
 
-        it('options.onSelect', function (done) {
+        it('event select', function (done) {
             var app = new Select({
-                data: tempData,
-                onSelect: function (data) {
-                    expect(this).toBe(app);
-                    expect(data.index).toBe(0);
-                    expect(data.value).toBe(undefined);
-                    done();
-                }
+                data: tempData
+            }).on('select', function (data) {
+                expect(this).toBe(app);
+                expect(data.index).toBe(0);
+                expect(data.value).toBe(undefined);
+                done();
             });
 
             $('.zui-popup-select-item').eq(0).trigger('click');
         });
 
-        it('options.onSelect:null', function (done) {
+        it('event select:null', function (done) {
             var app = new Select({
-                data: tempData,
-                onSelect: null
+                data: tempData
             });
 
             app.close = done;
