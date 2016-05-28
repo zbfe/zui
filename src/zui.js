@@ -35,14 +35,14 @@ define(function (require) {
 
                 for (var key in self) {
                     if (key === '_closed') {
-                        console.log('白名单：' + key);
+                        // console.log('白名单：' + key);
                     }
                     else if (self.hasOwnProperty(key)) {
                         delete self[key];
-                        console.log('已销毁自定义字段：' + key);
+                        // console.log('已销毁自定义字段：' + key);
                     }
                     else {
-                        console.log(key + '为原型上字段！');
+                        // console.log(key + '为原型上字段！');
                     }
                 }
             });

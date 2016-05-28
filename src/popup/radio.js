@@ -1,6 +1,12 @@
 /**
  * @file 弹出下浮层 - 单选
  * @author fe.xiaowu@gmail.com
+ *
+ * @events
+ *     1. cancel
+ *     2. close
+ *     3. destroy
+ *     4. select
  */
 
 define(function (require) {
@@ -12,51 +18,38 @@ define(function (require) {
     // 引用css
     require('css!./radio.css');
 
-    /**
-     * 构造函数
-     *
-     * @param {Object} options 配置对象
-     * @param {string} [options.title=请选择] 标题
-     * @param {Array} options.data 数据列表，[{value, text, selected}]
-     * @param {Function} options.onSelect 选择回调，this为当前实例，参数为{value, index, old, oldValue}
-     * @param {Function} options.onCancel 取消回调，this为当前实例
-     */
-    function Radio(options) {
-        this.options = $.extend({}, Radio.defaults, options);
-
-        // 如果没有data或者为空，则报错
-        if (!this.options.data || !this.options.data.length) {
-            throw new Error('options.data is empty');
-        }
-
-        this.__init();
-    }
-
-    $.extend(Radio.prototype, {
+    var Radio = Base.extend({
 
         /**
-         * 初始化
+         * 构造函数
          *
-         * @private
+         * @param {Object} options 参数参数
          */
-        __init: function () {
+        constructor: function (options) {
             var self = this;
-            var options = self.options;
-            var html = '';
+            var html;
+
+            // 合并参数
+            options = $.extend({}, Radio.defaults, options);
+
+            // 如果没有data或者为空，则报错
+            if (!options.data || !options.data.length) {
+                throw new Error('options.data is empty');
+            }
 
             // 拼标题
-            html += [
+            html = [
                 '<div class="zui-popup-radio-header">' + options.title + '</div>'
             ].join('');
 
             // 处理只让第一个选中
+            // 为了避免传的数据不规范
             options.data.filter(function (val) {
                 return !!val.selected;
             }).forEach(function (val, index) {
                 if (index !== 0) {
                     delete val.selected;
                 }
-
             });
 
             // 拼列表
@@ -75,53 +68,34 @@ define(function (require) {
                 '</ul>'
             ].join('');
 
-            // 弹出来
-            self._popup = new Base({
-                content: html,
-                className: 'zui-popup-radio',
-                onCancel: options.onCancel
-            });
+            // 准备弹出来的数据
+            options.content = html;
+
+            // 初始化zui
+            Radio.super.constructor.call(self, options);
 
             // 绑定点击列表时触发事件并关闭
-            self._popup.$wrap.find('.zui-popup-radio-list > li').on('click', function () {
+            self.$wrap.find('.zui-popup-radio-list > li').on('click', function () {
                 var index = $(this).index();
-                var old = self._popup.$wrap.find('.zui-popup-radio-selected').eq(0).index();
+                var old = self.$wrap.find('.zui-popup-radio-selected').eq(0).index();
 
                 // 重置选项
                 options.data.forEach(function (val, i) {
                     val.selected = i === index;
                 });
 
-                if ('function' === typeof options.onSelect) {
-                    options.onSelect.call(self, {
-                        index: index,
-                        value: options.data[index].value,
-                        old: old === -1 ? undefined : old,
-                        oldValue: (options.data[old] || '').value,
-                        event: old === index ? 'none' : 'change'
-                    });
-                }
+                self.trigger('select', {
+                    index: index,
+                    value: options.data[index].value,
+                    old: old === -1 ? undefined : old,
+                    oldValue: (options.data[old] || '').value,
+                    event: old === index ? 'none' : 'change'
+                });
 
                 self.close();
             });
-        },
 
-        /**
-         * 关闭
-         *
-         * @return {Object} this
-         */
-        close: function () {
-            var self = this;
-
-            if (!self._popup) {
-                return self;
-            }
-
-            self._popup.close();
-            delete self._popup;
-
-            return self;
+            html = null;
         }
     });
 
@@ -129,12 +103,13 @@ define(function (require) {
      * 默认参数
      *
      * @type {Object}
+     * @param {string} [options.title=请选择] 标题
+     * @param {Array} options.data 数据列表，[{value, text, selected}]
      */
     Radio.defaults = {
         data: [],
         title: '请选择',
-        onSelect: null,
-        onCancel: null
+        className: 'zui-popup-radio'
     };
 
     return Radio;

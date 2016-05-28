@@ -1,34 +1,39 @@
 /**
  * @file 下浮层基类
  * @author fe.xiaowu@gmail.com
+ *
+ * @events
+ *     1. cancel
+ *     2. close
+ *     3. destroy
  */
 
 define(function (require) {
     'use strict';
 
     var $ = require('zepto');
+    var Zui = require('zui');
 
     // 加载样式
     require('css!./base.css');
 
-    /**
-     * 构造函数
-     *
-     * @param {Object} options 配置对象
-     * @param {string} options.content 内容
-     * @param {string} options.className 自定义样式
-     * @param {Function} options.onCancel 点击遮罩层取消时回调函数
-     */
-    function Base(options) {
-        this.options = $.extend({}, Base.defaults, options);
-        this.__init();
-    }
+    var Base = Zui.extend({
 
-    $.extend(Base.prototype, {
-        __init: function () {
+        /**
+         * 构造函数
+         *
+         * @param {Object} options 参数参数
+         */
+        constructor: function (options) {
             var self = this;
-            var $wrap = this.$wrap = $('<div />').addClass('zui-popup-wrap');
-            var $inner = $('<div />').addClass('zui-popup-inner ' + this.options.className).html(this.options.content);
+            var $wrap;
+            var $inner;
+
+            // 初始化zui
+            Base.super.constructor.call(self, Base.defaults, options);
+
+            $wrap = self.$wrap = $('<div />').addClass('zui-popup-wrap');
+            $inner = $('<div />').addClass('zui-popup-inner ' + self.get('className')).html(self.get('content'));
 
             // 添加遮罩层
             $wrap.append('<div class="zui-popup-mask"></div>');
@@ -45,10 +50,7 @@ define(function (require) {
 
             $wrap.find('.zui-popup-mask').on('click', function () {
                 self.close();
-
-                if ('function' === typeof self.options.onCancel) {
-                    self.options.onCancel();
-                }
+                self.trigger('cancel');
             }).on('touchmove', false);
 
             $inner = null;
@@ -74,7 +76,7 @@ define(function (require) {
                 transform: 'translateY(100%)'
             }, Base.animationTimeout, 'ease', function () {
                 self.$wrap.remove();
-                delete self.$wrap;
+                self.trigger('close destroy');
             });
 
             return self;
@@ -84,12 +86,13 @@ define(function (require) {
     /**
      * 默认参数
      *
-     * @type {Object}
+     * @param {Object} options 配置对象
+     * @param {string} options.content 内容
+     * @param {string} options.className 自定义样式
      */
     Base.defaults = {
         className: '',
-        content: '',
-        onCancel: null
+        content: ''
     };
 
     /**

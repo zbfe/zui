@@ -94,15 +94,13 @@ require([
                 text: '菜单4',
                 value: '4'
             }
-        ],
-        onSelect: function (data) {
-            alert('你选择了:' + data.value + ', 索引是:' + data.index);
-        },
-        onCancel: function () {
-            alert('你取消了选择');
-        }
+        ]
     };
-    new Select(options);
+    new Select(options).on('select', function (data) {
+        alert('你选择了:' + data.value + ', 索引是:' + data.index);
+    }).on('cancel', function () {
+        alert('你取消了选择');
+    });
 });
 ```
 
@@ -132,14 +130,13 @@ require([
                 text: '菜单4',
                 value: '4'
             }
-        ],
-        onSelect: function (data) {
-            console.log(data);
-        },
-        onCancel: function () {
-        }
+        ]
     };
-    new Radio(options);
+    new Radio(options).on('select', function (data) {
+        console.log(data);
+    }).on('cancel', function () {
+        console.log('cancel');
+    });
 });
 ```
 ## popup/multiple
@@ -169,13 +166,12 @@ require([
                 text: '菜单4',
                 value: '4'
             }
-        ],
-        onSelect: function (data) {
-            console.log(data);
-        },
-        onCancel: function () {
-        }
+        ]
     };
-    new Multiple(options);
+    new Multiple(options).on('select', function (data) {
+        console.log(data);
+    }).on('cancel', function () {
+        console.log('cancel');
+    });
 });
 ```

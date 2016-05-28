@@ -1,6 +1,12 @@
 /**
  * @file 弹出下浮层，模拟下拉
  * @author fe.xiaowu@gmail.com
+ *
+ * @events
+ *     1. cancel
+ *     2. close
+ *     3. destroy
+ *     4. select
  */
 
 define(function (require) {
@@ -12,39 +18,27 @@ define(function (require) {
     // 引用css
     require('css!./select.css');
 
-    /**
-     * 构造函数
-     *
-     * @param {Object} options 配置对象
-     * @param {Array} options.data 数据列表，[{value, text}]
-     * @param {Function} options.onSelect 选择回调，this为当前实例，参数为{value, index}
-     * @param {Function} options.onCancel 取消回调
-     */
-    function Select(options) {
-        this.options = $.extend({}, Select.defaults, options);
-
-        // 如果没有data或者为空，则报错
-        if (!this.options.data || !this.options.data.length) {
-            throw new Error('options.data is empty');
-        }
-
-        this.__init();
-    }
-
-    $.extend(Select.prototype, {
+    var Select = Base.extend({
 
         /**
-         * 初始化
+         * 构造函数
          *
-         * @private
+         * @param {Object} options 参数参数
          */
-        __init: function () {
+        constructor: function (options) {
             var self = this;
-            var options = self.options;
-            var html = '';
+            var html;
+
+            // 合并参数
+            options = $.extend({}, Select.defaults, options);
+
+            // 如果没有data或者为空，则报错
+            if (!options.data || !options.data.length) {
+                throw new Error('options.data is empty');
+            }
 
             // 拼列表
-            html += [
+            html = [
                 '<ul class="zui-popup-select-list">'
             ].join('');
             options.data.forEach(function (val) {
@@ -65,54 +59,31 @@ define(function (require) {
                 '</div>'
             ].join('');
 
-            // 弹出来
-            self._popup = new Base({
-                content: html,
-                className: 'zui-popup-select',
-                onCancel: options.onCancel
-            });
+            // 准备弹出来的数据
+            options.content = html;
+
+            // 初始化zui
+            Select.super.constructor.call(self, options);
 
             // 点击取消
-            self._popup.$wrap.find('.zui-popup-select-cancel').on('click', function () {
+            self.$wrap.find('.zui-popup-select-cancel').on('click', function () {
+                self.trigger('cancel');
                 self.close();
-                if ('function' === typeof options.onCancel) {
-                    options.onCancel();
-                }
             });
 
             // 点击菜单
-            self._popup.$wrap.find('.zui-popup-select-list .zui-popup-select-item').on('click', function () {
-                var index;
+            self.$wrap.find('.zui-popup-select-list .zui-popup-select-item').on('click', function () {
+                var index = $(this).index();
+
+                self.trigger('select', {
+                    index: index,
+                    value: self.get('data')[index].value
+                });
 
                 self.close();
-
-                if ('function' === typeof options.onSelect) {
-                    index = $(this).index();
-
-                    options.onSelect.call(self, {
-                        index: index,
-                        value: options.data[index].value
-                    });
-                }
             });
-        },
 
-        /**
-         * 关闭
-         *
-         * @return {Object} this
-         */
-        close: function () {
-            var self = this;
-
-            if (!self._popup) {
-                return self;
-            }
-
-            self._popup.close();
-            delete self._popup;
-
-            return self;
+            html = null;
         }
     });
 
@@ -120,11 +91,11 @@ define(function (require) {
      * 默认参数
      *
      * @type {Object}
+     * @param {Array} data 数据列表，[{value, text}]
      */
     Select.defaults = {
         data: [],
-        onSelect: null,
-        onCancel: null
+        className: 'zui-popup-select'
     };
 
     return Select;
