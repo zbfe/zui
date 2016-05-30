@@ -16,13 +16,7 @@ define(function (require) {
         /**
          * 构造函数
          *
-         * @param {Object|string} options 配置参数或者提示内容
-         * @param {Function} options.onShow 显示成功后回调
-         * @param {Function} options.onClose 关闭层后回调
-         * @param {boolean} options.lock 是否锁定屏幕
-         * @param {boolean} [options.autoClose=true] 是否自动关闭
-         * @param {number} [options.time=2000] 自动关闭时间
-         * @param {string} options.className 自定义样式名
+         * @param {Object|string} options 配置对象或者显示字符串
          */
         constructor: function (options) {
             var self = this;
@@ -107,6 +101,10 @@ define(function (require) {
      * 配置参数
      *
      * @type {Object}
+     * @param {boolean} options.lock 是否锁定屏幕
+     * @param {boolean} [options.autoClose=true] 是否自动关闭
+     * @param {number} [options.time=2000] 自动关闭时间
+     * @param {string} options.className 自定义样式名
      */
     Tips.defaults = {
         autoClose: true,
