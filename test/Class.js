@@ -32,13 +32,20 @@ define([
             });
 
             expect(function () {
-                try {
-                    new App().test();
-                }
-                catch (e) {
-                    throw new Error(e);
-                }
+                new App().test();
             }).toThrowError(/constructor/);
+        });
+
+        // 不new会实例化失败
+        it('not new', function () {
+            var app = Class.extend({
+                constructor: function () {},
+                test: function () {}
+            });
+
+            expect(function () {
+                app().test();
+            }).toThrowError(/undefined is not an object/);
         });
 
         it('super', function () {
