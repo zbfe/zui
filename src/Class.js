@@ -5,12 +5,13 @@
  */
 
 define(function () {
-    // Dependency of this library:
-    // ECMAScript 5: use the es5-shim in older browsers
     var Class = {
-        // ---------- Inheritance API
 
         /**
+         * 扩展class
+         *
+         * @param {Object} properties 扩展对象，必须包含constructor方法
+         * @return {Function} 构造函数
          */
         extend: function (properties) {
             var superProto = this.prototype || Class;
@@ -20,18 +21,25 @@ define(function () {
             Class.copyOwnTo(properties, proto);
 
             var constr = proto.constructor;
-            if (!(constr instanceof Function)) {
-                throw new Error('You must define a method \'constructor\'');
-            }
+            // if (!(constr instanceof Function)) {
+            //     throw new Error('You must define a method \'constructor\'');
+            // }
 
             // Set up the constructor
             constr.prototype = proto;
             constr.super = superProto;
-            constr.extend = this.extend; // inherit class method
+
+            // inherit class method
+            constr.extend = this.extend;
             return constr;
         },
 
         /**
+         * 拷贝属性
+         *
+         * @param {Object} source 源
+         * @param {Object} target 目标
+         * @return {Object} 复制体
          */
         copyOwnTo: function (source, target) {
             Object.getOwnPropertyNames(source).forEach(function (propName) {
