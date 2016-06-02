@@ -99,7 +99,8 @@ define(function (require) {
             var self = this;
 
             // 如果事件名不是字符或者回调不是函数，则忽略，这是有问题额
-            if ('string' !== typeof event || 'function' !== typeof callback) {
+            // 字符串判断在 _access 里做了
+            if ('function' !== typeof callback) {
                 return self;
             }
 
@@ -126,13 +127,19 @@ define(function (require) {
         one: function (event, callback) {
             var self = this;
 
-            // 如果回调是方法才执行
-            if ('function' === typeof callback) {
-                self.on(event, function () {
-                    self.off(event, callback);
-                    return callback.apply(this, [].slice.call(arguments));
-                });
+            // 如果事件名不是字符或者回调不是函数，则忽略，这是有问题额
+            // 字符串判断在 _access 里做了
+            if ('function' !== typeof callback) {
+                return self;
             }
+
+            self._access(event, function (key) {
+                var fn = function () {
+                    self.off(event, fn);
+                    return callback.apply(this, [].slice.call(arguments));
+                };
+                self.on(event, fn);
+            });
 
             return self;
         },
@@ -192,7 +199,7 @@ define(function (require) {
             if (data && !Array.isArray(data)) {
                 data = [data];
             }
-            else {
+            else if (!data) {
                 data = [];
             }
 
