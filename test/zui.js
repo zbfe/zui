@@ -8,10 +8,271 @@ define([
 ], function (Zui) {
     'use strict';
 
+    /**
+     * 空参数
+     *
+     * @type {Array}
+     */
+    var emptyTypes = [
+        '',
+        false,
+        0,
+        null,
+        undefined
+    ];
+
+    /**
+     * 全部类型的参数
+     *
+     * @type {Array}
+     */
+    var types = emptyTypes.concat([
+        function () {},
+        /1/,
+        '1',
+        1,
+        true,
+        {},
+        []
+    ]);
+
+    /**
+     * 检查参数
+     *
+     * @param  {Function} callback 回调
+     *
+     * @return {undefined}
+     */
+    var checkParam = function (callback) {
+        if ('function' !== typeof callback) {
+            return;
+        }
+
+        types.forEach(function (key) {
+            emptyTypes.forEach(function (emptyKey) {
+                callback(key, emptyKey);
+            });
+        });
+    };
+
     describe('zui', function () {
+        it('Zui', function () {
+            expect(typeof Zui).toBe('function');
+        });
+
         it('Zui.extend', function () {
             expect(typeof Zui).toBe('function');
             expect(typeof Zui.extend).toBe('function');
+        });
+
+        it('options empty', function () {
+            var app = new Zui();
+            expect(app.get()).toEqual({});
+        });
+
+        it('options', function () {
+            var app;
+
+            app = new Zui({
+                a: 1
+            });
+            expect(app.get('a')).toBe(1);
+
+            app = new Zui({
+                a: 1
+            }, {
+                b: 2
+            });
+            expect(app.get('a')).toBe(1);
+            expect(app.get('b')).toBe(2);
+
+            app = new Zui({
+                a: 1
+            }, {
+                b: 2
+            }, {
+                c: 3,
+                a: 4
+            });
+            expect(app.get('a')).toBe(4);
+            expect(app.get('b')).toBe(2);
+            expect(app.get('c')).toBe(3);
+        });
+
+        it('on check param and return', function () {
+            var app = new Zui();
+
+            checkParam(function (key, key2) {
+                expect(app.on(key, key2)).toEqual(app);
+            });
+        });
+
+        it('on event', function (done) {
+            var app = new Zui();
+            var i = 0;
+
+            app.on('event', function () {
+                i += 1;
+            });
+
+            app.trigger('event');
+            app.trigger('event');
+            app.trigger('event');
+
+            expect(i).toBe(3);
+            setTimeout(done);
+        });
+
+        it('on events', function (done) {
+            var app = new Zui();
+            var i = 0;
+
+            app.on('event event2', function () {
+                i += 1;
+            });
+
+            app.trigger('event');
+            app.trigger('event2');
+
+            expect(i).toBe(2);
+            setTimeout(done);
+        });
+
+        it('on callback this', function (done) {
+            var app = new Zui();
+
+            app.on('callback', function () {
+                expect(this).toEqual(app);
+                done();
+            });
+
+            app.trigger('callback');
+        });
+
+
+        it('on callback param', function (done) {
+            var app = new Zui();
+
+            app.on('callback0', function (a) {
+                expect(a).toBeUndefined();
+            }).trigger('callback0');
+
+            app.on('callback1', function (a, b) {
+                expect(a).toBe(1);
+                expect(b).toBeUndefined();
+            }).trigger('callback1', 1);
+
+            app.on('callback2', function (a) {
+                expect(a).toBe(1);
+            }).trigger('callback2', [1]);
+
+            app.on('callback3', function (a) {
+                expect(a).toEqual({});
+            }).trigger('callback3', {});
+
+            app.on('callback4', function (a, b, c) {
+                expect(a).toBe(1);
+                expect(b).toBe(2);
+                expect(c).toBe(3);
+            }).trigger('callback4', [1, 2, 3]);
+
+            app.on('callback5', function (a) {
+                expect(a.a).toBe(1);
+            }).trigger('callback5', {a: 1});
+
+            app.on('callback6', function (a) {
+                expect(a.a).toBe(1);
+            }).trigger('callback6', [{a: 1}]);
+
+            setTimeout(done);
+        });
+
+        it('one check param and return', function () {
+            var app = new Zui();
+
+            checkParam(function (key, key2) {
+                expect(app.on(key, key2)).toEqual(app);
+            });
+        });
+
+        it('one event', function (done) {
+            var app = new Zui();
+            var i = 0;
+
+            app.one('event', function () {
+                i += 1;
+            });
+
+            app.trigger('event');
+            app.trigger('event');
+            app.trigger('event');
+
+            expect(i).toBe(1);
+            setTimeout(done);
+        });
+
+        it('one events', function (done) {
+            var app = new Zui();
+            var i = 0;
+
+            app.one('event event2', function () {
+                i += 1;
+            });
+
+            app.trigger('event');
+            app.trigger('event2');
+
+            expect(i).toBe(2);
+            setTimeout(done);
+        });
+
+        it('one callback this', function (done) {
+            var app = new Zui();
+
+            app.one('callback', function () {
+                expect(this).toEqual(app);
+                done();
+            });
+
+            app.trigger('callback');
+        });
+
+
+        it('one callback param', function (done) {
+            var app = new Zui();
+
+            app.one('callback0', function (a) {
+                expect(a).toBeUndefined();
+            }).trigger('callback0');
+
+            app.one('callback1', function (a, b) {
+                expect(a).toBe(1);
+                expect(b).toBeUndefined();
+            }).trigger('callback1', 1);
+
+            app.one('callback2', function (a) {
+                expect(a).toBe(1);
+            }).trigger('callback2', [1]);
+
+            app.one('callback3', function (a) {
+                expect(a).toEqual({});
+            }).trigger('callback3', {});
+
+            app.one('callback4', function (a, b, c) {
+                expect(a).toBe(1);
+                expect(b).toBe(2);
+                expect(c).toBe(3);
+            }).trigger('callback4', [1, 2, 3]);
+
+            app.one('callback5', function (a) {
+                expect(a.a).toBe(1);
+            }).trigger('callback5', {a: 1});
+
+            app.one('callback6', function (a) {
+                expect(a.a).toBe(1);
+            }).trigger('callback6', [{a: 1}]);
+
+            setTimeout(done);
         });
     });
 });
