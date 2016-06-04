@@ -33,7 +33,7 @@ define([
 
             expect(function () {
                 new App().test();
-            }).toThrowError(/constructor/);
+            }).toThrowError(TypeError);
         });
 
         // 不new会实例化失败
@@ -45,7 +45,7 @@ define([
 
             expect(function () {
                 app().test();
-            }).toThrowError(/undefined is not an object/);
+            }).toThrowError(TypeError);
         });
 
         it('super', function () {
@@ -82,20 +82,11 @@ define([
         it('check param', function () {
             [
                 null,
-                '',
-                undefined,
-                0,
-                true,
-                false,
-                // function () {},
-                // {},
-                // [],
-                // /1/
+                undefined
             ].forEach(function (key) {
-                // Class.extend(key);
                 expect(function () {
                     Class.extend(key);
-                }).toThrowError(/is not an object/);
+                }).toThrowError(TypeError);
             });
         });
     });
