@@ -18,7 +18,10 @@ define(function (require) {
         /**
          * 构造函数
          *
-         * @param  {Object} options 配置参数
+         * @param  {string} title 标题
+         * @param {string} content 内容
+         * @param {Function} ok 确定回调
+         * @param {Function} cancel 取消回调
          */
         constructor: function (title, content, ok, cancel) {
             var self = this;

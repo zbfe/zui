@@ -10,7 +10,6 @@
 define(function (require) {
     'use strict';
 
-    var $ = require('zepto');
     var Dialog = require('./dialog');
 
     var Alert = Dialog.extend({
@@ -18,7 +17,9 @@ define(function (require) {
         /**
          * 构造函数
          *
-         * @param  {Object} options 配置参数
+         * @param  {string} title 标题
+         * @param {string} content 内容
+         * @param {Function} callback 确定回调
          */
         constructor: function (title, content, callback) {
             var self = this;
@@ -27,6 +28,7 @@ define(function (require) {
             if ('function' === typeof content) {
                 callback = content;
             }
+
             // 初始化zui
             Alert.super.constructor.call(self, {
                 title: title,
