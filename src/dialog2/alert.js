@@ -28,12 +28,11 @@ define(function (require) {
             if ('function' === typeof content) {
                 callback = content;
             }
-
             // 初始化zui
             Alert.super.constructor.call(self, {
                 title: title,
                 content: content,
-                ok: callback
+                ok: callback || true
             });
         }
     });

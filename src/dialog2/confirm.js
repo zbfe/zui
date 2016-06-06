@@ -30,16 +30,12 @@ define(function (require) {
                 cancel = ok;
             }
 
-            if (!cancel) {
-                cancel = true;
-            }
-
             // 初始化zui
             Confirm.super.constructor.call(self, {
                 title: title,
                 content: content,
-                ok: ok,
-                cancel: cancel
+                ok: ok || true,
+                cancel: cancel || true
             });
         }
     });
