@@ -148,7 +148,7 @@ define(function (require) {
             });
 
             // 如果有自动关闭的时间
-            if (options.time) {
+            if (options.time && 'number' === typeof options.time) {
                 self.one('show', function () {
                     setTimeout(self.close.bind(self), options.time);
                 });
@@ -229,9 +229,9 @@ define(function (require) {
          */
         _createHtml: function () {
             var $wrap = this.$wrap = $('<div />').attr({
-                'role': this.get('lock') ? 'alertdialog' : 'dialog',
-                'tabindex': -1
-            }).addClass('zui-dialog zui');
+                role: this.get('lock') ? 'alertdialog' : 'dialog',
+                tabindex: -1
+            }).addClass('zui-dialog');
 
             $wrap[0].innerHTML = [
                 '<div class="zui-dialog-mask"></div>',
@@ -245,7 +245,7 @@ define(function (require) {
             ].join('');
 
             // 阻止拖动
-            $wrap.on('touchmove', function(event) {
+            $wrap.on('touchmove', function (event) {
                 event.preventDefault();
             });
 

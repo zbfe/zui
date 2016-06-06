@@ -5,7 +5,6 @@
  *     1. show 显示
  *     2. close 关闭
  *     3. destroy 销毁
- *     4. button:id 按钮点击回调
  */
 
 define(function (require) {
