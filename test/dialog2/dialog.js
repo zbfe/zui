@@ -2,6 +2,7 @@
  * @file 弹出层测试
  * @author fe.xiaowu@gmail.com
  */
+
 /* eslint-disable max-nested-callbacks */
 define([
     'dialog2/dialog',
@@ -190,19 +191,21 @@ define([
         });
 
         it('options.lock => true', function () {
-            new Dialog({
+            var app = new Dialog({
                 lock: true
             });
 
             expect($('.zui-dialog-mask').css('display')).toBe('block');
+            app.close();
         });
 
         it('options.lock => false', function () {
-            new Dialog({
+            var app = new Dialog({
                 lock: false
             });
 
             expect($('.zui-dialog-mask').css('display')).toBe('none');
+            app.close();
         });
 
         it('options.time => num', function (done) {
@@ -231,6 +234,8 @@ define([
             new Dialog({
                 time: 1
             });
+
+            expect(true).toBe(true);
         });
 
         it('options.duration 100', function (done) {
