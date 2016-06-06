@@ -11,7 +11,7 @@ define(function (require) {
     'use strict';
 
     var $ = require('zepto');
-    var Dialog = require('./index');
+    var Dialog = require('./dialog');
 
     var Alert = Dialog.extend({
 
@@ -31,7 +31,8 @@ define(function (require) {
             Alert.super.constructor.call(self, {
                 title: title,
                 content: content,
-                ok: callback || true
+                ok: callback || true,
+                lock: true
             });
         }
     });

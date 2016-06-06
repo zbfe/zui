@@ -11,7 +11,7 @@ define(function (require) {
     'use strict';
 
     var $ = require('zepto');
-    var Dialog = require('./index');
+    var Dialog = require('./dialog');
 
     var Confirm = Dialog.extend({
 
@@ -34,7 +34,8 @@ define(function (require) {
                 title: title,
                 content: content,
                 ok: ok || true,
-                cancel: cancel || true
+                cancel: cancel || true,
+                lock: true
             });
         }
     });
