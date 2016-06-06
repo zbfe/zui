@@ -14,7 +14,7 @@ define(function (require) {
     var $ = require('zepto');
     var Zui = require('zui');
 
-    require('css!./index.css');
+    require('css!./dialog.css');
 
     var Dialog = Zui.extend({
 
@@ -131,7 +131,7 @@ define(function (require) {
 
             // 如果有遮罩层则让其显示
             if (options.lock) {
-                self.$wrap.find('.zui-dialog-mask').animate({
+                self.$wrap.find('.zui-dialog-mask').show().animate({
                     opacity: 1
                 }, options.duration, 'ease-out');
             }

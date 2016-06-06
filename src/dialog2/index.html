@@ -327,16 +327,17 @@
     </p>
     <script>
     require([
-        'dialog2/confirm',
+        'dialog2/dialog',
         'zepto'
     ], function (Dialog, $) {
-        new Dialog('测试', '这是一个按钮垂直排列的自定义对话框', function () {
-            console.log('ok');
-        });
+        // new Dialog('测试', '这是一个按钮垂直排列的自定义对话框', function () {
+        //     console.log('ok');
+        // });
         $(function () {
             $('p').on('click', function () {
-                new Dialog('测试', '这是一个按钮垂直排列的自定义对话框', function () {
-                    console.log('ok');
+                new Dialog({
+                    content: 'test',
+                    // lock: false
                 });
             })
             $('body').on('click', function () {
