@@ -9,6 +9,8 @@ define(function (require) {
 
     var $ = require('zepto');
 
+    require('css!./zui.css');
+
     /**
      * zui基类
      */
