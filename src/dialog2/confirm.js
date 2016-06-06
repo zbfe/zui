@@ -10,7 +10,6 @@
 define(function (require) {
     'use strict';
 
-    var $ = require('zepto');
     var Dialog = require('./dialog');
 
     var Confirm = Dialog.extend({
