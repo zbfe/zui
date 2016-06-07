@@ -228,8 +228,9 @@ define(function (require) {
          * @private
          */
         _createHtml: function () {
-            var $wrap = this.$wrap = $('<div />').attr({
-                role: this.get('lock') ? 'alertdialog' : 'dialog',
+            var self = this;
+            var $wrap = self.$wrap = $('<div />').attr({
+                role: self.get('lock') ? 'alertdialog' : 'dialog',
                 tabindex: -1
             }).addClass('zui-dialog');
 
@@ -245,11 +246,20 @@ define(function (require) {
             ].join('');
 
             // 阻止拖动
-            $wrap.on('touchmove', function (event) {
-                event.preventDefault();
-            });
+            $wrap.on('touchmove', self._touchmove.bind(self));
 
             document.body.appendChild($wrap[0]);
+        },
+
+        /**
+         * 阻止滑动
+         *
+         * @private
+         * @param  {Object} event 事件对象
+         */
+        _touchmove: function (event) {
+            event.preventDefault();
+            event.stopPropagation();
         }
     });
 
