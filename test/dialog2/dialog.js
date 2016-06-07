@@ -262,6 +262,69 @@ define([
             });
         });
 
+        it('app._touchmove', function (done) {
+            var count = 0;
+
+            new Dialog()._touchmove({
+                preventDefault: function () {
+                    count += 1;
+                },
+                stopPropagation: function () {
+                    count += 1;
+                }
+            });
+
+            setTimeout(function () {
+                expect(count).toBe(2);
+                done();
+            });
+        });
+
+        it('app.title()', function () {
+            var app = new Dialog({
+                title: null
+            });
+
+            expect($('.zui-dialog-title').css('display')).toBe('none');
+
+            expect(app.title('测试')).toEqual(app);
+            expect($('.zui-dialog-title').css('display')).toBe('block');
+            expect($('.zui-dialog-title').text()).toBe('测试');
+
+            app.title('');
+            expect($('.zui-dialog-title').css('display')).toBe('none');
+        });
+
+        it('app.content()', function () {
+            var app = new Dialog({
+            });
+
+            expect($('.zui-dialog-text').text()).toBe('');
+
+            expect(app.content('1')).toEqual(app);
+            expect($('.zui-dialog-text').text()).toBe('1');
+            app.content('');
+            expect($('.zui-dialog-text').text()).toBe('');
+            app.content('<b>1</b>');
+            expect($('.zui-dialog-text').find('b').text()).toBe('1');
+        });
+
+        it('app.close()', function (done) {
+            var app = new Dialog({
+                duration: 100
+            });
+
+            expect($('.zui-dialog').length).toBe(1);
+
+            expect(app.close()).toEqual(app);
+            
+            setTimeout(function () {
+                expect($('.zui-dialog').length).toBe(0);
+                app.close().close();
+                done();
+            }, 100 + 100 + 100);
+        });
+
         it('events queue', function (done) {
             var queue = [];
             var pushQueueHandle = function (type) {
@@ -289,6 +352,23 @@ define([
                 expect(queue.join(',')).toEqual('show,ok,close,destroy');
                 done();
             });
+        });
+
+        it('event button:value', function (done) {
+            var app = new Dialog({
+                button: [
+                    {
+                        value: '1'
+                    }
+                ]
+            });
+
+            app.on('button:1', function (a) {
+                expect(a).toBeUndefined();
+                done();
+            });
+
+            app.$wrap.find('.zui-dialog-button').triggerHandler('click');
         });
     });
 });
