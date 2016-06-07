@@ -317,7 +317,7 @@ define([
             expect($('.zui-dialog').length).toBe(1);
 
             expect(app.close()).toEqual(app);
-            
+
             setTimeout(function () {
                 expect($('.zui-dialog').length).toBe(0);
                 app.close().close();
