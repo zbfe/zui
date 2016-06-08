@@ -89,5 +89,80 @@ define([
                 }).toThrowError(TypeError);
             });
         });
+
+        it('child extend', function () {
+            var num = 0;
+
+            var A = Class.extend({
+                constructor: function () {
+                    num += 1;
+                },
+
+                type: 'a',
+
+                ona: function () {
+                    num += 1;
+                }
+            });
+
+            var B = A.extend({
+                constructor: function () {
+                    num += 1;
+                    B.super.constructor.call(this);
+                },
+
+                type: 'b',
+
+                onb: function () {
+                    num += 1;
+                }
+            });
+
+            var C = B.extend({
+                constructor: function () {
+                    num += 1;
+                    C.super.constructor.call(this);
+                },
+
+                type: 'c',
+
+                onc: function () {
+                    num += 1;
+                }
+            });
+
+            var app;
+
+            app = new A();
+            expect(num).toBe(1);
+            expect(app.type).toBe('a');
+            app.ona();
+            expect(num).toBe(2);
+
+            num = 0;
+
+            app = new B();
+            expect(B.super.type).toBe('a');
+            expect(num).toBe(2);
+            expect(app.type).toBe('b');
+            app.onb();
+            expect(num).toBe(3);
+            app.ona();
+            expect(num).toBe(4);
+
+
+            num = 0;
+
+            app = new C();
+            expect(C.super.type).toBe('b');
+            expect(num).toBe(3);
+            expect(app.type).toBe('c');
+            app.onc();
+            expect(num).toBe(4);
+            app.onb();
+            expect(num).toBe(5);
+            app.ona();
+            expect(num).toBe(6);
+        });
     });
 });
