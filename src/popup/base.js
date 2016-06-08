@@ -64,11 +64,12 @@ define(function (require) {
         close: function () {
             var self = this;
 
-            if (self._closed) {
+            if (self.is('close')) {
                 return self;
             }
 
-            self._closed = true;
+            // 打上标识
+            self.is('close', true);
 
             self.$wrap.removeClass('zui-popup-show');
 

@@ -7,7 +7,7 @@ var allTestFiles = [];
 
 // Get a list of all the test files to include
 Object.keys(window.__karma__.files).forEach(function (file) {
-    if (String(file).indexOf('/test/') > -1) {
+    if (String(file).indexOf('/test/tips') > -1) {
         // Normalize paths to RequireJS module names.
         // If you require sub-dependencies of test files to be loaded as-is (requiring file extension)
         // then do not normalize the paths

@@ -51,7 +51,7 @@ define(function (require) {
                 opacity: 1
             }, Tips.animationTimeout, 'ease', function () {
                 // 如果有自动关闭，则延迟关闭
-                if (self.get('autoClose')) {
+                if (self.get('time')) {
                     self._timer = setTimeout(self.close.bind(self), self.get('time'));
                 }
 
@@ -70,9 +70,12 @@ define(function (require) {
             var self = this;
 
             // 如果已经关闭
-            if (self._closed) {
+            if (self.is('close')) {
                 return self;
             }
+
+            // 打上标识
+            self.is('close', true);
 
             // 如果有延迟时间，则清除，防止自动关闭和手动冲突
             if (self._timer) {
@@ -86,12 +89,8 @@ define(function (require) {
             }, Tips.animationTimeout, 'ease', function () {
                 self.$wrap.remove();
 
-                self.trigger('close');
-                self.trigger('destroy');
+                self.trigger('close destroy');
             });
-
-            // 打上关闭标识，防止重复关闭
-            self._closed = true;
 
             return self;
         }
@@ -102,12 +101,10 @@ define(function (require) {
      *
      * @type {Object}
      * @param {boolean} options.lock 是否锁定屏幕
-     * @param {boolean} [options.autoClose=true] 是否自动关闭
      * @param {number} [options.time=2000] 自动关闭时间
      * @param {string} options.className 自定义样式名
      */
     Tips.defaults = {
-        autoClose: true,
         time: 2000,
         content: 'loading',
         lock: true,

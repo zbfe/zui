@@ -164,12 +164,12 @@ define(function (require) {
             var self = this;
 
             // 如果已经关闭了
-            if (self._closed) {
+            if (self.is('close')) {
                 return self;
             }
 
             // 打上标识
-            self._closed = true;
+            self.is('close', true);
 
             // 开始动画关闭
             self.$wrap.find('.zui-dialog-layout').animate({

@@ -77,23 +77,9 @@ define([
             expect($('.zui-tips-wrap').html().indexOf(str) > -1).toBe(true);
         });
 
-        it('autoClose: true', function (done) {
-            new Tips({
-                autoClose: true,
-                time: 50
-            }).on('show', function () {
-                expect(typeof this._timer).toBe('number');
-
-                setTimeout(function () {
-                    expect($('.zui-tips-wrap').length).toBe(0);
-                    done();
-                }, animationTimeout + 50);
-            });
-        });
-
         it('callback this', function (done) {
             var app = new Tips({
-                autoClose: false
+                time: null
             });
 
             app.on('show', function () {
@@ -109,23 +95,8 @@ define([
             });
         });
 
-        it('autoClose: false', function (done) {
-            new Tips({
-                autoClose: false,
-                time: 0
-            });
-
-            expect($('.zui-tips-wrap').length).toBe(1);
-
-            setTimeout(function () {
-                expect($('.zui-tips-wrap').length).toBe(1);
-                done();
-            }, 100 + animationTimeout);
-        });
-
         it('time: 1', function (done) {
             new Tips({
-                autoClose: true,
                 time: 1
             }).on('show', function () {
                 setTimeout(function () {
@@ -141,7 +112,6 @@ define([
             var start = Date.now();
 
             new Tips({
-                autoClose: true,
                 time: 1
             }).on('close', function () {
                 var diff = Tips.animationTimeout + Tips.animationTimeout + 1;
@@ -168,7 +138,6 @@ define([
 
         it('.$wrap', function (done) {
             var app = new Tips({
-                autoClose: true,
                 time: 100
             }).on('close', function () {
                 expect(typeof app.$wrap === 'undefined').toBe(false);
@@ -182,7 +151,7 @@ define([
 
         it('close()', function (done) {
             var app = new Tips({
-                autoClose: false
+                time: null
             });
 
             expect($('.zui-tips-wrap').length).toBe(1);
@@ -214,9 +183,8 @@ define([
             expect(flag).toBe(true);
         });
 
-        it('autoClose => close()', function (done) {
+        it('time => close()', function (done) {
             var app = new Tips({
-                autoClose: true,
                 time: 1
             });
 
@@ -233,16 +201,15 @@ define([
             }, 1 + animationTimeout);
         });
 
-        it('close() => autoClose', function (done) {
+        it('close() => time', function (done) {
             var app = new Tips({
-                autoClose: true,
                 time: 1
             });
 
             app.close();
 
             setTimeout(function () {
-                expect(app._closed).toBe(true);
+                expect(app.is('close')).toBe(true);
                 done();
             }, 1 + animationTimeout);
         });
@@ -282,6 +249,28 @@ define([
                 expect(flag).toBe(1);
                 done();
             }, 1 + animationTimeout + animationTimeout);
+        });
+
+        it('events queue', function (done) {
+            var queue = [];
+            var pushQueueHandle = function (type) {
+                return function () {
+                    queue.push(type);
+                };
+            };
+
+            var app = new Tips({
+                time: 100
+            });
+
+            app.on('destroy', pushQueueHandle('destroy'));
+            app.on('show', pushQueueHandle('show'));
+            app.on('close', pushQueueHandle('close'));
+
+            app.on('destroy', function () {
+                expect(queue.join(',')).toEqual('show,close,destroy');
+                done();
+            });
         });
     });
 });

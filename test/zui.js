@@ -461,6 +461,34 @@ define([
             expect(app.get('b')).toBeUndefined();
         });
 
+        it('is', function () {
+            var app = new Zui();
+
+            expect(app.is('no')).toBe(false);
+            app.is('yes', 1);
+            expect(app.is('yes')).toBe(true);
+
+            app.is(true, true);
+            expect(app.is(true)).toBe(false);
+        });
+
+        it('event destroy', function (done) {
+            var app = new Zui();
+
+            app.a = 1;
+            app.is('ok', 1);
+
+            expect(app.a).toBe(1);
+            expect(app.is('ok')).toBe(true);
+
+            app.on('destroy', function () {
+                expect(app.a).toBeUndefined();
+                expect(app.is('ok')).toBe(true);
+                done();
+            });
+            app.trigger('destroy');
+        });
+
         // _
         it('._getListener', function () {
             var app = new Zui();

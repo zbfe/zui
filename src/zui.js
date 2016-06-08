@@ -23,6 +23,9 @@ define(function (require) {
             // 事件队列空间
             self._listener = {};
 
+            // 标识空间
+            self._is = {};
+
             // 如果有参数则认为需要合并配置，如： ({a: 1}, {b:2}, {a:3}) => {a:3, b:2}
             if (args.length > 0) {
                 args.unshift(true, {});
@@ -34,18 +37,16 @@ define(function (require) {
 
             // 绑定销毁时清空
             self.on('destroy', function () {
+                var key;
+
                 self._listener = {};
 
-                for (var key in self) {
-                    if (key === '_closed') {
-                        // console.log('白名单：' + key);
+                for (key in self) {
+                    if (key === '_is') {
+                        continue;
                     }
                     else if (self.hasOwnProperty(key)) {
                         delete self[key];
-                        // console.log('已销毁自定义字段：' + key);
-                    }
-                    else {
-                        // console.log(key + '为原型上字段！');
                     }
                 }
             });
@@ -236,6 +237,26 @@ define(function (require) {
             if (key && 'string' === typeof key && 'undefined' !== typeof value) {
                 this._options[key] = value;
             }
+            return this;
+        },
+
+        /**
+         * 标识处理
+         *
+         * @param  {string}  key 键名
+         * @param  {*}  key 结果
+         *
+         * @return {Boolean|Object}     结果或者this
+         */
+        is: function (key, value) {
+            if (value === undefined) {
+                return !!this._is[key];
+            }
+
+            if ('string' === typeof key) {
+                this._is[key] = value;
+            }
+
             return this;
         }
     });

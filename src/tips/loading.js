@@ -28,7 +28,7 @@ define(function (require) {
         loading.hide();
 
         cache = new Tips({
-            autoClose: false,
+            time: null,
             lock: true,
             content: content || '数据加载中',
             className: 'zui-tips-loading'
