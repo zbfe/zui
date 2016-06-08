@@ -7,6 +7,7 @@
  *     3. destroy 销毁
  */
 
+
 define(function (require) {
     'use strict';
 
@@ -27,6 +28,7 @@ define(function (require) {
             // 如果是 (str, function)
             if ('function' === typeof content) {
                 callback = content;
+                content = '';
             }
 
             // 初始化zui

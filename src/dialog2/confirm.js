@@ -27,8 +27,9 @@ define(function (require) {
 
             // 如果是 (str, function)
             if ('function' === typeof content) {
-                ok = content;
                 cancel = ok;
+                ok = content;
+                content = '';
             }
 
             // 初始化zui
