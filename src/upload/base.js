@@ -40,7 +40,7 @@ define(function (require) {
             self._queued = [];
 
             // 设置是否多选并绑定事件
-            self.$elem.prop('multiple', !!self.get('multiple')).on('change', function (event) {
+            self.$elem.prop('multiple', !!self.get('multiple')).on('change.zui-upload', function (event) {
                 var that = this;
                 var files = event.target.files || event.dataTransfer.files || [];
                 var exts = [];
@@ -105,55 +105,6 @@ define(function (require) {
                     self._addfile(file);
                 });
             });
-        },
-
-        /**
-         * 检查扩展名
-         *
-         * @private
-         * @param  {Object} file 文件对象
-         *
-         * @return {boolean}      是否验证通过
-         */
-        _checkExtname: function (file) {
-            var extname = this.get('extname');
-
-            // 如果为任意验证
-            if (extname === '*') {
-                return true;
-            }
-
-            return new RegExp('image\\/(' + extname.replace(/,/g, '|') + ')').test(file.type);
-        },
-
-        /**
-         * 检查文件大小
-         *
-         * @private
-         * @param  {Object} file 文件对象
-         *
-         * @return {boolean}      是否验证通过
-         */
-        _checkSize: function (file) {
-            return this.get('size') >= file.size;
-        },
-
-        /**
-         * 添加文件到队列
-         *
-         * @private
-         * @param {Object} file 文件对象
-         */
-        _addfile: function (file) {
-            var self = this;
-
-            // 打上全局标识
-            file.id = ++uid;
-
-            // 触发下队列事件
-            self.trigger('queued', file);
-
-            self._queued.push(file);
         },
 
         /**
@@ -222,7 +173,31 @@ define(function (require) {
         },
 
         /**
+         * 销毁
+         *
+         * @return {Object} this
+         */
+        destroy: function () {
+            var self = this;
+
+            if (self.is('destroy')) {
+                return self;
+            }
+
+            // 卸载事件
+            self.$elem.off('change.zui-upload');
+
+            self.is('destroy', true);
+
+            self.trigger('destroy');
+
+            return self;
+        },
+
+        /**
          * 从队列里并发上传
+         *
+         * @private
          */
         _uploads: function () {
             var self = this;
@@ -238,6 +213,7 @@ define(function (require) {
         /**
          * 单个上传
          *
+         * @private
          * @param {Object} file 文件对象
          */
         _upload: function (file) {
@@ -293,7 +269,6 @@ define(function (require) {
 
                     xhr = null;
                 }
-
             };
 
             // 追加数据
@@ -308,6 +283,60 @@ define(function (require) {
             // 发送吧
             xhr.open('POST', self.get('action'), true);
             xhr.send(rdData);
+
+            // 销毁时都取消了
+            self.on('destroy', function () {
+                xhr.abort();
+            });
+        },
+
+        /**
+         * 添加文件到队列
+         *
+         * @private
+         * @param {Object} file 文件对象
+         */
+        _addfile: function (file) {
+            var self = this;
+
+            // 打上全局标识
+            file.id = ++uid;
+
+            // 触发下队列事件
+            self.trigger('queued', file);
+
+            self._queued.push(file);
+        },
+
+        /**
+         * 检查扩展名
+         *
+         * @private
+         * @param  {Object} file 文件对象
+         *
+         * @return {boolean}      是否验证通过
+         */
+        _checkExtname: function (file) {
+            var extname = this.get('extname');
+
+            // 如果为任意验证
+            if (extname === '*') {
+                return true;
+            }
+
+            return new RegExp('image\\/(' + extname.replace(/,/g, '|') + ')').test(file.type);
+        },
+
+        /**
+         * 检查文件大小
+         *
+         * @private
+         * @param  {Object} file 文件对象
+         *
+         * @return {boolean}      是否验证通过
+         */
+        _checkSize: function (file) {
+            return this.get('size') >= file.size;
         }
     });
 
