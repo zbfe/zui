@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>upload</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0">
+</head>
+<body>
+    <input type="file" id="test">
+    <input type="button" value="开始" id="start">
+    <script src="../../lib/requirejs/require.js"></script>
+    <script src="../../lib/requirejs/config.js"></script>
+    <script>
+    require([
+        'upload/base',
+        'zepto'
+    ], function (Base, $) {
+        var app = new Base({
+            elem: '#test',
+            multiple: true,
+            size: 1000 * 100,
+            action: '/upload.php',
+            data: {
+                a: 1,
+                b: 2,
+                c: 3
+            }
+        });
+
+        app.on('queued', function (file) {
+            console.log('queued', file);
+        });
+
+        app.on('success', function (file) {
+            console.log('success', file);
+        });
+
+        app.on('complete', function (event) {
+            console.log('complete', event);
+        });
+
+        app.on('progress', function (event) {
+            console.log('progress', event);
+        });
+
+        app.on('error', function (event) {
+            console.log('error', event);
+        });
+
+        $('#start').on('click', function () {
+            app.start();
+        });
+    });
+    </script>
+</body>
+</html>
