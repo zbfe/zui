@@ -3,8 +3,8 @@
  * @author fe.xiaowu
  *
  * @events
- *     1. success - 上传成功：file
- *     2. error - 有错误：{status, data, msg}
+ *     1. success - 上传成功：{file}
+ *     2. error - 有错误：{status, file, msg}
  *     3. progress - 上传进度：{file, loaded, total}
  *     4. complete - 完成上传（成功、失败都会触发）：{success, error}
  *     5. queued - 添加到队列： file
@@ -41,69 +41,7 @@ define(function (require) {
 
             // 设置是否多选并绑定事件
             self.$elem.prop('multiple', !!self.get('multiple')).on('change.zui-upload', function (event) {
-                var that = this;
-                var files = event.target.files || event.dataTransfer.files || [];
-                var exts = [];
-                var sizes = [];
-
-                // 如果没有文件
-                if (!files.length) {
-                    return;
-                }
-
-                // fix一直选一个文件
-                setTimeout(function () {
-                    that.value = '';
-                }, 100);
-
-                // 筛选扩展名
-                files = files.filter(function (val) {
-                    // 如果验证失败则追加到失败里面
-                    if (!self._checkExtname(val)) {
-                        exts.push(val);
-                        return false;
-                    }
-
-                    // 如果验证文件大小失败
-                    if (!self._checkSize(val)) {
-                        sizes.push(val);
-                        return false;
-                    }
-
-                    return true;
-                });
-
-                // 如果有扩展名不正确文件
-                if (exts.length) {
-                    self.trigger('error', {
-                        status: Base.status.ERROR_EXTNAME,
-                        data: exts,
-                        msg: '文件扩展名不合法'
-                    });
-                }
-
-                exts = null;
-
-                // 如果有大小超出文件
-                if (sizes.length) {
-                    self.trigger('error', {
-                        status: Base.status.ERROR_SIZE,
-                        data: sizes,
-                        msg: '文件大小超出'
-                    });
-                }
-
-                sizes = null;
-
-                // 如果筛选之后还没有文件
-                if (!files.length) {
-                    return;
-                }
-
-                // 添加文件到队列
-                files.forEach(function (file) {
-                    self._addfile(file);
-                });
+                self._changeHandle(event, this);
             });
         },
 
@@ -139,7 +77,10 @@ define(function (require) {
                 }
                 // 如果上传队列没有文件并且当前没有上传，那么就说明已经全部上传完成
                 else if (self._uploading === 0) {
-                    self.trigger('complete');
+                    self.trigger('complete', {
+                        success: self._successFile,
+                        error: self._errorFile
+                    });
                 }
             }
 
@@ -169,6 +110,10 @@ define(function (require) {
                 self._errorFile.push(event.data);
 
                 check();
+            }).on('complete', function () {
+                delete self._successFile;
+                delete self._errorFile;
+                delete self._uploading;
             });
         },
 
@@ -192,6 +137,72 @@ define(function (require) {
             self.trigger('destroy');
 
             return self;
+        },
+
+        /**
+         * 文本框change触发事件
+         *
+         * @private
+         * @param  {Object} event 事件对象
+         * @param  {HTMLelement} that  触发input源dom
+         *
+         * @return {undefined}
+         */
+        _changeHandle: function (event, that) {
+            var self = this;
+            var files = event.target.files || event.dataTransfer.files || [];
+
+            // 如果不是数组则是个对象
+            if (!Array.isArray(files)) {
+                files = Object.keys(files).map(function (key) {
+                    return files[key];
+                });
+            }
+
+            // 如果没有文件
+            if (!files.length) {
+                return;
+            }
+
+            // fix一直选一个文件
+            setTimeout(function () {
+                that.value = '';
+            }, 100);
+
+            // 筛选扩展名
+            files = files.filter(function (val) {
+                // 如果验证失败则追加到失败里面
+                if (!self._checkExtname(val)) {
+                    self.trigger('error', {
+                        status: Base.status.ERROR_EXTNAME,
+                        file: val,
+                        msg: '文件扩展名不合法'
+                    });
+                    return false;
+                }
+
+                // 如果验证文件大小失败
+                if (!self._checkSize(val)) {
+                    self.trigger('error', {
+                        status: Base.status.ERROR_SIZE,
+                        file: val,
+                        msg: '文件大小超出'
+                    });
+                    return false;
+                }
+
+                return true;
+            });
+
+            // 如果筛选之后还没有文件
+            if (!files.length) {
+                return;
+            }
+
+            // 添加文件到队列
+            files.forEach(function (file) {
+                self._addfile(file);
+            });
         },
 
         /**
@@ -240,19 +251,20 @@ define(function (require) {
                         catch (e) {
                             self.trigger('error', {
                                 status: Base.status.ERROR_UPLOAD,
-                                data: file,
+                                file: file,
                                 msg: '解析json失败'
                             });
                         }
 
                         if (res) {
                             if (res.status === 0) {
-                                self.trigger('success', file);
+                                res.file = file;
+                                self.trigger('success', res);
                             }
                             else {
                                 self.trigger('error', {
                                     status: Base.status.ERROR_UPLOAD,
-                                    data: file,
+                                    file: file,
                                     msg: 'json.status错误'
                                 });
                             }
@@ -262,7 +274,7 @@ define(function (require) {
                     else {
                         self.trigger('error', {
                             status: Base.status.ERROR_UPLOAD,
-                            data: file,
+                            file: file,
                             msg: '后端服务响应失败'
                         });
                     }
@@ -410,7 +422,7 @@ define(function (require) {
          *
          * @type {number}
          */
-        limit: 1,
+        limit: 2,
 
         /**
          * 上传表单名
