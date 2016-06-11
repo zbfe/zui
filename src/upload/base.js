@@ -26,7 +26,7 @@ define(function (require) {
             Base.super.constructor.call(self, Base.defaults, options);
 
             if (!window.FormData) {
-                throw new Error('不支持');
+                throw new Error('Does not support FormData');
             }
 
             self.$elem = $(self.get('elem'));
