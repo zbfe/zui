@@ -1,3 +1,17 @@
+// http 服务器
+var httpServer = function (req, res, next) {
+    if (req.url.indexOf('/api/test/upload/ok') > -1) {
+
+        res.end(JSON.stringify({
+            code: 200
+        }));
+
+    } else {
+        next();
+    }
+};
+
+
 // Karma configuration
 // Generated on Sun Jan 24 2016 23:22:35 GMT+0800 (CST)
 module.exports = function (config) {
@@ -76,6 +90,16 @@ module.exports = function (config) {
         singleRun: true,
         // Concurrency level
         // how many browser should be started simultaneous
-        concurrency: Infinity
+        concurrency: Infinity,
+
+        middleware: ['httpServer'],
+         // plugins
+        plugins: ['karma-*', {
+            'middleware:httpServer': [
+                'factory', function () {
+                    return httpServer;
+                }
+            ]
+        }]
     });
 };
