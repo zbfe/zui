@@ -10,7 +10,7 @@
     "hook-install": "prepush install",
     "hook-remove": "prepush remove",
     "start": "npm run server",
-    "server": "http-server -p 9090",
+    "server": "open http://127.0.0.1:9090/ && http-server -p 9090",
     "build:gh-pages": "node build-gh-pages.js",
     "build-doc": "jsdoc src/**/*.js -c jsdoc.json"
   },
@@ -34,6 +34,7 @@
     "karma-phantomjs-launcher": ">=1.0.0",
     "karma-requirejs": "^1.0.0",
     "minami": "^1.1.1",
+    "open": "^0.0.5",
     "prepush": ">=3.1.8",
     "requirejs": "2.2.0"
   }
