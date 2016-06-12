@@ -36,6 +36,9 @@ npm run test-cov
 
 # 运行fecs检查代码
 npm run check
+
+# 运行jsdoc编译文档，后续push时自动编译
+npm run build-doc
 ```
 
 ## 目录规范
