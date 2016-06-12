@@ -18,9 +18,26 @@ define(function (require) {
         /**
          * 构造函数
          *
+         * @class
+         * @description alert弹出层
+         * @module dialog2/alert
+         * @requires dialog2/dialog
+         *
          * @param  {string} title 标题
          * @param {string} content 内容
          * @param {Function} callback 确定回调
+         *
+         * @example
+         * // 只有标题
+         * new Alert('str');
+         *
+         * @example
+         * // 有标题和确定按钮回调
+         * new Alert('str', funciton () {});
+         *
+         * @example
+         * // 有标题、内容和确定按钮回调
+         * new Alert('str', 'content', funciton () {});
          */
         constructor: function (title, content, callback) {
             var self = this;

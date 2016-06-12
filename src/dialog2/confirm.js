@@ -17,10 +17,31 @@ define(function (require) {
         /**
          * 构造函数
          *
+         * @class
+         * @description confirm弹出层
+         * @module dialog2/confirm
+         * @requires dialog2/dialog
+         *
          * @param  {string} title 标题
          * @param {string} content 内容
          * @param {Function} ok 确定回调
          * @param {Function} cancel 取消回调
+         *
+         * @example
+         * // 只有标题
+         * new Confirm('str');
+         *
+         * @example
+         * // 有标题和确定按钮回调
+         * new Confirm('str', funciton () {});
+         *
+         * @example
+         * // 有标题、内容和确定按钮回调
+         * new Confirm('str', 'content', funciton () {});
+         *
+         * @example
+         * // 有标题、内容和确定、取消按钮回调
+         * new Confirm('str', 'content', funciton () {}, function () {});
          */
         constructor: function (title, content, ok, cancel) {
             var self = this;

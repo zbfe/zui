@@ -1,21 +1,31 @@
 /**
- * @file class类
- * @author fe.xiaowu
+ * @file zui基类
+ * @author fe.xiaowu <fe.xiaowu@gmail.com>
  */
 
 define(function (require) {
-    // Class
-    var Class = require('Class');
+    'use strict';
 
+    var Class = require('Class');
     var $ = require('zepto');
 
     require('css!./zui.css');
 
-    /**
-     * zui基类
-     */
     var Zui = Class.extend({
-        // 构造函数
+
+        /**
+         * 构造函数
+         *
+         * @class
+         * @name zui基类
+         * @module zui
+         * @requires Class
+         * @requires zepto
+         * @requires ./zui.css
+         * @description 继承该类的组件必须提供销毁api，并在销毁时触发`destroy`事件
+         *
+         * @param {...options} [options={}] 配置参数
+         */
         constructor: function () {
             var self = this;
             var args = [].slice.call(arguments);
@@ -35,7 +45,11 @@ define(function (require) {
                 self._options = {};
             }
 
-            // 绑定销毁时清空
+            /**
+             * 销毁时触发清除内存
+             *
+             * @event destroy
+             */
             self.on('destroy', function () {
                 var key;
 
@@ -48,6 +62,7 @@ define(function (require) {
                     else if (self.hasOwnProperty(key)) {
                         delete self[key];
                     }
+
                 }
             });
         },
@@ -95,8 +110,12 @@ define(function (require) {
          * @return {Object}            this
          *
          * @example
-         *     on('close', function () {});
-         *     on('close show', function () {});
+         * // 绑定单个事件
+         * on('close', function () {});
+         *
+         * @example
+         * // 绑定多个事件（按顺序）
+         * on('close show', function () {});
          */
         on: function (event, callback) {
             var self = this;
@@ -124,8 +143,12 @@ define(function (require) {
          * @return {Object}            this
          *
          * @example
-         *     one('close', function () {});
-         *     one('close show', function () {});
+         * // 绑定单个事件
+         * one('close', function () {});
+         *
+         * @example
+         * // 绑定多个事件（按顺序）
+         * one('close show', function () {});
          */
         one: function (event, callback) {
             var self = this;
@@ -151,13 +174,20 @@ define(function (require) {
          * 卸载事件
          *
          * @param  {string}   event    事件名，多个事件则以空格分隔
-         * @param  {Function|undefined} callback 触发回调，如果为空则卸载全部的event事件
+         * @param  {Function=} callback 触发回调，如果为空则卸载全部的event事件
          * @return {Object}            this
          *
          * @example
-         *     off('close');
-         *     off('close show', function () {});
-         *     off('close', function () {});
+         * // 关闭所有close事件
+         * off('close');
+         *
+         * @example
+         * // 关闭多个且回调相同的事件
+         * off('close show', function () {});
+         *
+         * @example
+         * // 关闭单个且回调相同的事件
+         * off('close', function () {});
          */
         off: function (event, callback) {
             var self = this;
@@ -171,6 +201,7 @@ define(function (require) {
                         if (callback === listeners[i].callback) {
                             listeners.splice(i--, 1);
                         }
+
                     }
                 }
                 else {
@@ -185,22 +216,31 @@ define(function (require) {
          * 触发事件
          *
          * @param  {string} event 事件名，多个事件则以空格分隔
-         * @param  {Array} data  触发数据
+         * @param  {Array=} data  触发数据
          * @return {Object}       this
          *
          * @example
-         *     trigger('click');
-         *     trigger('close show');
-         *     trigger('click', 'ok');
-         *     trigger('click', {ok: 1});
-         *     trigger('click', [1, 2, 3]);
+         * // 触发一个事件
+         * trigger('click');
+         *
+         * @example
+         * // 触发多个事件（按顺序触发）
+         * trigger('close show');
+         *
+         * @example
+         * // 触发事件时添加数据
+         * trigger('click', 'ok');
+         * trigger('click', {ok: 1});
+         * trigger('click', [1, 2, 3]);
          */
         trigger: function (event, data) {
             var self = this;
 
             // 如果有数据或者不是数组
             if (data && !Array.isArray(data)) {
-                data = [data];
+                data = [
+                    data
+                ];
             }
             else if (!data) {
                 data = [];
@@ -218,7 +258,7 @@ define(function (require) {
         /**
          * 获取配置
          *
-         * @param  {string|undefined} key 配置key，如果为空则获取整个配置
+         * @param  {string=} key 配置key，如果为空则获取整个配置
          *
          * @return {*}     值
          */
@@ -237,6 +277,7 @@ define(function (require) {
             if (key && 'string' === typeof key && 'undefined' !== typeof value) {
                 this._options[key] = value;
             }
+
             return this;
         },
 
@@ -244,9 +285,9 @@ define(function (require) {
          * 标识处理
          *
          * @param  {string}  key 键名
-         * @param  {*}  key 结果
+         * @param  {boolean|number}  value 结果
          *
-         * @return {Boolean|Object}     结果或者this
+         * @return {boolean|Object}     结果或者this
          */
         is: function (key, value) {
             if (value === undefined) {
