@@ -11,7 +11,8 @@
     "hook-remove": "prepush remove",
     "start": "npm run server",
     "server": "http-server",
-    "build:gh-pages": "node build-gh-pages.js"
+    "build:gh-pages": "node build-gh-pages.js",
+    "build-doc": "jsdoc src/**/*.js -c jsdoc.json"
   },
   "prepush": [
     "npm run check"
@@ -26,11 +27,13 @@
     "fecs": ">=0.6.3",
     "http-server": ">=0.9.0",
     "jasmine-core": "2.4.1",
+    "jsdoc": "^3.4.0",
     "karma": ">=0.13.22",
     "karma-coverage": ">=0.5.5",
     "karma-jasmine": ">=0.3.7",
     "karma-phantomjs-launcher": ">=1.0.0",
     "karma-requirejs": "^1.0.0",
+    "minami": "^1.1.1",
     "prepush": ">=3.1.8",
     "requirejs": "2.2.0"
   }
