@@ -107,7 +107,7 @@ define(function (require) {
         }
     });
 
-    return Dialog();
+    return Dialog;
 });
 ```
 
