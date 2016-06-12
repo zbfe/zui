@@ -4,6 +4,8 @@
 * 以`zepto`+`requirejs`开发
 * 完整的测试用例
 * 友好的`api`
+* 所有回调使用事件监听
+* `jsdoc`生成文档
 
 ## 目录
 
@@ -58,8 +60,6 @@ test/popup/select.js
 * 不依赖`reset`样式
 * 必须以`.zui-`为前缀
 
-> 正在考虑是否写个`zui.css`基类
-
 ## requirejs里css、tpl、text的加载
 
 添加了`requirejs`的`css`、`text`、`tpl`插件支持，使用如：
@@ -70,7 +70,8 @@ define(function (require) {
     // 加载样式
     require('css!./base.css');
 
-    var tpl = require('tpl!./base.tpl');
+    // 加载text文本
+    var text = require('text!./base.text');
 });
 ```
 
@@ -84,12 +85,10 @@ define(function (require) {
 
 ## 注意
 
-* 不能有跨模块的耦合
 * 不能依赖重置样式
 * 所有模块代码必须通过 [fecs](http://fecs.baidu.com) 检查
 
 ## todo
 
 1. 代码打包成`dist/zui.js`，并压缩、混淆，考虑到`css`、`tpl`的处理
-1. 模块自动生成`uri map`并添加到`test/index.html`来进行端测试
 1. 自动抽离`src/[module]/README.md`文档内的`##, ###`到`README.md`里的文档内生成demo路径

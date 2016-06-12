@@ -2,7 +2,7 @@
 
 Mobile ui library created by zbfe
 
-> 只是玩玩，别当真～
+> 致力于写好代码，不求直接能用，但求思路清晰
 
 [![code style fecs](https://img.shields.io/badge/code%20style-fecs-brightgreen.svg)](https://github.com/ecomfe/fecs)
 [![Build Status](https://travis-ci.org/zbfe/zui.svg?branch=master)](https://travis-ci.org/zbfe/zui)
@@ -13,6 +13,9 @@ Mobile ui library created by zbfe
 
 * [设计思想](docs/design-idea.md)
 * [开发模块](docs/quick-start.md)
+* [生命周期](docs/life-cycle.md)
+* [模块文档](docs/docs.md)
+* [编译发布](docs/release.md)
 
 ## demo
 

@@ -79,6 +79,35 @@ define(function (require) {
 });
 ```
 
+`src/[module]/index.js`: 依赖`zui`基类
+
+```js
+/**
+ * @file 模块描述
+ * @author 作者信息
+ */
+
+define(function (require) {
+    'use strict';
+
+    // zepto引用
+    var $ = require('zepto');
+
+    var Zui = require('zui');
+
+    // 按需引用css
+    require('css!./index.css');
+
+    var Dialog = Zui.extend({
+        constructor: function () {
+            Dialog.super.constructor.call(this);
+        }
+    });
+
+    return Dialog();
+});
+```
+
 ### 测试用例
 
 `test/[module]/index.js`:
