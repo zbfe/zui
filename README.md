@@ -14,7 +14,6 @@ Mobile ui library created by zbfe
 * [设计思想](docs/design-idea.md)
 * [开发模块](docs/quick-start.md)
 * [生命周期](docs/life-cycle.md)
-* [模块文档](docs/docs.md)
 * [编译发布](docs/release.md)
 
 ## demo

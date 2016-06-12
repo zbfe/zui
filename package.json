@@ -10,7 +10,7 @@
     "hook-install": "prepush install",
     "hook-remove": "prepush remove",
     "start": "npm run server",
-    "server": "http-server",
+    "server": "http-server -p 9090",
     "build:gh-pages": "node build-gh-pages.js",
     "build-doc": "jsdoc src/**/*.js -c jsdoc.json"
   },
