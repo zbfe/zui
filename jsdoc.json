@@ -3,5 +3,9 @@
         "destination": "./jsdoc/",
         "encoding": "utf8",
         "template": "./node_modules/minami"
+    },
+    "source": {
+        "include": ["src"],
+        "includePattern": ".js$"
     }
 }

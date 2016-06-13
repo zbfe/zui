@@ -12,7 +12,7 @@
     "start": "npm run server",
     "server": "open http://127.0.0.1:9090/ && http-server -p 9090",
     "build:gh-pages": "node build-gh-pages.js",
-    "build-doc": "jsdoc src/**/*.js -c jsdoc.json"
+    "build-doc": "jsdoc -r -c jsdoc.json"
   },
   "prepush": [
     "npm run check"
