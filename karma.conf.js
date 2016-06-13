@@ -11,6 +11,27 @@ var httpServer = function (req, res, next) {
     }
 };
 
+var files = [
+    {
+        pattern: 'lib/**/*.js',
+        included: false
+    },
+    {
+        pattern: 'src/**/*',
+        included: false
+    },
+    {
+        pattern: 'test/**/*.js',
+        included: false
+    },
+    'lib/requirejs/config.js',
+    // 加载初始化视图测试
+    'karma.conf.require.js'
+];
+
+if (process.argv.slice(-1)[0].match(/--test\=(.*)$/)) {
+    files[2].pattern = 'test/' + RegExp.$1;
+}
 
 // Karma configuration
 // Generated on Sun Jan 24 2016 23:22:35 GMT+0800 (CST)
@@ -25,23 +46,7 @@ module.exports = function (config) {
             'requirejs'
         ],
         // list of files / patterns to load in the browser
-        files: [
-            {
-                pattern: 'lib/**/*.js',
-                included: false
-            },
-            {
-                pattern: 'src/**/*',
-                included: false
-            },
-            {
-                pattern: 'test/**/*.js',
-                included: false
-            },
-            'lib/requirejs/config.js',
-            // 加载初始化视图测试
-            'karma.conf.require.js'
-        ],
+        files: files,
         // list of files to exclude
         exclude: [],
         // preprocess matching files before serving them to the browser
