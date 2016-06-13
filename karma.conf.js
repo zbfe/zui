@@ -13,7 +13,11 @@ var httpServer = function (req, res, next) {
 
 var files = [
     {
-        pattern: 'lib/**/*.js',
+        pattern: 'lib/zepto.js',
+        included: false
+    },
+    {
+        pattern: 'lib/requirejs/plugins/*.js',
         included: false
     },
     {
