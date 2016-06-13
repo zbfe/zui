@@ -42,33 +42,4 @@ Mobile ui library created by zbfe
 
 ## develop
 
-```shell
-# 克隆项目
-git clone https://github.com/zbfe/zui.git && cd zui
-
-# 安装依赖
-npm install
-
-# 安装push前检查代码勾子
-npm run hook-install
-
-# 本地开启web server查看、开发
-npm start
-```
-
-## test
-
-> [测试Case](test/index.html)
-
-基于BDD, 使用 [jasmine](https://jasmine.github.io/) 测试, 使用 [phantomjs](http://phantomjs.org/)(请提前下载以防npm安装缓慢) 并基于 [karma](https://karma-runner.github.io/) 测试～
-
-```shell
-# 运行测试
-npm run test
-
-# 运行测试覆盖率
-npm run test-cov
-
-# 运行代码检查
-npm run check
-```
+[运行命令](docs/quick-start.md#运行命令)

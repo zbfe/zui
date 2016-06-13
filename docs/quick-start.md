@@ -41,6 +41,16 @@ npm run check
 npm run build-doc
 ```
 
+然而在写模块测试用例时发现，把所有的测试文件都`watch`了效率太低，可以在测试命令里添加`--test=files`参数来指定只测试哪些文件，如：
+
+```shell
+# 只监听 test/zui.js
+npm run test-watch -- --test=zui.js
+
+# 监听 test/dialog/*.js，\*是为了命令行里运行转义
+npm run test-watch -- --test=dialog/\*.js
+```
+
 ## 目录规范
 
 [设计思想](docs/design-idea.md#目录)
