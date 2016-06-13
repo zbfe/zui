@@ -31,6 +31,11 @@ var files = [
 
 if (process.argv.slice(-1)[0].match(/--test\=(.*)$/)) {
     files[2].pattern = 'test/' + RegExp.$1;
+    console.log([
+        '============',
+        '开始测试：' + files[2].pattern,
+        '============'
+    ].join('\n'));
 }
 
 // Karma configuration
