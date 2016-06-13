@@ -1,3 +1,8 @@
+/**
+ * @file karma配置
+ * @author fe.xiaowu
+ */
+
 // http 服务器
 var httpServer = function (req, res, next) {
     var url = req.url;
@@ -36,6 +41,14 @@ var httpServer = function (req, res, next) {
             res.end();
         });
     }
+    else if (url.indexOf('/upload/base/random') === 0) {
+        if (Math.round(Math.random())) {
+            res.statusCode = 500;
+        }
+        res.end(JSON.stringify({
+            status: 0
+        }));
+    }
     else if (url.indexOf('/upload/base/success') === 0) {
         res.end(JSON.stringify({
             status: 0
@@ -45,6 +58,14 @@ var httpServer = function (req, res, next) {
         res.statusCode = 500;
         res.end(JSON.stringify({
             errcode: 500
+        }));
+    }
+    else if (url.indexOf('/upload/base/parseerror') === 0) {
+        res.end('error');
+    }
+    else if (url.indexOf('/upload/base/status1') === 0) {
+        res.end(JSON.stringify({
+            status: 1
         }));
     }
     else {
@@ -123,7 +144,7 @@ module.exports = function (config) {
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
         reporters: [
-            'progress',
+            'progress'
             // 'coverage'
         ],
         // web server port

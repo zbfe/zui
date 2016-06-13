@@ -3,7 +3,7 @@
  * @author fe.xiaowu@gmail.com
  */
 
-
+/* eslint-disable max-nested-callbacks */
 define([
     'upload/base',
     'zepto'
@@ -63,33 +63,41 @@ define([
                 elem: $('<div />'),
                 extname: '*'
             });
-            expect(app._checkExtname({type: 'image/png'})).toBe(true);
+            expect(app._checkExtname({
+                type: 'image/png'
+            })).toBe(true);
 
             app = new Base({
                 elem: $('<div />'),
                 extname: 'png'
             });
-            expect(app._checkExtname({type: 'image/jpg'})).toBe(false);
+            expect(app._checkExtname({
+                type: 'image/jpg'
+            })).toBe(false);
 
             app = new Base({
                 elem: $('<div />'),
                 extname: 'png,jpg'
             });
-            expect(app._checkExtname({type: 'image/jpg'})).toBe(true);
-            expect(app._checkExtname({type: 'image/png'})).toBe(true);
-            expect(app._checkExtname({type: 'image/gif'})).toBe(false);
+            expect(app._checkExtname({
+                type: 'image/jpg'
+            })).toBe(true);
+            expect(app._checkExtname({
+                type: 'image/png'
+            })).toBe(true);
+            expect(app._checkExtname({
+                type: 'image/gif'
+            })).toBe(false);
         });
         it('options.multiple', function () {
             var $elem = $('<input />');
-            var app;
-
-            app = new Base({
+            new Base({
                 elem: $elem,
                 multiple: true
             });
             expect($elem.prop('multiple')).toBe(true);
 
-            app = new Base({
+            new Base({
                 elem: $elem,
                 multiple: false
             });
@@ -120,7 +128,9 @@ define([
             app.on('success', function (res, file) {
                 expect(res.a).toBe(true);
                 expect(res.b).toBe(true);
-                expect(file).toEqual({file: true});
+                expect(file).toEqual({
+                    file: true
+                });
                 done();
             });
         });
@@ -131,13 +141,17 @@ define([
                 elem: $('<div />'),
                 size: 1
             });
-            expect(app._checkSize({size: 10})).toBe(false);
+            expect(app._checkSize({
+                size: 10
+            })).toBe(false);
 
             app = new Base({
                 elem: $('<div />'),
                 size: 100
             });
-            expect(app._checkSize({size: 90})).toBe(true);
+            expect(app._checkSize({
+                size: 90
+            })).toBe(true);
         });
         it('options.limit', function () {
             var app = new Base({
@@ -161,14 +175,14 @@ define([
             expect(app._queued.length).toBe(30);
 
             // 开始并发上传
-            app._uploads();
+            app._check();
 
             // 并发上传了3个
             expect(app._queued.length).toBe(27);
 
             // 正在上传1个
             app._uploading = 1;
-            app._uploads();
+            app._check();
 
             // 又去掉2个  并发3-1=2
             expect(app._queued.length).toBe(25);
@@ -180,8 +194,7 @@ define([
                 filename: 'testfilename'
             });
 
-            app._upload({
-            });
+            app._upload({});
 
             app.on('success', function (res) {
                 expect(res.filename).toBe(true);
@@ -211,11 +224,13 @@ define([
                 elem: $('<div />')
             });
 
-            app._queued = [{
-                file: 'test'
-            }];
-            
-            app._uploads = function () {
+            app._queued = [
+                {
+                    file: 'test'
+                }
+            ];
+
+            app._check = function () {
                 num += 1;
             };
 
@@ -229,6 +244,24 @@ define([
             });
 
             expect(app.destroy().destroy()).toEqual(app);
+        });
+        it('destroy() xhr', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/success',
+                extname: '*'
+            });
+
+            app._upload({
+                size: 100
+            });
+
+            app.on('destroy', function () {
+                expect(this).toEqual(app);
+                done();
+            });
+
+            app.destroy();
         });
         it('_changeHandle()', function (done) {
             var app = new Base({
@@ -250,8 +283,7 @@ define([
 
             // 空2
             app._changeHandle({
-                target: {
-                },
+                target: {},
                 dataTransfer: {
                     files: []
                 }
@@ -259,10 +291,8 @@ define([
 
             // 空3
             app._changeHandle({
-                target: {
-                },
-                dataTransfer: {
-                }
+                target: {},
+                dataTransfer: {}
             });
 
             app._changeHandle({
@@ -277,8 +307,7 @@ define([
             }, {});
 
             app._changeHandle({
-                target: {
-                },
+                target: {},
                 dataTransfer: {
                     files: [
                         {
@@ -293,7 +322,7 @@ define([
             app._changeHandle({
                 target: {
                     files: {
-                        '0': {
+                        0: {
                             type: 'image/png',
                             size: 100
                         }
@@ -307,12 +336,22 @@ define([
             });
         });
 
+        it('_check', function () {
+            var app = new Base({
+                elem: $('<input />')
+            });
+
+            app.destroy();
+
+            expect(app._check()).toBeUndefined();
+        });
+
         it('_changeHandle() change value', function (done) {
             var app = new Base({
                 elem: $('<input />')
             });
             var data = {};
-          
+
             app._changeHandle({
                 target: {
                     files: [
@@ -327,12 +366,12 @@ define([
             expect(data).toEqual({});
 
             setTimeout(function () {
-                expect(data).toEqual({value: ''});
+                expect(data).toEqual({
+                    value: ''
+                });
                 done();
             }, 200);
         });
-        it('_uploads()', function () {});
-        it('_upload()', function () {});
         it('_addfile()', function (done) {
             var app = new Base({
                 elem: $('<input />')
@@ -351,8 +390,257 @@ define([
         });
 
         // events
-        it('events queued', function () {});
-        it('event.success', function () {});
+        it('events queued - success', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/success',
+                extname: '*',
+                size: 200
+            });
+            var queued = [];
+            var addPushQueued = function (type) {
+                return function () {
+                    queued.push(type);
+                };
+            };
+
+            app.on('queued', addPushQueued('queued'));
+            app.on('success', addPushQueued('success'));
+            app.on('error', addPushQueued('error'));
+            app.on('destroy', addPushQueued('destroy'));
+            app.on('complete', addPushQueued('complete'));
+
+            app.on('destroy', function () {
+                expect(queued.join(',')).toBe('queued,queued,success,success,complete,destroy');
+                done();
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        },
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('complete', function () {
+                this.destroy();
+            });
+
+            app.start();
+        });
+        it('events queued - error', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/500',
+                extname: '*',
+                size: 200
+            });
+            var queued = [];
+            var addPushQueued = function (type) {
+                return function () {
+                    queued.push(type);
+                };
+            };
+
+            app.on('queued', addPushQueued('queued'));
+            app.on('success', addPushQueued('success'));
+            app.on('error', addPushQueued('error'));
+            app.on('destroy', addPushQueued('destroy'));
+            app.on('complete', addPushQueued('complete'));
+
+            app.on('destroy', function () {
+                expect(queued.join(',')).toBe('queued,queued,error,error,complete,destroy');
+                done();
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        },
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('complete', function () {
+                this.destroy();
+            });
+
+            app.start();
+        });
+        it('event.success', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/success',
+                extname: '*'
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('success', function (res, file) {
+                // res为后端返回
+                expect($.isPlainObject(res)).toBe(true);
+                expect(res.status).toBe(0);
+
+                expect(this).toEqual(app);
+                expect(typeof file).toBe('object');
+                done();
+            });
+
+            app.start();
+        });
+        it('event.complete - success', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/success',
+                extname: '*'
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('complete', function (data) {
+                expect(this).toEqual(app);
+                expect(Array.isArray(data.success)).toBe(true);
+                expect(data.success.length).toBe(1);
+                expect(Array.isArray(data.error)).toBe(true);
+                done();
+            });
+
+            app.start();
+        });
+        it('event.complete - error', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/500',
+                extname: '*'
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('complete', function (data) {
+                expect(this).toEqual(app);
+                expect(Array.isArray(data.success)).toBe(true);
+                expect(Array.isArray(data.error)).toBe(true);
+                expect(data.error.length).toBe(1);
+                done();
+            });
+
+            app.start();
+        });
+        it('event.complete - error+success', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/random',
+                extname: '*',
+                limit: 2,
+                size: 1000
+            });
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 1
+                        },
+                        {
+                            size: 2
+                        },
+                        {
+                            size: 3
+                        },
+                        {
+                            size: 4
+                        },
+                        {
+                            size: 5
+                        },
+                        {
+                            size: 6
+                        },
+                        {
+                            size: 7
+                        },
+                        {
+                            size: 8
+                        },
+                        {
+                            size: 9
+                        },
+                        {
+                            size: 10
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('complete', function (data) {
+                expect(this).toEqual(app);
+                expect(Array.isArray(data.success)).toBe(true);
+                expect(Array.isArray(data.error)).toBe(true);
+                done();
+            });
+
+            app.start();
+        });
+        it('event.error', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/404',
+                extname: '*'
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('error', function (data, file) {
+                expect(data.status).toBe(Base.status.ERROR_UPLOAD);
+                expect(this).toEqual(app);
+                expect(typeof file).toBe('object');
+                done();
+            });
+
+            app.start();
+        });
         it('event.error ERROR_EXTNAME', function (done) {
             var app = new Base({
                 elem: $('<input />'),
@@ -360,10 +648,11 @@ define([
             });
 
             app.on('error', function (data) {
+                expect(data.msg).toBe('文件扩展名不合法');
                 expect(data.status).toBe(Base.status.ERROR_EXTNAME);
                 done();
             });
-          
+
             app._changeHandle({
                 target: {
                     files: [
@@ -383,10 +672,11 @@ define([
             });
 
             app.on('error', function (data) {
+                expect(data.msg).toBe('文件大小超出');
                 expect(data.status).toBe(Base.status.ERROR_SIZE);
                 done();
             });
-          
+
             app._changeHandle({
                 target: {
                     files: [
@@ -403,6 +693,7 @@ define([
             });
 
             app.on('error', function (data) {
+                expect(data.msg).toBe('上传队列为空');
                 expect(data.status).toBe(Base.status.ERROR_EMPTY);
                 done();
             });
@@ -428,22 +719,128 @@ define([
 
             app.on('error', function (data) {
                 expect(data.status).toBe(Base.status.ERROR_UPLOAD);
+                expect(data.msg).toBe('后端服务响应失败');
                 done();
             });
 
             app.start();
         });
-        it('event.error 304', function () {
+        it('event.error parseerror', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/parseerror',
+                extname: '*'
+            });
 
-        });
-        it('event.error parseerror', function () {
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
 
-        });
-        it('event.error code error', function () {
+            app.on('error', function (data) {
+                expect(data.msg).toBe('解析json失败');
+                expect(data.status).toBe(Base.status.ERROR_UPLOAD);
+                done();
+            });
 
+            app.start();
         });
-        it('event.progress', function () {});
-        it('event.complete', function () {});
-        it('event.queued', function () {});
+        it('event.error code error', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/status1',
+                extname: '*'
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('error', function (data) {
+                expect(data.msg).toBe('json.status错误');
+                expect(data.status).toBe(Base.status.ERROR_UPLOAD);
+                done();
+            });
+
+            app.start();
+        });
+        it('event.progress', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/success',
+                extname: '*',
+                size: 200
+            });
+
+            app.on('progress', function (event, file) {
+                expect($.isPlainObject(file)).toBe(true);
+                expect(file.size).toBe(100);
+                expect(typeof event.total).toBe('number');
+                expect(typeof event.loaded).toBe('number');
+                expect(this).toEqual(app);
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            app.on('complete', done);
+
+            app.start();
+        });
+        it('event.queued', function (done) {
+            var app = new Base({
+                elem: $('<input />'),
+                action: '/upload/base/success',
+                extname: '*',
+                size: 200
+            });
+            var num = 0;
+
+            app.on('queued', function (file) {
+                // res为后端返回
+                expect($.isPlainObject(file)).toBe(true);
+                expect(file.size).toBe(100);
+
+                expect(this).toEqual(app);
+
+                num += 1;
+            });
+
+            app._changeHandle({
+                target: {
+                    files: [
+                        {
+                            size: 100
+                        },
+                        {
+                            size: 100
+                        }
+                    ]
+                }
+            }, {});
+
+            setTimeout(function () {
+                expect(num).toBe(2);
+                done();
+            });
+        });
     });
 });
