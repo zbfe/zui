@@ -3,7 +3,7 @@
  * @author fe.xiaowu
  *
  * @events
- *     1. success - 上传成功：{file}
+ *     1. success - 上传成功：res, file
  *     2. error - 有错误：{status, file, msg}
  *     3. progress - 上传进度：{file, loaded, total}
  *     4. complete - 完成上传（成功、失败都会触发）：{success, error}
@@ -62,6 +62,12 @@ define(function (require) {
                 });
             }
 
+            if (self.is('ing')) {
+                return self;
+            }
+
+            self.is('ing', true);
+
             /**
              * 检查是否还有文件上传
              *
@@ -111,10 +117,14 @@ define(function (require) {
 
                 check();
             }).on('complete', function () {
+                self.is('ing', false);
+
                 delete self._successFile;
                 delete self._errorFile;
                 delete self._uploading;
             });
+
+            return self;
         },
 
         /**
@@ -242,9 +252,9 @@ define(function (require) {
             // 绑定xhr回调
             xhr.onreadystatechange = function () {
                 var res;
-
                 if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
+                    xhr.onreadystatechange = null;
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
                         try {
                             res = JSON.parse(xhr.responseText);
                         }
@@ -258,8 +268,7 @@ define(function (require) {
 
                         if (res) {
                             if (res.status === 0) {
-                                res.file = file;
-                                self.trigger('success', res);
+                                self.trigger('success', [res, file]);
                             }
                             else {
                                 self.trigger('error', {
@@ -270,6 +279,7 @@ define(function (require) {
                             }
                             res = null;
                         }
+
                     }
                     else {
                         self.trigger('error', {
@@ -281,6 +291,7 @@ define(function (require) {
 
                     xhr = null;
                 }
+
             };
 
             // 追加数据

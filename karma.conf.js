@@ -1,12 +1,53 @@
 // http 服务器
 var httpServer = function (req, res, next) {
-    if (req.url.indexOf('/api/test/upload/ok') > -1) {
+    var url = req.url;
+    var temp;
 
+    if (url.indexOf('/upload/base/data') === 0) {
+        temp = '';
+        req.on('data', function (data) {
+            temp += data;
+        });
+        req.on('end', function () {
+            temp = temp.toString();
+
+            res.write(JSON.stringify({
+                status: 0,
+                a: temp.indexOf('name="a"') > -1,
+                b: temp.indexOf('name="b"') > -1
+            }));
+
+            res.end();
+        });
+    }
+    else if (url.indexOf('/upload/base/filename') === 0) {
+        temp = '';
+        req.on('data', function (data) {
+            temp += data;
+        });
+        req.on('end', function () {
+            temp = temp.toString();
+
+            res.write(JSON.stringify({
+                status: 0,
+                filename: temp.indexOf('name="testfilename"') > -1
+            }));
+
+            res.end();
+        });
+    }
+    else if (url.indexOf('/upload/base/success') === 0) {
         res.end(JSON.stringify({
-            code: 200
+            status: 0
         }));
-
-    } else {
+    }
+    else if (url.indexOf('/upload/base/500') === 0) {
+        res.statusCode = 500;
+        res.end(JSON.stringify({
+            errcode: 500
+        }));
+    }
+    else {
         next();
     }
 };
