@@ -1,7 +1,7 @@
 /**
  * @file 弹出层
  * @author fe.xiaowu <fe.xiaowu@gmail.com>
- * @author fe.xiaowu@gmail.com
+ * @module dialog2/dialog
  * @events
  *     1. show 显示
  *     2. close 关闭
@@ -23,8 +23,7 @@ define(function (require) {
          * 构造函数
          *
          * @class
-         * @description 弹出层
-         * @module dialog2/dialog
+         * @name Dialog
          * @requires zui
          * @requires zepto
          * @requires ./dialog.css

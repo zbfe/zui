@@ -1,6 +1,7 @@
 /**
  * @file confirm弹出层
  * @author fe.xiaowu@gmail.com
+ * @module dialog2/confirm
  * @events
  *     1. show 显示
  *     2. close 关闭
@@ -17,9 +18,8 @@ define(function (require) {
         /**
          * 构造函数
          *
+         * @name Confirm
          * @class
-         * @description confirm弹出层
-         * @module dialog2/confirm
          * @requires dialog2/dialog
          *
          * @param  {string} title 标题

@@ -1,6 +1,7 @@
 /**
  * @file alert弹出层
  * @author fe.xiaowu@gmail.com
+ * @module dialog2/alert
  * @events
  *     1. show 显示
  *     2. close 关闭
@@ -18,9 +19,8 @@ define(function (require) {
         /**
          * 构造函数
          *
+         * @name Alert
          * @class
-         * @description alert弹出层
-         * @module dialog2/alert
          * @requires dialog2/dialog
          *
          * @param  {string} title 标题

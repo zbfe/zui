@@ -1,6 +1,7 @@
 /**
  * @file zui基类
  * @author fe.xiaowu <fe.xiaowu@gmail.com>
+ * @module zui
  */
 
 define(function (require) {
@@ -17,8 +18,7 @@ define(function (require) {
          * 构造函数
          *
          * @class
-         * @name zui基类
-         * @module zui
+         * @name Zui
          * @requires Class
          * @requires zepto
          * @requires ./zui.css
