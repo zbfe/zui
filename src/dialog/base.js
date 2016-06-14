@@ -1,7 +1,13 @@
 /**
  * @file Dialog基类
  * @author schoeu1110@gmail.com
+ *
+ * @events
+ *     1. show
+ *     2. hide
+ *     3. destroy
  */
+
 define(function(require, factory) {
     'use strict';
     

@@ -9,9 +9,6 @@ define(function (require) {
     var $ = require('zepto');
     var Base = require('./base');
 
-    // 引用css
-    require('css!./base.css');
-
     var defaultOptions = {
         confirmText: '确定',
         confirmCallback: function(){}

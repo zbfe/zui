@@ -29,8 +29,8 @@ Mobile ui library created by zbfe
     * [popup/radio](src/popup/README.md#popup/radio)
     * [popup/multiple](src/popup/README.md#popup/multiple)
 * dialog
-    * [dialog/base](src/dialog/README.md#dialog/base) ![](http://progressed.io/bar/70)
-    * [dialog/alert](src/dialog/README.md#dialog/alert) ![](http://progressed.io/bar/30)
+    * [dialog/base](src/dialog/README.md#dialog/base)
+    * [dialog/alert](src/dialog/README.md#dialog/alert)
     * dialog/confirm
     * dialog/iframe
 * upload
