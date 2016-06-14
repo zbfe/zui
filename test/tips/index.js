@@ -21,7 +21,6 @@ define([
             {},
             []
         ];
-        var animationTimeout = Tips.defaults.duration * 1.2;
 
         var guid = 0;
         var getGuid = function () {
@@ -38,18 +37,9 @@ define([
         });
 
         it('check params', function () {
-            var flag = true;
-
-            try {
-                types.forEach(function (key) {
-                    new Tips(key);
-                });
-            }
-            catch (e) {
-                flag = false;
-            }
-
-            expect(flag).toBe(true);
+            types.forEach(function (key) {
+                new Tips(key);
+            });
         });
 
         it('Tips(str)', function () {
@@ -59,7 +49,7 @@ define([
             expect($('.zui-tips-wrap').html().indexOf(str) > -1).toBe(true);
         });
 
-        it('Tips({className})', function () {
+        it('options.className', function () {
             expect($('.test-test').length).toBe(0);
             new Tips({
                 className: 'test-test'
@@ -67,7 +57,7 @@ define([
             expect($('.test-test').length).toBe(1);
         });
 
-        it('{content: str}', function () {
+        it('options.content', function () {
             var str = getGuid();
 
             new Tips({
@@ -91,36 +81,31 @@ define([
             app.on('close', function () {
                 expect(this).toBe(app);
                 expect($('.zui-tips-wrap').length).toBe(0);
+            });
+
+            app.on('destroy', function () {
+                expect(this).toBe(app);
+                expect($('.zui-tips-wrap').length).toBe(0);
                 done();
             });
         });
 
-        it('time: 1', function (done) {
-            new Tips({
-                time: 1
-            }).on('show', function () {
-                setTimeout(function () {
-                    expect($('.zui-tips-wrap').length).toBe(0);
-                    done();
-                }, 1 + animationTimeout);
-            });
-
-            expect($('.zui-tips-wrap').length).toBe(1);
-        });
-
-        it('time: 1 => close', function (done) {
+        it('options.time', function (done) {
             var start = Date.now();
 
             new Tips({
-                time: 1
+                time: 1,
+                duration: 1
+            }).on('show', function () {
+                expect($('.zui-tips-wrap').length).toBe(1);
             }).on('close', function () {
-                var diff = animationTimeout + animationTimeout + 1;
-                expect(Date.now() - start - diff < 100).toBe(true);
+                expect(Date.now() - start < 100).toBe(true);
+                expect($('.zui-tips-wrap').length).toBe(0);
                 done();
             });
         });
 
-        it('{lock: true}', function () {
+        it('options.lock = true', function () {
             new Tips({
                 lock: true
             });
@@ -128,7 +113,7 @@ define([
             expect($('.zui-tips-wrap.zui-tips-wrap-mask').length).toBe(1);
         });
 
-        it('{lock: false}', function () {
+        it('options.lock = false', function () {
             new Tips({
                 lock: false
             });
@@ -151,59 +136,24 @@ define([
 
         it('close()', function (done) {
             var app = new Tips({
-                time: null
+                time: null,
+                duration: 1
             });
 
             expect($('.zui-tips-wrap').length).toBe(1);
 
-            app.close();
+            expect(app.close().close().close()).toBe(app);
 
             setTimeout(function () {
                 expect($('.zui-tips-wrap').length).toBe(0);
                 done();
-            }, animationTimeout + 100);
+            }, 20);
         });
 
-        it('close() 返回值', function () {
-            var app = new Tips();
-
-            expect(app).toEqual(app.close());
-        });
-
-        it('close().close()', function () {
-            var flag = true;
-
-            try {
-                new Tips().close().close().close().close();
-            }
-            catch (e) {
-                flag = false;
-            }
-
-            expect(flag).toBe(true);
-        });
-
-        it('time => close()', function (done) {
+        it('close() => options.time', function (done) {
             var app = new Tips({
-                time: 1
-            });
-
-            setTimeout(function () {
-                var flag = true;
-                try {
-                    app.close().close();
-                }
-                catch (e) {
-                    flag = false;
-                }
-                expect(flag).toBe(true);
-                done();
-            }, 1 + animationTimeout);
-        });
-
-        it('close() => time', function (done) {
-            var app = new Tips({
-                time: 1
+                time: 1000,
+                duration: 1
             });
 
             app.close();
@@ -211,7 +161,7 @@ define([
             setTimeout(function () {
                 expect(app.is('close')).toBe(true);
                 done();
-            }, 1 + animationTimeout);
+            }, 100 + 20);
         });
 
         it('event show', function (done) {
@@ -224,31 +174,21 @@ define([
             });
         });
 
-        it('event close', function (done) {
-            var app = new Tips({
-            });
-
-            app.on('close', function () {
-                expect(this).toEqual(app);
-                app.close().close();
-                done();
-            });
-        });
-
-        it('close 次数', function (done) {
+        it('event close,destroy', function (done) {
             var flag = 0;
             var app = new Tips({
-                time: 1
+                time: 1,
+                duration: 1
             }).on('close', function () {
+                expect(this).toEqual(app);
                 flag += 1;
+            }).on('destroy', function () {
+                expect(this).toEqual(app);
+                expect(flag).toBe(1);
+                done();
             });
 
             app.close().close().close();
-
-            setTimeout(function () {
-                expect(flag).toBe(1);
-                done();
-            }, 1 + animationTimeout + animationTimeout);
         });
 
         it('events queue', function (done) {

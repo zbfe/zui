@@ -12,7 +12,6 @@ define([
     'use strict';
 
     describe('popup/select', function () {
-        var animationTimeout = Base.animationTimeout * 1.2;
         var tempData = [
             {
                 text: 'text'
@@ -38,27 +37,25 @@ define([
         });
 
         it('options.data empty', function () {
-            var temp1;
-            var temp2;
-
-            try {
+            expect(function () {
                 new Select();
-            }
-            catch (e) {
-                temp1 = true;
-            }
+            }).toThrowError(Error);
 
-            try {
+            expect(function () {
+                new Select();
+            }).toThrowError('options.data is empty');
+
+            expect(function () {
                 new Select({
                     data: []
                 });
-            }
-            catch (e) {
-                temp2 = true;
-            }
+            }).toThrowError(Error);
 
-            expect(temp1).toBe(true);
-            expect(temp2).toBe(true);
+            expect(function () {
+                new Select({
+                    data: []
+                });
+            }).toThrowError('options.data is empty');
         });
 
         it('options.data', function () {
@@ -71,28 +68,6 @@ define([
             });
 
             expect($('.zui-popup-select').html().indexOf('我是一个兵') > -1).toBe(true);
-        });
-
-        it('event cancel', function (done) {
-            new Select({
-                data: tempData
-            }).on('cancel', function (a) {
-                expect(a).toBeUndefined();
-                done();
-            });
-
-            $('.zui-popup-select-cancel').trigger('click');
-        });
-
-        it('event cancel:null', function (done) {
-            var app = new Select({
-                data: tempData
-            });
-
-            app.close = done;
-
-            expect($('.zui-popup-select-cancel').length).toBe(1);
-            $('.zui-popup-select-cancel').trigger('click');
         });
 
         it('event select', function (done) {
@@ -108,39 +83,64 @@ define([
             $('.zui-popup-select-item').eq(0).trigger('click');
         });
 
-        it('event select:null', function (done) {
+        it('events queue', function (done) {
             var app = new Select({
                 data: tempData
             });
+            var queue = [];
 
-            app.close = done;
-            expect($('.zui-popup-select-cancel').length).toBe(1);
+            app.on('select', function () {
+                queue.push('select');
+            });
+
+            app.on('cancel', function () {
+                queue.push('cancel');
+            });
+
+            app.on('close', function () {
+                queue.push('close');
+            });
+
+            app.on('destroy', function () {
+                queue.push('destroy');
+            });
+
+            app.on('destroy', function () {
+                expect(queue.join(',')).toEqual('select,close,destroy');
+                done();
+            });
+
             $('.zui-popup-select-item').eq(0).trigger('click');
         });
 
-        it('close', function () {
-            expect(typeof new Select({data: tempData}).close).toBe('function');
-        });
-
-        it('close()', function (done) {
-            expect($('.zui-popup-select').length).toBe(0);
+        it('events queue - cancel', function (done) {
             var app = new Select({
                 data: tempData
             });
-            expect($('.zui-popup-select').length).toBe(1);
-            app.close();
-            setTimeout(function () {
-                expect($('.zui-popup-select').length).toBe(0);
+            var queue = [];
+
+            app.on('select', function () {
+                queue.push('select');
+            });
+
+            app.on('cancel', function () {
+                queue.push('cancel');
+            });
+
+            app.on('close', function () {
+                queue.push('close');
+            });
+
+            app.on('destroy', function () {
+                queue.push('destroy');
+            });
+
+            app.on('destroy', function () {
+                expect(queue.join(',')).toEqual('cancel,close,destroy');
                 done();
-            }, animationTimeout);
-        });
-
-        it('close().close()', function () {
-            var app = new Select({
-                data: tempData
             });
 
-            expect(app.close().close()).toBe(app);
+            $('.zui-popup-select-cancel').eq(0).trigger('click');
         });
     });
 });

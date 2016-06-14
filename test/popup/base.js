@@ -2,6 +2,7 @@
  * @file 下浮层基类测试
  * @author fe.xiaowu@gmail.com
  */
+
 /* eslint-disable max-nested-callbacks */
 define([
     'popup/base',
@@ -10,8 +11,6 @@ define([
     'use strict';
 
     describe('popup/base', function () {
-        var animationTimeout = Base.animationTimeout * 1.2;
-
         afterEach(function () {
             $('.zui-popup-wrap').remove();
         });
@@ -37,39 +36,37 @@ define([
         });
 
         it('mask click', function (done) {
-            new Base();
+            new Base({
+                duration: 50
+            });
 
             $('.zui-popup-mask').trigger('click');
 
             setTimeout(function () {
-                expect($('.zui-popup-wrap').length).toBe(0);
+                expect($('.zui-popup-mask').length).toBe(0);
                 done();
-            }, animationTimeout);
+            }, 100);
         });
 
-        it('base.close', function () {
+        it('.close', function () {
             var app = new Base();
 
             expect(typeof app.close).toBe('function');
         });
 
-        it('base.close()', function (done) {
-            var app = new Base();
+        it('.close()', function (done) {
+            var app = new Base({
+                duration: 50
+            });
 
             expect($('.zui-popup-wrap').length).toBe(1);
 
-            expect(app.close()).toBe(app);
+            expect(app.close().close()).toBe(app);
 
             setTimeout(function () {
                 expect($('.zui-popup-wrap').length).toBe(0);
                 done();
-            }, animationTimeout);
-        });
-
-        it('base.close().close()', function () {
-            var app = new Base();
-
-            expect(app.close().close()).toBe(app);
+            }, 100);
         });
 
         it('options.className', function (done) {
@@ -80,12 +77,11 @@ define([
 
             expect($('.xxoo').length).toBe(1);
 
-            app.close();
-
-            setTimeout(function () {
+            app.on('close', function () {
                 expect($('.xxoo').length).toBe(0);
                 done();
-            }, animationTimeout);
+            });
+            app.close();
         });
 
         it('.$wrap', function (done) {
@@ -94,12 +90,12 @@ define([
             expect(typeof app.$wrap !== 'undefined').toBe(true);
             expect(app.$wrap.get(0).className.indexOf('zui-popup-wrap') > -1).toBe(true);
 
-            app.close();
-
-            setTimeout(function () {
+            app.on('destroy', function () {
                 expect(typeof app.$wrap !== 'undefined').toBe(false);
                 done();
-            }, animationTimeout);
+            });
+
+            app.close();
         });
 
         it('options.content', function () {
@@ -117,6 +113,30 @@ define([
                 expect(a).toBeUndefined();
                 done();
             }).$wrap.find('.zui-popup-mask').triggerHandler('click');
+        });
+
+        it('events queue', function (done) {
+            var queue = [];
+            var pushQueueHandle = function (type) {
+                return function () {
+                    queue.push(type);
+                };
+            };
+
+            var app = new Base({
+                duration: 1
+            });
+
+            app.on('destroy', pushQueueHandle('destroy'));
+            app.on('cancel', pushQueueHandle('cancel'));
+            app.on('close', pushQueueHandle('close'));
+
+            app.on('destroy', function () {
+                expect(queue.join(',')).toEqual('cancel,close,destroy');
+                done();
+            });
+
+            app.$wrap.find('.zui-popup-mask').triggerHandler('click');
         });
     });
 });
