@@ -55,7 +55,7 @@ define(function (require) {
             $inner.animate({
                 transform: 'translate(-50%, -50%) scale3d(1, 1, 1)',
                 opacity: 1
-            }, Tips.animationTimeout, 'ease', function () {
+            }, self.get('duration'), 'ease', function () {
                 // 如果有自动关闭，则延迟关闭
                 if (self.get('time')) {
                     self._timer = setTimeout(self.close.bind(self), self.get('time'));
@@ -92,7 +92,7 @@ define(function (require) {
             self.$wrap.find('.zui-tips-inner').animate({
                 transform: 'translate(-50%, -50%) scale3d(0.7, 0.7, 1)',
                 opacity: 0
-            }, Tips.animationTimeout, 'ease', function () {
+            }, self.get('duration'), 'ease', function () {
                 self.$wrap.remove();
 
                 self.trigger('close destroy');
@@ -114,15 +114,9 @@ define(function (require) {
         time: 2000,
         content: 'loading',
         lock: true,
-        className: 'zui-tips-default'
+        className: 'zui-tips-default',
+        duration: 200
     };
-
-    /**
-     * 动画显示时长
-     *
-     * @type {Number}
-     */
-    Tips.animationTimeout = 200;
 
     return Tips;
 });

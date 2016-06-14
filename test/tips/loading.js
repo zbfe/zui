@@ -68,7 +68,7 @@ define([
             setTimeout(function () {
                 expect($('.zui-tips-loading').length).toBe(0);
                 done();
-            }, Tips.animationTimeout * 1.2);
+            }, Tips.defaults.duration * 1.2);
 
             /* eslint-enable max-nested-callbacks */
         });

@@ -21,7 +21,7 @@ define([
             {},
             []
         ];
-        var animationTimeout = Tips.animationTimeout * 1.2;
+        var animationTimeout = Tips.defaults.duration * 1.2;
 
         var guid = 0;
         var getGuid = function () {
@@ -114,7 +114,7 @@ define([
             new Tips({
                 time: 1
             }).on('close', function () {
-                var diff = Tips.animationTimeout + Tips.animationTimeout + 1;
+                var diff = animationTimeout + animationTimeout + 1;
                 expect(Date.now() - start - diff < 100).toBe(true);
                 done();
             });
