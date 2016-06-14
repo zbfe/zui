@@ -18,11 +18,11 @@ Mobile ui library created by zbfe
 
 ## demo
 
-* [tips](src/tips/README.md) ![](http://progressed.io/bar/95)
+* [tips](src/tips/README.md)
     * [tips/index](src/tips/README.md#tips/index)
     * [tips/loading](src/tips/README.md#tips/loading)
-* [popup](src/popup/README.md) ![](http://progressed.io/bar/90)
-    * [popup/base](src/popup/README.md#popup/base)
+* popup
+    * [popup/base](src/popup/base.md#popup/base)
     * [popup/select](src/popup/README.md#popup/select)
     * [popup/radio](src/popup/README.md#popup/radio)
     * [popup/multiple](src/popup/README.md#popup/multiple)

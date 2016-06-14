@@ -1,6 +1,11 @@
 /**
  * @file 提示层
  * @author fe.xiaowu@gmail.com
+ *
+ * @events
+ *     show - 提示层显示后事件
+ *     close - 提示层关闭（销毁dom）后事件
+ *     destroy - 提示层销毁后事件
  */
 
 define(function (require) {
@@ -13,6 +18,7 @@ define(function (require) {
     require('css!./index.css');
 
     var Tips = Zui.extend({
+
         /**
          * 构造函数
          *
@@ -101,7 +107,7 @@ define(function (require) {
      *
      * @type {Object}
      * @param {boolean} options.lock 是否锁定屏幕
-     * @param {number} [options.time=2000] 自动关闭时间
+     * @param {number|null} [options.time=2000] 自动关闭时间，如果为null则不自动关闭
      * @param {string} options.className 自定义样式名
      */
     Tips.defaults = {

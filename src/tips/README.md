@@ -20,14 +20,19 @@ require([
 });
 ```
 
+### events
+
+* show - 提示层显示后事件
+* close - 提示层关闭（销毁dom）后事件
+* destroy - 提示层销毁后事件
+
 ### api - options
 
 ```js
 /**
  * @param {Object|string} options 配置参数或者提示内容
  * @param {boolean} options.lock 是否锁定屏幕
- * @param {boolean} [options.autoClose=true] 是否自动关闭
- * @param {number} [options.time=2000] 自动关闭时间
+ * @param {number|null} [options.time=2000] 自动关闭时间，如果为null则不自动关闭
  * @param {string} options.className 自定义样式名
  */
 ```
@@ -77,9 +82,11 @@ require(['tips/index'], function (Tips) {
     });
 
     app.on('show', function () {
-        alert('show');
+        console.log('show')
     }).on('close', function () {
-        alert('close');
+        console.log('close')
+    }).on('destroy', function () {
+        console.log('destroy')
     });
 });
 ```

@@ -19,14 +19,18 @@ require([
 });
 ```
 
+### events
+
+* cancel - 点击遮罩层取消事件
+* close - 弹出层关闭（销毁dom）后事件
+* destroy - 提示层销毁后事件
+
 ### api - options
 
 ```js
 /**
- * @param {Object} options 配置对象
  * @param {string} options.content 内容
  * @param {string} options.className 自定义样式
- * @param {Function} options.onCancel 点击遮罩层取消时回调函数
  */
 ```
 

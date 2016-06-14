@@ -3,9 +3,9 @@
  * @author fe.xiaowu@gmail.com
  *
  * @events
- *     1. cancel
- *     2. close
- *     3. destroy
+ *     cancel - 点击遮罩层取消事件
+ *     close - 弹出层关闭（销毁dom）后事件
+ *     destroy - 提示层销毁后事件
  */
 
 define(function (require) {
@@ -49,8 +49,8 @@ define(function (require) {
             }, Base.animationTimeout);
 
             $wrap.find('.zui-popup-mask').on('click', function () {
-                self.close();
                 self.trigger('cancel');
+                self.close();
             }).on('touchmove', false);
 
             $inner = null;
