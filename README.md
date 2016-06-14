@@ -18,6 +18,8 @@ Mobile ui library created by zbfe
 
 ## demo
 
+* [Class](src/Class.md)
+* [zui](src/zui.md)
 * [tips](src/tips/README.md)
     * [tips/index](src/tips/README.md#tips/index)
     * [tips/loading](src/tips/README.md#tips/loading)
