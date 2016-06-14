@@ -11,7 +11,15 @@ define([
     'use strict';
 
     describe('popup/multiple', function () {
-        var animationTimeout = Base.animationTimeout * 1.2;
+        var eventsName = [
+            'cancel',
+            'close',
+            'destroy',
+            'select',
+            'clickDone',
+            'clickAll',
+            'clickItem',
+        ];
         var tempData = function () {
             return [
                 {
@@ -38,39 +46,26 @@ define([
             expect($('.zui-popup-multiple').length).toBe(1);
         });
 
-        it('event cancel', function (done) {
-            var app = new Multiple({
-                data: tempData()
-            }).on('cancel', function (a) {
-                expect(a).toBeUndefined();
-                done();
-            });
-
-            app.$wrap.find('.zui-popup-mask').triggerHandler('click');
-        });
-
         it('options.data empty', function () {
-            var temp1;
-            var temp2;
-
-            try {
+            expect(function () {
                 new Multiple();
-            }
-            catch (e) {
-                temp1 = true;
-            }
+            }).toThrowError(Error);
 
-            try {
+            expect(function () {
+                new Multiple();
+            }).toThrowError('options.data is empty');
+
+            expect(function () {
                 new Multiple({
                     data: []
                 });
-            }
-            catch (e) {
-                temp2 = true;
-            }
+            }).toThrowError(Error);
 
-            expect(temp1).toBe(true);
-            expect(temp2).toBe(true);
+            expect(function () {
+                new Multiple({
+                    data: []
+                });
+            }).toThrowError('options.data is empty');
         });
 
         it('options.data', function () {
@@ -83,6 +78,41 @@ define([
             });
 
             expect($('.zui-popup-multiple').html().indexOf('我是一个兵') > -1).toBe(true);
+        });
+
+        it('options.data selected', function () {
+            new Multiple({
+                data: [
+                    {
+                        text: '测试1',
+                        selected: true
+                    },
+                    {
+                        text: '测试2',
+                        selected: 1
+                    },
+                    {
+                        text: '测试2'
+                    }
+                ]
+            });
+
+            expect($('.zui-popup-multiple-selected').length).toBe(2);
+            expect($('.zui-popup-multiple-header-all').hasClass('zui-popup-multiple-header-disabled')).toBe(false);
+        });
+
+        it('options.data all selected', function () {
+            new Multiple({
+                data: [
+                    {
+                        text: '测试1',
+                        selected: true
+                    }
+                ]
+            });
+
+            expect($('.zui-popup-multiple-selected').length).toBe(1);
+            expect($('.zui-popup-multiple-header-all').hasClass('zui-popup-multiple-header-disabled')).toBe(true);
         });
 
         it('options.title', function () {
@@ -101,13 +131,10 @@ define([
         it('event select null', function (done) {
             new Multiple({
                 data: tempData()
-            });
+            }).on('close', done);
+
             expect($('.zui-popup-multiple').length).toBe(1);
             $('.zui-popup-multiple-header-done').eq(0).triggerHandler('click');
-            setTimeout(function () {
-                expect($('.zui-popup-multiple').length).toBe(0);
-                done();
-            }, animationTimeout);
         });
 
         it('event select', function (done) {
@@ -218,6 +245,21 @@ define([
             $('.zui-popup-multiple-header-done').eq(0).triggerHandler('click');
         });
 
+        it('event select click item', function (done) {
+            new Multiple({
+                data: tempData()
+            }).on('select', function (data) {
+                expect(data.index.length).toBe(1);
+                expect(data.index[0]).toBe(0);
+                done();
+            });
+
+            $('.zui-popup-multiple-list > li').eq(0).triggerHandler('click');
+            $('.zui-popup-multiple-list > li').eq(0).triggerHandler('click');
+            $('.zui-popup-multiple-list > li').eq(0).triggerHandler('click');
+            $('.zui-popup-multiple-header-done').triggerHandler('click');
+        });
+
         it('event select(data.event=none)', function (done) {
             new Multiple({
                 data: tempData()
@@ -240,111 +282,101 @@ define([
             $('.zui-popup-multiple-header-all').eq(0).triggerHandler('click');
         });
 
-        it('options.data selected', function () {
-            new Multiple({
-                data: [
-                    {
-                        text: '测试1',
-                        selected: true
-                    },
-                    {
-                        text: '测试2',
-                        selected: 1
-                    },
-                    {
-                        text: '测试2'
-                    }
-                ]
-            });
-
-            expect($('.zui-popup-multiple-selected').length).toBe(2);
-            expect($('.zui-popup-multiple-header-all').hasClass('zui-popup-multiple-header-disabled')).toBe(false);
-        });
-
-        it('options.data all selected', function () {
-            new Multiple({
-                data: [
-                    {
-                        text: '测试1',
-                        selected: true
-                    }
-                ]
-            });
-
-            expect($('.zui-popup-multiple-selected').length).toBe(1);
-            expect($('.zui-popup-multiple-header-all').hasClass('zui-popup-multiple-header-disabled')).toBe(true);
-        });
-
-        it('all trigger', function (done) {
+        it('event clickDone', function (done) {
             new Multiple({
                 data: tempData()
-            }).on('select', function (data) {
-                expect(typeof data).toBe('object');
+            }).on('clickDone', function (data) {
+                expect(data).toBeUndefined();
+                done();
+            });
+
+            $('.zui-popup-multiple-header-done').triggerHandler('click');
+        });
+
+        it('event clickAll', function (done) {
+            new Multiple({
+                data: tempData()
+            }).on('clickAll', function (data) {
+                expect(data).toBeUndefined();
                 done();
             });
 
             $('.zui-popup-multiple-header-all').triggerHandler('click');
         });
 
-        it('all trigger - disabled', function (done) {
-            var flag = true;
-            new Multiple({
+        it('event clickAll - disabled', function (done) {
+            var app = new Multiple({
                 data: [
                     {
                         text: '1',
                         selected: 1
                     }
                 ]
-            }).on('select', function () {
-                flag = false;
+            }).on('clickAll', function () {
+                expect(1).toBe(0);
+            }).on('destroy', function (data) {
+                expect(data).toBeUndefined();
+                done();
             });
 
             $('.zui-popup-multiple-header-all').triggerHandler('click');
+
             setTimeout(function () {
-                expect(flag).toBe(true);
-                done();
-            }, animationTimeout);
+                app.close();
+            });
         });
 
-        it('click item', function (done) {
+        it('event clickItem', function (done) {
             new Multiple({
                 data: tempData()
-            }).on('select', function (data) {
-                expect(data.index.length).toBe(1);
-                expect(data.index[0]).toBe(0);
+            }).on('clickItem', function (data) {
+                expect(data).toBeUndefined();
                 done();
             });
 
-            $('.zui-popup-multiple-list > li').eq(0).triggerHandler('click');
-            $('.zui-popup-multiple-list > li').eq(0).triggerHandler('click');
-            $('.zui-popup-multiple-list > li').eq(0).triggerHandler('click');
+            $('.zui-popup-multiple-list > li').triggerHandler('click');
+        });
+
+        it('events queue - done->select->close->destroy', function (done) {
+            var app = new Multiple({
+                data: tempData()
+            });
+            var queue = [];
+
+            eventsName.forEach(function (key) {
+                app.on(key, function () {
+                    queue.push(key);
+                });
+            });
+
+            app.on('destroy', function () {
+                expect(queue.join(',')).toEqual('clickDone,select,close,destroy');
+                done();
+            });
+
             $('.zui-popup-multiple-header-done').triggerHandler('click');
         });
 
-        it('close', function () {
-            expect(typeof new Multiple({data: tempData()}).close).toBe('function');
-        });
-
-        it('close()', function (done) {
-            expect($('.zui-popup-multiple').length).toBe(0);
+        it('events queue - clickItem->clickItem->all->select->close->destroy', function (done) {
             var app = new Multiple({
                 data: tempData()
             });
-            expect($('.zui-popup-multiple').length).toBe(1);
-            app.close();
-            setTimeout(function () {
-                expect($('.zui-popup-multiple').length).toBe(0);
+            var queue = [];
+
+            eventsName.forEach(function (key) {
+                app.on(key, function () {
+                    queue.push(key);
+                });
+            });
+
+            app.on('destroy', function () {
+                expect(queue.join(',')).toEqual('clickItem,clickItem,clickAll,select,close,destroy');
                 done();
-            }, animationTimeout);
-        });
-
-        it('close().close()', function () {
-            var app = new Multiple({
-                data: tempData()
             });
 
-            expect(app.close().close()).toBe(app);
+            $('.zui-popup-multiple-list > li').triggerHandler('click');
+            $('.zui-popup-multiple-list > li').triggerHandler('click');
+            $('.zui-popup-multiple-header-all').triggerHandler('click');
         });
-
     });
 });
