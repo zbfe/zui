@@ -2,7 +2,7 @@
 
 > fe.xiaowu
 
-`zui`基类，提供事件驱动、标识判断、合并配置、获取配置等基础方法，`zui`继承于 [Class](src/Class.md)～
+`zui`基类，提供事件驱动、标识判断、合并配置、获取配置等基础方法，`zui`继承于 [Class](src/base/Class.md)～
 
 基于`zui`的模块需要在销毁实例时触发`destroy`事件，`zui`将销毁实例上的自定义属性～
 
@@ -159,6 +159,7 @@ var app = new Dialog({a: 2}); // => {a: 2}
 /**
  * 标识处理
  *
+ * @description 主要用来判断标识，该标识在实例destroy也会存在
  * @param  {string}  key 键名
  * @param  {boolean|number}  value 结果
  *

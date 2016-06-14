@@ -284,6 +284,7 @@ define(function (require) {
         /**
          * 标识处理
          *
+         * @description 主要用来判断标识，该标识在实例destroy也会存在
          * @param  {string}  key 键名
          * @param  {boolean|number}  value 结果
          *

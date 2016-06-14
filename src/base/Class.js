@@ -2,6 +2,7 @@
  * @file class类
  * @author rauschma
  * @link https://github.com/rauschma/class-js
+ * @module Class
  */
 
 define(function () {
@@ -10,6 +11,8 @@ define(function () {
         /**
          * 扩展class
          *
+         * @class
+         * @name Class
          * @param {Object} properties 扩展对象，必须包含constructor方法
          * @return {Function} 构造函数
          */
@@ -37,6 +40,7 @@ define(function () {
         /**
          * 拷贝属性
          *
+         * @private
          * @param {Object} source 源
          * @param {Object} target 目标
          * @return {Object} 复制体
