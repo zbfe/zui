@@ -33,12 +33,20 @@ Mobile ui library created by zbfe
     * dialog/iframe
 * upload
     * upload/base
-    * upload/file
-    * upload/photo
-    * upload/multiple-photo
+* tab
+* slide
+* swipe
+* lazyload
+* infiniteScroll
+* calendar
+* picker
+* player
+* validate
 * tools
     * cookie
     * localStorage
+    * hash
+
 
 ## develop
 
