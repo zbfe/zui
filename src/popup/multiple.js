@@ -75,6 +75,7 @@ define(function (require) {
             self.$wrap.find('.zui-popup-multiple-list > li').on('click', function () {
                 $(this).toggleClass('zui-popup-multiple-selected');
                 self.__initAll();
+                self.trigger('clickItem');
             });
 
             // 点击完成时
@@ -119,11 +120,11 @@ define(function (require) {
                     return false;
                 }
 
-                self.$wrap.find('.zui-popup-multiple-list > li').addClass('zui-popup-multiple-selected');
-                self.$wrap.find('.zui-popup-multiple-header-done').triggerHandler('click', [true]);
-
                 // 解发下全选回调
                 self.trigger('clickAll');
+
+                self.$wrap.find('.zui-popup-multiple-list > li').addClass('zui-popup-multiple-selected');
+                self.$wrap.find('.zui-popup-multiple-header-done').triggerHandler('click', [true]);
             });
 
             self.__initAll();
