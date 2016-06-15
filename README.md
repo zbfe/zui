@@ -38,7 +38,8 @@ Mobile ui library created by zbfe
     * [dialog2/alert](src/dialog2/alert.md)
     * [dialog2/confirm](src/dialog2/confirm.md)
 * upload
-    * upload/base
+    * [upload/base](src/upload/base.md)
+    * [upload/previewImage](src/upload/previewImage.md)
 * tab
 * slide
 * swipe

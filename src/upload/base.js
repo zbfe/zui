@@ -8,6 +8,7 @@
  *     3. progress - 上传进度：{loaded, total}, file
  *     4. complete - 完成上传（成功、失败都会触发）：{success, error}
  *     5. queued - 添加到队列： file
+ *     6. destroy - 销毁实例后触发
  */
 
 define(function (require) {
