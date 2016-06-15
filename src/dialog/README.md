@@ -45,7 +45,7 @@ require([
 ], function (Dialog) {
     var options = {
         content: '我是真的内容~',
-        battons:[{
+        buttons:[{
             text:'OK',
             callback: function (i) {
                 console.log(i);
@@ -57,7 +57,15 @@ require([
             }
         }]
     };
+
     var dialog = new Dialog(options);
+
+    dialog.on('show', function(){
+        alert('显示~');
+    }).on('hide', function () {
+        alert('隐藏~');
+    });
+
     dialog.show();
 });
 ```

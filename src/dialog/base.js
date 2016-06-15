@@ -19,45 +19,29 @@ define(function(require, factory) {
     var loop = function (){};
     
     var $ = require('zepto');
-
-    /**
-     * 默认参数
-     */
-    var defaultOptions = {
-        hideCallback: loop,
-        showCallback: loop,
-        destroyCallback: loop,
-        aniTime: 200,
-        horizontal: true,
-        content:'',
-        title: '提示',
-        buttons: [{
-            text: '确定',
-            callback: loop
-        }]
-    };
-    
-    /**
-     * Dialog构造函数
-     *
-     * @param {Object} options 配置对象
-     */
-    function Dialog(options) {
-        this.options = $.extend(defaultOptions, options);
-        this.__init();
-    }
-
+    var Zui = require('zui');
 
     /**
      * 扩展Dialog原型,添加弹窗基本API
      */
-    $.extend(Dialog.prototype, {
+    var Dialog = Zui.extend({
+        
+        constructor: function (options) {
+            var me = this;
+            $.extend(Dialog.defaults, options);
+            
+            // 初始化zui
+            Dialog.super.constructor.call(me, Dialog.defaults, options);
+
+            me.__init();
+        },
+        
         /**
          * 初始化弹窗
          */
         __init: function () {
             var me = this;
-            var options = me.options;
+            var options = me.get();
             var showStyle = 'zui-dialog-btngroup-h';
             var btns = options.buttons || [];
             var btnsStr = '';
@@ -103,7 +87,8 @@ define(function(require, factory) {
          */
         show: function () {
             var me = this;
-            var aniTime = me.options.aniTime;
+            var options = me.get();
+            var aniTime = options.aniTime;
 
             me.ele.css({display:'block'}).animate({
                 opacity:1
@@ -116,7 +101,7 @@ define(function(require, factory) {
                 .animate({
                     transform: 'translate(50%, -50%) scale3d(1,1,1)'
             }, aniTime, function (){
-                me.options.showCallback.call(me);
+                me.trigger('show');
             });
         },
 
@@ -126,7 +111,8 @@ define(function(require, factory) {
          */
         hide: function () {
             var me = this;
-            var aniTime = me.options.aniTime;
+            var options = me.get();
+            var aniTime = options.aniTime;
             me.ele.animate({
                 opacity:0
             }, aniTime);
@@ -135,10 +121,7 @@ define(function(require, factory) {
                 opacity:0,
                 transform: 'translate(50%, -50%) scale3d(.7,.7,1)'
             }, aniTime, function (){
-                var hideFn = me.options.hideCallback;
-                if ($.isFunction(hideFn)) {
-                    hideFn.call(me);
-                }
+                me.trigger('hide');
                 me.destroy();
             })
         },
@@ -162,18 +145,28 @@ define(function(require, factory) {
          */
         destroy: function () {
             var me = this;
-            var destroyFn = me.options.destroyCallback;
-
             me.ele.remove();
-
-            if ($.isFunction(destroyFn)) {
-                destroyFn.call(me);
-            }
-
-
+            me.trigger('destroy');
         }
 
     });
+
+    /**
+     * 默认参数
+     */
+    Dialog.defaults = {
+        hideCallback: loop,
+        showCallback: loop,
+        destroyCallback: loop,
+        aniTime: 200,
+        horizontal: true,
+        content:'',
+        title: '提示',
+        buttons: [{
+            text: '确定',
+            callback: loop
+        }]
+    };
 
     return Dialog;
 });
