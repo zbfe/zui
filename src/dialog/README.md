@@ -61,9 +61,9 @@ require([
     var dialog = new Dialog(options);
 
     dialog.on('show', function(){
-        alert('显示~');
+        alert('base显示~');
     }).on('hide', function () {
-        alert('隐藏~');
+        alert('base隐藏~');
     });
 
     dialog.show();

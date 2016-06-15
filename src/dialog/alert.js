@@ -9,34 +9,25 @@ define(function (require) {
     var $ = require('zepto');
     var Base = require('./base');
 
-    var defaultOptions = {
+    var Alert = Base.extend({
+        constructor: function (options) {
+            var me = this;
+            $.extend(Alert.defaults, options);
+
+            // 初始化zui
+            Alert.super.constructor.call(me, Alert.defaults, options);
+
+            me.__init();
+        }
+    });
+
+    /**
+     * 默认参数
+     * **/
+    Alert.defaults = {
         confirmText: '确定',
         confirmCallback: function(){}
     };
-
-    function Alert(options) {
-        this.options = $.extend(defaultOptions, options);
-        this.__init();
-    }
-    
-    $.extend(Alert.prototype, {
-        __init: function () {
-            var me = this;
-            var options = me.options;
-            me.options.buttons = [{
-                text: options.confirmText || '',
-                callback: options.confirmCallback || ''
-            }];
-            me.super = new Base(me.options);
-        },
-        hide: function () {
-            this.super.hide();
-        },
-        show: function () {
-            this.super.show();
-        }
-    });
-    
 
     return Alert;
 });
