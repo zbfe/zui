@@ -4,7 +4,7 @@
 
 弹窗基类
 
-## Dialog/base
+## Dialog/dialog
 
 基类，主要完成对话框的动画、关闭事件和遮罩
 
@@ -12,7 +12,7 @@
 
 ```js
 require([
-    'popup/base'
+    'Dialog/dialog'
 ], function (Base) {
     var options = {};
     new Base(options);
@@ -25,9 +25,6 @@ require([
 /**
  * @param {Object} options 配置对象
  * @param {boolean} options.horizontal 按钮排列方向,默认为横向
- * @param {Function} options.hideCallback 隐藏回调
- * @param {Function} options.showCallback 显示回调
- * @param {Function} options.destroyCallback 销毁实例回调
  * @param {number} options.aniTime 动画时间
  * @param {string} options.content Dialog正文内容
  * @param {string} options.title 弹窗标题
@@ -41,7 +38,7 @@ require([
 
 ```runjs
 require([
-    'dialog/base'
+    'dialog/dialog'
 ], function (Dialog) {
     var options = {
         content: '我是真的内容~',
@@ -105,9 +102,14 @@ require([
 ], function (Alert) {
     var options = {
         content: '我是alert内容~',
-
     };
     var a = new Alert(options);
+    a.on('show', function(){
+        alert('alert显示~');
+    }).on('hide', function () {
+        alert('alert隐藏~');
+    });
+
     a.show();
 });
 ```

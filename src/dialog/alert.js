@@ -7,9 +7,9 @@ define(function (require) {
     'use strict';
 
     var $ = require('zepto');
-    var Base = require('./base');
+    var Dialog = require('./dialog');
 
-    var Alert = Base.extend({
+    var Alert = Dialog.extend({
         constructor: function (options) {
             var me = this;
             $.extend(Alert.defaults, options);
@@ -23,10 +23,12 @@ define(function (require) {
 
     /**
      * 默认参数
-     * **/
+     * @param {string} text 按钮文案
+     * @param {Function} callback 按钮回调函数
+     */
     Alert.defaults = {
-        confirmText: '确定',
-        confirmCallback: function(){}
+        text: '确定',
+        callback: function(){}
     };
 
     return Alert;

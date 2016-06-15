@@ -25,11 +25,58 @@ define(function(require, factory) {
      * 扩展Dialog原型,添加弹窗基本API
      */
     var Dialog = Zui.extend({
-        
+        /**
+         * 构造函数
+         *
+         * @name dialog
+         * @class
+         * @requires zepto
+         * @requires Zui
+         *
+         * @param {number} aniTime 动画持续时间,默认200毫秒
+         * @param {boolean} horizontal 按钮排列方向, 默认为true,横向
+         * @param {string} content 弹出框内容,默认为空
+         * @param {string} title 弹出框标题,默认为"提示"
+         * @param {Array} buttons 默认为一个"确定"按钮
+         *      text {string} 按钮文案
+         *      callback {Function} 默认为空函数
+         *
+         * @example
+         * // 只有内容和确定按钮
+         * new Dialog('我是内容~');
+         *
+         * @example
+         * // 内容和确定按钮,动画持续时间为400毫秒
+         * new Dialog({content:'我是内容~', aniTime:400});
+         *
+         * @example
+         * // 有标题、内容和确定按钮回调
+         * new Dialog({content:'我是内容~', horizontal:false});
+         *
+         * @example
+         * // 有标题、内容和确定、取消按钮回调
+         * new Dialog({content:'我是内容~', buttons:[{
+         *     text: '按钮1',
+         *     callback: function() {
+         *          alert('按钮1回调');
+         *     },{
+         *     text: '按钮2',
+         *     callback: function() {
+         *          alert('按钮2回调');
+         *     }
+         * ]});
+         */
         constructor: function (options) {
             var me = this;
+
+            if (typeof options === 'string') {
+                var content = options;
+                options = {};
+                options.content = content;
+            }
+
             $.extend(Dialog.defaults, options);
-            
+
             // 初始化zui
             Dialog.super.constructor.call(me, Dialog.defaults, options);
 
@@ -153,11 +200,15 @@ define(function(require, factory) {
 
     /**
      * 默认参数
+     * @param {number} aniTime 动画持续时间,默认200毫秒
+     * @param {boolean} horizontal 按钮排列方向, 默认为true,横向
+     * @param {string} content 弹出框内容,默认为空
+     * @param {string} title 弹出框标题,默认为"提示"
+     * @param {Array} buttons 默认为一个"确定"按钮
+     *      text {string} 按钮文案
+     *      callback {Function} 默认为空函数
      */
     Dialog.defaults = {
-        hideCallback: loop,
-        showCallback: loop,
-        destroyCallback: loop,
         aniTime: 200,
         horizontal: true,
         content:'',
