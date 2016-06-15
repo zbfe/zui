@@ -146,7 +146,7 @@ define([
 
 ### 文档
 
-`src/[module]/README.md`:
+所有文档里链接其他文档都是以根目录为`baseurl`，如：`src/a/a.md`里链接`src/b/b/d.md`则写成：`[xxx](src/b/b/d.md#我是锚点)`，文档路径如：`src/[module]/[uri].md`，`[uri]`可以是`README`或者`base`等，内容如：
 
     # 模块名称
 
