@@ -36,10 +36,10 @@ define(function (require) {
      * @return {string}      值
      */
     cookie.get = function (name) {
-        if ('string' === typeof name) {
-            if (document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)')) !== null) {
-                return decodeURIComponent(RegExp.$2);
-            }
+        name = encodeURIComponent(name);
+
+        if (document.cookie.match(new RegExp('(^| )' + name + '=([^;]*)(;|$)')) !== null) {
+            return decodeURIComponent(RegExp.$2);
         }
 
         return '';
@@ -85,7 +85,7 @@ define(function (require) {
 
         // 如果有安全设置
         if (options.secure) {
-            ret.push('secure=secure');
+            ret.push('secure=true');
         }
 
         // 设置cookie
