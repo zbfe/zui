@@ -20,19 +20,23 @@ Mobile ui library created by zbfe
 
 * [Class](src/base/Class.md)
 * [zui](src/base/zui.md)
-* [tips](src/tips/README.md)
+* tips
     * [tips/index](src/tips/README.md#tips/index)
     * [tips/loading](src/tips/README.md#tips/loading)
 * popup
-    * [popup/base](src/popup/base.md#popup/base)
-    * [popup/select](src/popup/README.md#popup/select)
-    * [popup/radio](src/popup/README.md#popup/radio)
-    * [popup/multiple](src/popup/README.md#popup/multiple)
+    * [popup/base](src/popup/base.md)
+    * [popup/select](src/popup/select.md)
+    * [popup/radio](src/popup/radio.md)
+    * [popup/multiple](src/popup/multiple.md)
 * dialog
     * [dialog/base](src/dialog/README.md#dialog/base)
     * [dialog/alert](src/dialog/README.md#dialog/alert)
     * dialog/confirm
     * dialog/iframe
+* dialog2
+    * [dialog2/dialog](src/dialog2/dialog.md)
+    * [dialog2/alert](src/dialog2/alert.md)
+    * [dialog2/confirm](src/dialog2/confirm.md)
 * upload
     * upload/base
 * tab

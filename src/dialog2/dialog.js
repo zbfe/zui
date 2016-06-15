@@ -3,10 +3,10 @@
  * @author fe.xiaowu <fe.xiaowu@gmail.com>
  * @module dialog2/dialog
  * @events
- *     1. show 显示
- *     2. close 关闭
- *     3. destroy 销毁
- *     4. button:id 按钮点击回调
+ *     show 显示
+ *     close 关闭
+ *     destroy 销毁
+ *     button:id 按钮点击回调
  */
 
 define(function (require) {
