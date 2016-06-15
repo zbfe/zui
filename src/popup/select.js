@@ -91,7 +91,9 @@ define(function (require) {
      * 默认参数
      *
      * @type {Object}
-     * @param {Array} data 数据列表，[{value, text}]
+     * @param {Array} data 数据列表
+     * @param {string} data[].text 菜单显示之本
+     * @param {string} data[].value 菜单的值
      */
     Select.defaults = {
         data: [],

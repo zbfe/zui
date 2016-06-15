@@ -104,7 +104,10 @@ define(function (require) {
      *
      * @type {Object}
      * @param {string} [options.title=请选择] 标题
-     * @param {Array} options.data 数据列表，[{value, text, selected}]
+     * @param {Array} data 数据列表
+     * @param {string} data[].text 菜单显示之本
+     * @param {string} data[].value 菜单的值
+     * @param {boolean} [data[].selected=false] 是否选中菜单
      */
     Radio.defaults = {
         data: [],
