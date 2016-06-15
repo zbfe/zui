@@ -3,7 +3,7 @@
  * @author schoeu1110@gmail.com
  */
 define([
-    'dialog/base',
+    'dialog/dialog',
     'zepto'
 ], function (Base, $) {
     'use strict';
