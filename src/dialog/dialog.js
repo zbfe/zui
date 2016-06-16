@@ -70,15 +70,17 @@ define(function(require, factory) {
             var me = this;
 
             if (typeof options === 'string') {
-                var content = options;
-                options = {};
-                options.content = content;
+                options = {
+                    content: content
+                };
             }
-
-            $.extend(Dialog.defaults, options);
 
             // 初始化zui
             Dialog.super.constructor.call(me, Dialog.defaults, options);
+
+            if (!me.get('content')) {
+                throw new Error('please input valid content.');
+            }
 
             me.__init();
         },
@@ -92,10 +94,6 @@ define(function(require, factory) {
             var showStyle = 'zui-dialog-btngroup-h';
             var btns = options.buttons || [];
             var btnsStr = '';
-
-            if (!options.content) {
-                throw new Error('please input invaild content.');
-            }
 
             me.ele = $('<div class="zui-dialog-wrap-mask">');
 

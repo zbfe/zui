@@ -101,7 +101,7 @@ require([
     'dialog/alert'
 ], function (Alert) {
     var options = {
-        content: '我是alert内容~',
+        content: '我是alert内容~'
     };
     var a = new Alert(options);
     a.on('show', function(){

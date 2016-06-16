@@ -12,12 +12,8 @@ define(function (require) {
     var Alert = Dialog.extend({
         constructor: function (options) {
             var me = this;
-            $.extend(Alert.defaults, options);
-
             // 初始化zui
             Alert.super.constructor.call(me, Alert.defaults, options);
-
-            me.__init();
         }
     });
 
