@@ -34,8 +34,6 @@ require([
 
 ### example
 
-#### 简单
-
 ```runjs
 require([
     'dialog/dialog'
@@ -67,18 +65,63 @@ require([
 });
 ```
 
-## dialog/alert
+## Dialog/alert
 
-在`popup/base`上扩展的一个提示框
+在`Dialog/dialog`上扩展的一个提示框
 
 ### use
 
 ```js
 require([
     'dialog/alert'
-], function (alert) {
-    var a = new Dialog({
+], function (Alert) {
+    var a = new Alert({
         content: '这是alert!'
+    });
+    a.show();
+});
+```
+
+### api - options
+
+```js
+/**
+ * @param {Object} options 配置对象
+ */
+```
+
+### example
+
+```runjs
+require([
+    'dialog/alert'
+], function (Alert) {
+    var options = {
+        content: '我是alert内容~'
+    };
+    var a = new Alert(options);
+    a.on('show', function(){
+        alert('alert显示~');
+    }).on('hide', function () {
+        alert('alert隐藏~');
+    });
+
+    a.show();
+});
+```
+
+## Dialog/confirm
+
+在`Dialog/dialog`上扩展的一个提示框
+
+### use
+
+```js
+require([
+    'dialog/confirm'
+], function (Confirm) {
+    var a = new Confirm({
+        content: '这是Confirm!'
     });
     a.show();
 });
@@ -98,16 +141,16 @@ require([
 
 ```runjs
 require([
-    'dialog/alert'
-], function (Alert) {
+    'dialog/confirm'
+], function (Confirm) {
     var options = {
-        content: '我是alert内容~'
+        content: '我是confirm内容~'
     };
-    var a = new Alert(options);
+    var a = new Confirm(options);
     a.on('show', function(){
-        alert('alert显示~');
+        alert('confirm显示~');
     }).on('hide', function () {
-        alert('alert隐藏~');
+        alert('confirm隐藏~');
     });
 
     a.show();

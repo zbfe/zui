@@ -1,5 +1,5 @@
 /**
- * @file Alert
+ * @file Confirm
  * @author schoeu1110@gmail.com
  */
 
@@ -9,14 +9,16 @@ define(function (require) {
     var $ = require('zepto');
     var Dialog = require('./dialog');
 
-    var Alert = Dialog.extend({
+    var loop = function(){};
+
+    var Confirm = Dialog.extend({
         constructor: function (options) {
             var me = this;
 
-            options = $.extend({}, Alert.defaults, options);
+            options = $.extend({}, Confirm.defaults, options);
 
             // 初始化zui
-            Alert.super.constructor.call(me, options);
+            Confirm.super.constructor.call(me, options);
         }
     });
 
@@ -25,10 +27,15 @@ define(function (require) {
      * @param {string} text 按钮文案
      * @param {Function} callback 按钮回调函数
      */
-    Alert.defaults = {
-        text: '确定',
-        callback: function(){}
+    Confirm.defaults = {
+        buttons: [{
+            text: '取消',
+            callback: loop
+        },{
+            text: '确定',
+            callback: loop
+        }]
     };
 
-    return Alert;
+    return Confirm;
 });

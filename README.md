@@ -31,7 +31,7 @@ Mobile ui library created by zbfe
 * dialog
     * [dialog/base](src/dialog/README.md#dialog/base)
     * [dialog/alert](src/dialog/README.md#dialog/alert)
-    * dialog/confirm
+    * [dialog/confirm](src/dialog/README.md#dialog/confirm)
     * dialog/iframe
 * dialog2
     * [dialog2/dialog](src/dialog2/dialog.md)
