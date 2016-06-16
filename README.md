@@ -50,7 +50,7 @@ Mobile ui library created by zbfe
 * player
 * validate
 * tools
-    * cookie
+    * [tools/cookie](src/tools/cookie.md)
     * localStorage
     * hash
 
