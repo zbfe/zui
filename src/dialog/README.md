@@ -40,6 +40,7 @@ require([
 ], function (Dialog) {
     var options = {
         content: '我是真的内容~',
+        horizontal: false,
         buttons:[{
             text:'OK',
             callback: function (i) {
@@ -49,6 +50,11 @@ require([
             text:'CANCLE',
             callback: function (i) {
                 console.log(i);
+            }
+        },{
+            text:'OTHER',
+            callback: function (i) {
+              console.log(i);
             }
         }]
     };
