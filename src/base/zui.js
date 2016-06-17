@@ -53,8 +53,6 @@ define(function (require) {
             self.on('destroy', function () {
                 var key;
 
-                self._listener = {};
-
                 for (key in self) {
                     if (key === '_is') {
                         continue;
@@ -64,6 +62,9 @@ define(function (require) {
                     }
 
                 }
+
+                // 重新幅值事件空间，因为可能销毁实例后还在trigger或者on
+                self._listener = {};
             });
         },
 
