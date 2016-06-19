@@ -62,5 +62,5 @@ Mobile ui library created by zbfe
 
 ## contribute
 
-* [schoeu](https://schoeu.com/)
-* [前端小武](https://xuexb.com/)
+* [schoeu](https://schoeu.com/?rel=zui)
+* [前端小武](https://xuexb.com/?rel=zui)
