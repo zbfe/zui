@@ -71,7 +71,7 @@ define(function(require, factory) {
 
             if (typeof options === 'string') {
                 options = {
-                    content: content
+                    content: options
                 };
             }
 
