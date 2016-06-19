@@ -59,3 +59,8 @@ Mobile ui library created by zbfe
 ## develop
 
 [运行命令](docs/quick-start.md#运行命令)
+
+## contribute
+
+* [schoeu](https://schoeu.com/)
+* [前端小武](https://xuexb.com/)
