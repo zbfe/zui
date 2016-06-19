@@ -484,9 +484,12 @@ define([
             app.on('destroy', function () {
                 expect(app.a).toBeUndefined();
                 expect(app.is('ok')).toBe(true);
-                done();
+
+                setTimeout(done);
             });
-            app.trigger('destroy');
+
+            // 触发多个destroy
+            app.trigger('destroy').trigger('destroy').trigger('destroy').on('test', function () {});
         });
 
         // _

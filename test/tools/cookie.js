@@ -91,16 +91,12 @@ define([
         it('options.expires', function (done) {
             expect(cookie.get('options.expires')).toBe('');
             cookie.set('options.expires', 1, {
-                expires: 1000
+                expires: 500
             });
-            expect(cookie.get('options.expires')).toBe('1');
-            setTimeout(function () {
-                expect(cookie.get('options.expires')).toBe('1');
-            }, 100);
             setTimeout(function () {
                 expect(cookie.get('options.expires')).toBe('');
                 done();
-            }, 1010);
+            }, 1000);
         });
     });
 });
