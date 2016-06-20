@@ -4,14 +4,14 @@
  */
 
 /* 父容器 mask */
-.zui-dialog {
+.zui-dialog2 {
     position: relative;
     z-index: 1000;
     font-size: 14px; 
 }
 
 /* mask层 */
-.zui-dialog-mask {
+.zui-dialog2-mask {
     position: fixed;
     top: 0;
     left: 0;
@@ -23,7 +23,7 @@
     display: none; 
 }
 /* 对话框layout */
-.zui-dialog-layout {
+.zui-dialog2-layout {
     opacity: 0; 
     position: fixed;
     left: 50%;
@@ -36,39 +36,39 @@
     overflow: hidden; 
 }
 
-.zui-dialog-content {
+.zui-dialog2-content {
     padding: 15px;
     font-size: 14px;
     line-height: 22px;
 }
 
-.zui-dialog-title {
+.zui-dialog2-title {
     font-size: 18px;
     line-height: 26px;
     margin-bottom: 4px; 
 }
 
-.zui-dialog-buttons {
+.zui-dialog2-buttons {
     color: #09f;
     line-height: 40px;
     border-top: 1px solid #d9d9d9;
 }
 
 /* 按钮水平布局 */
-.zui-dialog-layout .c-flexbox .zui-dialog-button {
+.zui-dialog2-layout .c-flexbox .zui-dialog2-button {
     min-width: 35px;
     -webkit-box-flex: 1;
     -webkit-flex: 1 1 auto;
     border-left: 1px solid #d9d9d9;
 }
-.zui-dialog-layout .c-flexbox .zui-dialog-button:first-child {
+.zui-dialog2-layout .c-flexbox .zui-dialog2-button:first-child {
     border-left: 0 none;
 }
 
 /* 按钮垂直布局 */
-.zui-dialog-vertical-buttons .zui-dialog-button {
+.zui-dialog2-vertical-buttons .zui-dialog2-button {
     border-top: 1px solid #d9d9d9;
 }
-.zui-dialog-vertical-buttons .zui-dialog-button:first-child {
+.zui-dialog2-vertical-buttons .zui-dialog2-button:first-child {
     border-top: 0 none;
 }

@@ -94,14 +94,14 @@ define(function (require) {
 
             // 如果没有按钮
             if (!options.button || !options.button.length) {
-                return self.$wrap.find('.zui-dialog-buttons').hide();
+                return self.$wrap.find('.zui-dialog2-buttons').hide();
             }
 
             options.button.forEach(function (val) {
                 var id = val.id || val.value;
 
                 html.push([
-                    '<span class="zui-dialog-button c-line-clamp1" data-id="' + id + '">' + val.value + '</span>'
+                    '<span class="zui-dialog2-button c-line-clamp1" data-id="' + id + '">' + val.value + '</span>'
                 ].join(''));
 
 
@@ -113,7 +113,7 @@ define(function (require) {
 
             // 绑定事件
             // 点击按钮时触发事件并关闭窗口
-            self.$wrap.find('.zui-dialog-buttons').html(html.join('')).show().children().on('click', function () {
+            self.$wrap.find('.zui-dialog2-buttons').html(html.join('')).show().children().on('click', function () {
                 /**
                  * 按钮点击回调
                  * @event button:id
@@ -124,10 +124,10 @@ define(function (require) {
 
             // 如果是垂直按钮
             if (options.verticalButtons) {
-                self.$wrap.find('.zui-dialog-buttons').addClass('zui-dialog-vertical-buttons');
+                self.$wrap.find('.zui-dialog2-buttons').addClass('zui-dialog2-vertical-buttons');
             }
             else {
-                self.$wrap.find('.zui-dialog-buttons').addClass('c-flexbox');
+                self.$wrap.find('.zui-dialog2-buttons').addClass('c-flexbox');
             }
         },
 
@@ -157,13 +157,13 @@ define(function (require) {
 
             // 如果有遮罩层则让其显示
             if (options.lock) {
-                self.$wrap.find('.zui-dialog-mask').show().animate({
+                self.$wrap.find('.zui-dialog2-mask').show().animate({
                     opacity: 1
                 }, options.duration, 'ease-out');
             }
 
             // 开始动画显示
-            self.$wrap.find('.zui-dialog-layout').css({
+            self.$wrap.find('.zui-dialog2-layout').css({
                 transform: 'translate(-50%, -50%) scale3d(1.2, 1.2, 1)'
             }).animate({
                 transform: 'translate(-50%, -50%) scale3d(1, 1, 1)',
@@ -201,7 +201,7 @@ define(function (require) {
             self.is('close', true);
 
             // 开始动画关闭
-            self.$wrap.find('.zui-dialog-layout').animate({
+            self.$wrap.find('.zui-dialog2-layout').animate({
                 transform: 'translate(-50%, -50%) scale3d(0.8, 0.8, 1)',
                 opacity: 0
             }, self.get('duration'), 'ease-out', function () {
@@ -221,7 +221,7 @@ define(function (require) {
 
             // 如果有遮罩层让其隐藏
             if (this.get('lock')) {
-                self.$wrap.find('.zui-dialog-mask').animate({
+                self.$wrap.find('.zui-dialog2-mask').animate({
                     opacity: 0
                 }, self.get('duration'), 'ease-out');
             }
@@ -239,10 +239,10 @@ define(function (require) {
         title: function (str) {
             // 如果有内容才设置并显示
             if (str) {
-                this.$wrap.find('.zui-dialog-title').text(str).show();
+                this.$wrap.find('.zui-dialog2-title').text(str).show();
             }
             else {
-                this.$wrap.find('.zui-dialog-title').hide();
+                this.$wrap.find('.zui-dialog2-title').hide();
             }
 
             return this;
@@ -256,7 +256,7 @@ define(function (require) {
          * @return {Object}     this
          */
         content: function (str) {
-            this.$wrap.find('.zui-dialog-text').html(str);
+            this.$wrap.find('.zui-dialog2-text').html(str);
             return this;
         },
 
@@ -270,16 +270,16 @@ define(function (require) {
             var $wrap = self.$wrap = $('<div />').attr({
                 role: self.get('lock') ? 'alertdialog' : 'dialog',
                 tabindex: -1
-            }).addClass('zui-dialog');
+            }).addClass('zui-dialog2');
 
             $wrap[0].innerHTML = [
-                '<div class="zui-dialog-mask"></div>',
-                '<div class="zui-dialog-layout">',
-                '   <div class="zui-dialog-content">',
-                '       <div class="zui-dialog-title"></div>',
-                '       <div class="zui-dialog-text"></div>',
+                '<div class="zui-dialog2-mask"></div>',
+                '<div class="zui-dialog2-layout">',
+                '   <div class="zui-dialog2-content">',
+                '       <div class="zui-dialog2-title"></div>',
+                '       <div class="zui-dialog2-text"></div>',
                 '   </div>',
-                '   <div class="zui-dialog-buttons"></div>',
+                '   <div class="zui-dialog2-buttons"></div>',
                 '</div>'
             ].join('');
 

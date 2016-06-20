@@ -14,7 +14,7 @@ define([
         var duration = Dialog.defaults.duration;
 
         afterEach(function () {
-            $('.zui-dialog').remove();
+            $('.zui-dialog2').remove();
         });
 
         it('base', function () {
@@ -22,11 +22,11 @@ define([
         });
 
         it('create Element', function () {
-            expect($('.zui-dialog').length).toBe(0);
+            expect($('.zui-dialog2').length).toBe(0);
 
             new Dialog();
 
-            expect($('.zui-dialog').length).toBe(1);
+            expect($('.zui-dialog2').length).toBe(1);
         });
 
         it('app.$wrap', function (done) {
@@ -50,8 +50,8 @@ define([
                 }
             });
 
-            expect(app.$wrap.find('.zui-dialog-button').length).toBe(1);
-            app.$wrap.find('.zui-dialog-button').triggerHandler('click');
+            expect(app.$wrap.find('.zui-dialog2-button').length).toBe(1);
+            app.$wrap.find('.zui-dialog2-button').triggerHandler('click');
         });
 
         it('options.ok, .cancel => true', function () {
@@ -60,7 +60,7 @@ define([
                 cancel: true
             });
 
-            expect(app.$wrap.find('.zui-dialog-button').length).toBe(2);
+            expect(app.$wrap.find('.zui-dialog2-button').length).toBe(2);
         });
 
         it('options.ok, .cancel', function (done) {
@@ -72,8 +72,8 @@ define([
                 }
             });
 
-            expect(app.$wrap.find('.zui-dialog-button').length).toBe(2);
-            app.$wrap.find('.zui-dialog-button').eq(1).triggerHandler('click');
+            expect(app.$wrap.find('.zui-dialog2-button').length).toBe(2);
+            app.$wrap.find('.zui-dialog2-button').eq(1).triggerHandler('click');
         });
 
         it('options.okValue', function () {
@@ -82,7 +82,7 @@ define([
                 okValue: '成功'
             });
 
-            expect(app.$wrap.find('.zui-dialog-button').text()).toBe('成功');
+            expect(app.$wrap.find('.zui-dialog2-button').text()).toBe('成功');
         });
 
         it('options.cancelValue', function () {
@@ -91,19 +91,19 @@ define([
                 cancelValue: '成功'
             });
 
-            expect(app.$wrap.find('.zui-dialog-button').text()).toBe('成功');
+            expect(app.$wrap.find('.zui-dialog2-button').text()).toBe('成功');
         });
 
         it('options.button => null, []', function () {
             new Dialog({
                 button: null
             });
-            expect($('.zui-dialog-button').length).toBe(0);
+            expect($('.zui-dialog2-button').length).toBe(0);
 
             new Dialog({
                 button: []
             });
-            expect($('.zui-dialog-button').length).toBe(0);
+            expect($('.zui-dialog2-button').length).toBe(0);
         });
 
         it('options.button', function (done) {
@@ -119,9 +119,9 @@ define([
                 ]
             });
 
-            expect($('.zui-dialog-button').length).toBe(1);
-            expect(app.$wrap.find('.zui-dialog-button').text()).toBe('111');
-            $('.zui-dialog-button').triggerHandler('click');
+            expect($('.zui-dialog2-button').length).toBe(1);
+            expect(app.$wrap.find('.zui-dialog2-button').text()).toBe('111');
+            $('.zui-dialog2-button').triggerHandler('click');
         });
 
         it('options.verticalButtons => true', function () {
@@ -130,8 +130,8 @@ define([
                 ok: true
             });
 
-            expect($('.zui-dialog-buttons').hasClass('zui-dialog-vertical-buttons')).toBe(true);
-            expect($('.zui-dialog-buttons').hasClass('c-flexbox')).toBe(false);
+            expect($('.zui-dialog2-buttons').hasClass('zui-dialog2-vertical-buttons')).toBe(true);
+            expect($('.zui-dialog2-buttons').hasClass('c-flexbox')).toBe(false);
         });
 
         it('options.verticalButtons => false', function () {
@@ -140,8 +140,8 @@ define([
                 ok: true
             });
 
-            expect($('.zui-dialog-buttons').hasClass('c-flexbox')).toBe(true);
-            expect($('.zui-dialog-buttons').hasClass('zui-dialog-vertical-buttons')).toBe(false);
+            expect($('.zui-dialog2-buttons').hasClass('c-flexbox')).toBe(true);
+            expect($('.zui-dialog2-buttons').hasClass('zui-dialog2-vertical-buttons')).toBe(false);
         });
 
         it('options.title => str', function () {
@@ -149,9 +149,9 @@ define([
                 title: '测试'
             });
 
-            expect($('.zui-dialog-title').length).toBe(1);
-            expect($('.zui-dialog-title').text()).toBe('测试');
-            expect($('.zui-dialog-title').css('display')).toBe('block');
+            expect($('.zui-dialog2-title').length).toBe(1);
+            expect($('.zui-dialog2-title').text()).toBe('测试');
+            expect($('.zui-dialog2-title').css('display')).toBe('block');
         });
 
         it('options.title => null', function () {
@@ -159,8 +159,8 @@ define([
                 title: null
             });
 
-            expect($('.zui-dialog-title').length).toBe(1);
-            expect($('.zui-dialog-title').css('display')).toBe('none');
+            expect($('.zui-dialog2-title').length).toBe(1);
+            expect($('.zui-dialog2-title').css('display')).toBe('none');
         });
 
         it('options.content => str', function () {
@@ -168,8 +168,8 @@ define([
                 content: '测试'
             });
 
-            expect($('.zui-dialog-text').length).toBe(1);
-            expect($('.zui-dialog-text').text()).toBe('测试');
+            expect($('.zui-dialog2-text').length).toBe(1);
+            expect($('.zui-dialog2-text').text()).toBe('测试');
         });
 
         it('options.content => html', function () {
@@ -195,7 +195,7 @@ define([
                 lock: true
             });
 
-            expect($('.zui-dialog-mask').css('display')).toBe('block');
+            expect($('.zui-dialog2-mask').css('display')).toBe('block');
             app.close();
         });
 
@@ -204,7 +204,7 @@ define([
                 lock: false
             });
 
-            expect($('.zui-dialog-mask').css('display')).toBe('none');
+            expect($('.zui-dialog2-mask').css('display')).toBe('none');
             app.close();
         });
 
@@ -285,28 +285,28 @@ define([
                 title: null
             });
 
-            expect($('.zui-dialog-title').css('display')).toBe('none');
+            expect($('.zui-dialog2-title').css('display')).toBe('none');
 
             expect(app.title('测试')).toEqual(app);
-            expect($('.zui-dialog-title').css('display')).toBe('block');
-            expect($('.zui-dialog-title').text()).toBe('测试');
+            expect($('.zui-dialog2-title').css('display')).toBe('block');
+            expect($('.zui-dialog2-title').text()).toBe('测试');
 
             app.title('');
-            expect($('.zui-dialog-title').css('display')).toBe('none');
+            expect($('.zui-dialog2-title').css('display')).toBe('none');
         });
 
         it('app.content()', function () {
             var app = new Dialog({
             });
 
-            expect($('.zui-dialog-text').text()).toBe('');
+            expect($('.zui-dialog2-text').text()).toBe('');
 
             expect(app.content('1')).toEqual(app);
-            expect($('.zui-dialog-text').text()).toBe('1');
+            expect($('.zui-dialog2-text').text()).toBe('1');
             app.content('');
-            expect($('.zui-dialog-text').text()).toBe('');
+            expect($('.zui-dialog2-text').text()).toBe('');
             app.content('<b>1</b>');
-            expect($('.zui-dialog-text').find('b').text()).toBe('1');
+            expect($('.zui-dialog2-text').find('b').text()).toBe('1');
         });
 
         it('app.close()', function (done) {
@@ -314,12 +314,12 @@ define([
                 duration: 100
             });
 
-            expect($('.zui-dialog').length).toBe(1);
+            expect($('.zui-dialog2').length).toBe(1);
 
             expect(app.close()).toEqual(app);
 
             setTimeout(function () {
-                expect($('.zui-dialog').length).toBe(0);
+                expect($('.zui-dialog2').length).toBe(0);
                 app.close().close();
                 done();
             }, 100 + 100 + 100);
@@ -345,7 +345,7 @@ define([
             // 显示之后才触发关闭
             // 模拟按套路出牌
             app.one('show', function () {
-                app.$wrap.find('.zui-dialog-button').triggerHandler('click');
+                app.$wrap.find('.zui-dialog2-button').triggerHandler('click');
             });
 
             app.on('destroy', function () {
@@ -368,7 +368,7 @@ define([
                 done();
             });
 
-            app.$wrap.find('.zui-dialog-button').triggerHandler('click');
+            app.$wrap.find('.zui-dialog2-button').triggerHandler('click');
         });
     });
 });
