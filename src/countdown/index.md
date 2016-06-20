@@ -39,7 +39,7 @@ require([
     div.on('show', function () {
         var options = {
             duration: 40,
-            end: new Date('2016-10-26 10:28:00').getTime()
+            end: new Date('2016/10/26 10:28:00').getTime()
         };
         var app = new Countdown(options);
         app.on('check', function () {
