@@ -9,6 +9,7 @@ define([
     'use strict';
 
     describe('dialog/dialog', function () {
+
         afterEach(function () {
             $('.zui-dialog-musk').remove();
         });
@@ -59,16 +60,6 @@ define([
             expect($('.zui-dialog-wrap-mask').css('display')).toEqual('block');
         });
 
-        it('Button click action', function (){
-            var app = new Dialog({content:'内容'});
-            app.show();
-            app.ele.find('.zui-dialog-btns').first().trigger('click');
-
-            setTimeout(function(){
-                expect($('.zui-dialog-wrap-mask').length).toBe(0);
-            }, 400);
-        });
-
         it('Default for two buttons', function (){
             var app = new Dialog({content:'内容'});
             app.show();
@@ -98,44 +89,20 @@ define([
             expect(app.ele.find('.zui-dialog-btns').length).toBe(3);
         });
 
-        it('Event: show', function (){
+        it('Animation time < 200', function (){
             var app = new Dialog({content:'内容'});
-            var value = 0;
             app.show();
-            app.on('show', function(){
-                value = 1;
-            });
             setTimeout(function(){
-                expect(value).toEqual('1');
-            },400);
-
+                expect($('.zui-dialog-wrap-mask').length).toBe(1);
+            },100);
         });
 
-        it('Event: hide', function (){
-            var app = new Dialog({content:'内容'});
-            var value = 0;
+        it('AniTime', function (){
+            var app = new Dialog({content:'内容', aniTime: 1000});
             app.show();
-            app.hide();
-            app.on('hide', function(){
-                value = 1;
-            });
             setTimeout(function(){
-                expect(value).toEqual('1');
-            },400);
-
-        });
-
-        it('Event: destroy', function (){
-            var app = new Dialog({content:'内容'});
-            var value = 0;
-            app.destroy();
-            app.on('destroy', function(){
-                value = 1;
-            });
-            setTimeout(function(){
-                expect(value).toEqual('1');
-            },400);
-
+                expect($('.zui-dialog-wrap-mask').length).toBe(1);
+            },500);
         });
 
     });
