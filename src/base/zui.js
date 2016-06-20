@@ -21,7 +21,7 @@ define(function (require) {
          * @name Zui
          * @requires Class
          * @requires zepto
-         * @requires ./zui.css
+         * @requires zui.css
          * @description 继承该类的组件必须提供销毁api，并在销毁时触发`destroy`事件
          *
          * @param {...options} [options={}] 配置参数

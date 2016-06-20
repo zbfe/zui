@@ -26,7 +26,7 @@ define(function (require) {
          * @name Dialog
          * @requires zui
          * @requires zepto
-         * @requires ./dialog.css
+         * @requires dialog.css
          *
          * @param  {Object} options 配置参数
          * @param {boolean|Funciton} [options.ok=null] 确认按钮回调，如果为true则只显示按钮

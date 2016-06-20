@@ -3,6 +3,7 @@
  * @author fe.xiaowu@gmail.com
  */
 
+/* eslint-disable max-nested-callbacks */
 define([
     'popup/base',
     'popup/multiple',
@@ -18,7 +19,7 @@ define([
             'select',
             'clickDone',
             'clickAll',
-            'clickItem',
+            'clickItem'
         ];
         var tempData = function () {
             return [
