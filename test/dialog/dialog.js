@@ -89,6 +89,47 @@ define([
             expect(app.ele.find('.zui-dialog-btns').length).toBe(3);
         });
 
+        it('Event: show', function (){
+            var app = new Dialog({content:'内容'});
+            var value = 0;
+            app.show();
+            app.on('show', function(){
+                value = 1;
+            });
+            setTimeout(function(){
+                expect(value).toBe(1);
+            },400);
+
+        });
+
+        it('Event: hide', function (){
+            var app = new Dialog({content:'内容'});
+            var value = 0;
+            app.show();
+            app.hide();
+            app.on('hide', function(){
+                value = 1;
+            });
+            setTimeout(function(){
+                expect(value).toBe(1);
+            },400);
+
+        });
+
+        it('Event: destroy', function (){
+            var app = new Dialog({content:'内容'});
+            var value = 0;
+            app.on('destroy', function(){
+                value = 1;
+            });
+
+            app.destroy();
+
+            setTimeout(function(){
+                expect(value).toBe(1);
+            },400);
+        });
+
         it('Animation time < 200', function (){
             var app = new Dialog({content:'内容'});
             app.show();
