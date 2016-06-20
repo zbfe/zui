@@ -40,6 +40,7 @@ Mobile ui library created by zbfe
 * upload
     * [upload/base](src/upload/base.md)
     * [upload/previewImage](src/upload/previewImage.md)
+* [countdown/index](src/countdown/index.md) - 倒计时
 * tab
 * slide
 * swipe
@@ -58,3 +59,8 @@ Mobile ui library created by zbfe
 ## develop
 
 [运行命令](docs/quick-start.md#运行命令)
+
+## contribute
+
+* [schoeu](https://schoeu.com/?rel=zui)
+* [前端小武](https://xuexb.com/?rel=zui)
