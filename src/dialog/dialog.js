@@ -95,6 +95,12 @@ define(function(require, factory) {
             var btns = options.buttons || [];
             var btnsStr = '';
 
+            // 如果有存留的DOM则销毁它
+            var oldELe = $('.zui-dialog-wrap-mask');
+            if (oldELe.length) {
+                oldELe.remove();
+            }
+
             me.ele = $('<div class="zui-dialog-wrap-mask">');
 
             me.callback = [];
