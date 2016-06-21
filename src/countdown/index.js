@@ -53,16 +53,32 @@ define(function (require) {
          * @param  {string} str 日期格式字符串
          *
          * @return {string}     格式化后的日期
+         *
+         * @example
+         * // 默认文案
+         * getTime();
+         *
+         * // 自定义文案
+         * getTime('当前还有{h}小时到时');
+         *
+         * // 补齐位数
+         * getTime('当前还有{ss}秒，{uuu}毫秒');
          */
         getTime: function (str) {
-            var time = this._getTime(this._diff);
+            var self = this;
+            var data = self._getTime(self._diff);
 
             if (!str || 'string' !== typeof str) {
-                str = '{d}天{h}时{i}分{s}秒{c}毫秒';
+                str = '{d}天{hh}时{ii}分{ss}秒{uuu}毫秒';
             }
 
-            return str.replace(/{(\w)}/g, function ($0, $1) {
-                return typeof time[$1] !== 'undefined' ? time[$1] : '';
+            return str.replace(/{(\w)\1*}/g, function ($0, $1) {
+                // 如果不存在
+                if (typeof data[$1] === 'undefined') {
+                    return '';
+                }
+
+                return self._pad(data[$1], $0.length - 2);
             });
         },
 
@@ -94,21 +110,23 @@ define(function (require) {
         },
 
         /**
-         * 补齐
+         * 向左补齐位数
          *
          * @private
-         * @param  {number} num 数字
+         * @param  {number} str 数字
+         * @param {number} length 最短长度
          *
          * @return {string}     补齐后的字符
          */
-        _pad: function (num) {
-            num = String(num);
+        _pad: function (str, length) {
+            length = length || 2;
+            str = String(str);
 
-            if (num.length === 0) {
-                num = '0' + num;
+            if (str.length < length) {
+                str = new Array(length).join('0') + str;
             }
 
-            return num;
+            return str;
         },
 
         /**
@@ -120,19 +138,18 @@ define(function (require) {
          * @return {Object}       日期对象
          */
         _getTime: function (leave) {
-            var self = this;
             var day = Math.floor(leave / (1000 * 60 * 60 * 24));
             var hour = Math.floor(leave / (1000 * 60 * 60)) % 24;
             var minute = Math.floor(leave / (1000 * 60)) % 60;
             var second = Math.floor(leave / 1000) % 60;
-            var s = Math.floor(leave / 1) % 1000;
+            var u = Math.floor(leave / 1) % 1000;
 
             return {
-                d: self._pad(day),
-                h: self._pad(hour),
-                i: self._pad(minute),
-                s: self._pad(second),
-                c: self._pad(s)
+                d: day,
+                h: hour,
+                i: minute,
+                s: second,
+                u: u
             };
         },
 
@@ -176,3 +193,4 @@ define(function (require) {
 
     return Countdown;
 });
+
