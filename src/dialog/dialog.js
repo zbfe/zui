@@ -103,10 +103,12 @@ define(function (require) {
             me.ele = $('<div class="zui-dialog-wrap-mask">');
 
             me.callback = [];
+            if (!Array.isArray(btns)) {
+                btns = [btns];
+            }
             btns.forEach(function (it) {
                 var callback = it.callback;
                 btnsStr += '<div class="zui-dialog-btns">' + it.text + '</div>';
-
                 me.callback.push($.isFunction(callback) ? callback : null);
             });
 

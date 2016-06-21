@@ -145,5 +145,18 @@ define([
             }, 500);
         });
 
+        it('Has no buttons', function () {
+            new Dialog({content: '内容', buttons: ''}).show();
+            expect($('.zui-dialog-wrap-mask').length).toBe(1);
+        });
+
+        it('Callback is not Function type', function () {
+            new Dialog({content: '内容', buttons: [{
+                text: '按钮',
+                callback: '不是Function类型'
+            }]}).show();
+            expect($('.zui-dialog-wrap-mask').length).toBe(1);
+        });
+
     });
 });
