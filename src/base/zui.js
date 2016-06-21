@@ -65,6 +65,9 @@ define(function (require) {
 
                 // 重新幅值事件空间，因为可能销毁实例后还在trigger或者on
                 self._listener = {};
+
+                // 重新幅值配置，因为可能销毁实例后还使用get,set
+                self._options = {};
             });
         },
 

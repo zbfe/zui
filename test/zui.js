@@ -485,6 +485,10 @@ define([
                 expect(app.a).toBeUndefined();
                 expect(app.is('ok')).toBe(true);
 
+                app.on('test', function () {});
+                app.set('destroy', true);
+                expect(app.get('destroy')).toBe(true);
+
                 setTimeout(done);
             });
 
