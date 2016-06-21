@@ -88,7 +88,7 @@ define([
             expect(app.ele.find('.zui-dialog-btns').length).toBe(3);
         });
 
-        it('Event: show', function () {
+        it('Event: show', function (done) {
             var app = new Dialog({content: '内容'});
             var value = 0;
             app.show();
@@ -97,11 +97,12 @@ define([
             });
             setTimeout(function () {
                 expect(value).toBe(1);
+                done();
             }, 400);
 
         });
 
-        it('Event: hide', function () {
+        it('Event: hide', function (done) {
             var app = new Dialog({content: '内容'});
             var value = 0;
             app.show();
@@ -111,11 +112,12 @@ define([
             });
             setTimeout(function () {
                 expect(value).toBe(1);
+                done();
             }, 400);
 
         });
 
-        it('Event: destroy', function () {
+        it('Event: destroy', function (done) {
             var app = new Dialog({content: '内容'});
             var value = 0;
             app.on('destroy', function () {
@@ -126,22 +128,25 @@ define([
 
             setTimeout(function () {
                 expect(value).toBe(1);
+                done();
             }, 400);
         });
 
-        it('Animation time < 200', function () {
+        it('Animation time < 200', function (done) {
             var app = new Dialog({content: '内容'});
             app.show();
             setTimeout(function () {
                 expect($('.zui-dialog-wrap-mask').length).toBe(1);
+                done();
             }, 100);
         });
 
-        it('AniTime', function () {
+        it('AniTime', function (done) {
             var app = new Dialog({content: '内容', aniTime: 1000});
             app.show();
             setTimeout(function () {
                 expect($('.zui-dialog-wrap-mask').length).toBe(1);
+                done();
             }, 500);
         });
 
