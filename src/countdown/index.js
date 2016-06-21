@@ -62,7 +62,7 @@ define(function (require) {
             }
 
             return str.replace(/{(\w)}/g, function ($0, $1) {
-                return time[$1] || '';
+                return typeof time[$1] !== 'undefined' ? time[$1] : '';
             });
         },
 
@@ -72,12 +72,18 @@ define(function (require) {
          * @return {Object} this
          */
         destroy: function () {
-            if (this.is('destroy')) {
-                return this;
+            var self = this;
+
+            // 如果已经销毁
+            if (self.is('destroy')) {
+                return self;
             }
 
+            // 打上标识
             this.is('destroy', 1);
-            clearTimeout(this.is('timer'));
+
+            // 清空倒计时
+            clearTimeout(this._timer);
 
             /**
              * 销毁实例
@@ -97,6 +103,7 @@ define(function (require) {
          */
         _pad: function (num) {
             num = String(num);
+
             if (num.length === 0) {
                 num = '0' + num;
             }
@@ -136,10 +143,10 @@ define(function (require) {
          */
         _check: function () {
             var self = this;
-            var timer;
 
+            // 如果时间到了触发end并销毁
             if (self._diff <= 0) {
-                self.trigger('end');
+                self.trigger('end').destroy();
             }
             else {
                 /**
@@ -149,12 +156,10 @@ define(function (require) {
                  */
                 self.trigger('check');
 
-                timer = setTimeout(function () {
+                self._timer = setTimeout(function () {
                     self._diff -= self.get('duration');
                     self._check();
                 }, self.get('duration'));
-
-                self.is('timer', timer);
             }
         }
     });
