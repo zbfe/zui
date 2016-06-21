@@ -151,12 +151,17 @@ define([
         });
 
         it('Callback is not Function type', function () {
-            new Dialog({content: '内容', buttons: [{
+            new Dialog({content: '内容', buttons: {
                 text: '按钮',
                 callback: '不是Function类型'
-            }]}).show();
+            }}).show();
             expect($('.zui-dialog-wrap-mask').length).toBe(1);
         });
 
+        it('Has no content', function () {
+            var app = new Dialog();
+            app.show();
+            expect(app.ele.find('.zui-dialog-content').text().trim()).toBe('请传入内容');
+        });
     });
 });

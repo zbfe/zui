@@ -76,11 +76,6 @@ define(function (require) {
 
             // 初始化zui
             Dialog.super.constructor.call(me, Dialog.defaults, options);
-
-            if (!me.get('content')) {
-                throw new Error('please input valid content.');
-            }
-
             me.__init();
         },
 
@@ -183,7 +178,7 @@ define(function (require) {
          */
         __bindEvt: function () {
             var me = this;
-            var cbs = me.callback || [];
+            var cbs = me.callback;
             me.ele.find('.zui-dialog-btns').one('click', function () {
                 var $target = $(this);
                 var idx = $target.index();
@@ -207,7 +202,7 @@ define(function (require) {
      * 默认参数
      * @param {number} aniTime 动画持续时间,默认200毫秒
      * @param {boolean} horizontal 按钮排列方向, 默认为true,横向
-     * @param {string} content 弹出框内容,默认为空
+     * @param {string} content 弹出框内容,默认为请传入内容
      * @param {string} title 弹出框标题,默认为"提示"
      * @param {Array} buttons 默认为一个"确定"按钮
      *      text {string} 按钮文案
@@ -216,7 +211,7 @@ define(function (require) {
     Dialog.defaults = {
         aniTime: 200,
         horizontal: true,
-        content: '',
+        content: '请传入内容',
         title: '提示',
         buttons: [{
             text: '确定',
