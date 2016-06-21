@@ -28,7 +28,7 @@ define(function (require) {
             end = parseFloat(self.get('end'), 10);
 
             // 如果结束时间不是数字
-            if (String(end) === 'NaN' || 'number' !== typeof end) {
+            if (String(end) === 'NaN') {
                 throw new TypeError('options.end not number');
             }
 
