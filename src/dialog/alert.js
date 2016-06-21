@@ -27,7 +27,7 @@ define(function (require) {
      */
     Alert.defaults = {
         text: '确定',
-        callback: function(){}
+        callback: function () {}
     };
 
     return Alert;

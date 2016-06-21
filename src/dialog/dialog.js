@@ -8,16 +8,13 @@
  *     3. destroy
  */
 
-define(function(require, factory) {
+define(function (require) {
     'use strict';
-    
     /**
      * 加载样式
      */
     require('css!./base.css');
-    
-    var loop = function (){};
-    
+    var loop = function () {};
     var $ = require('zepto');
     var Zui = require('zui');
 
@@ -25,14 +22,17 @@ define(function(require, factory) {
      * 扩展Dialog原型,添加弹窗基本API
      */
     var Dialog = Zui.extend({
+
         /**
          * 构造函数
          *
-         * @name dialog
          * @class
+         * @name Dialog
+         * @describe 描述
          * @requires zepto
          * @requires Zui
          *
+         * @param {Object} options 参数对象
          * @param {number} aniTime 动画持续时间,默认200毫秒
          * @param {boolean} horizontal 按钮排列方向, 默认为true,横向
          * @param {string} content 弹出框内容,默认为空
@@ -40,7 +40,6 @@ define(function(require, factory) {
          * @param {Array} buttons 默认为一个"确定"按钮
          *      text {string} 按钮文案
          *      callback {Function} 默认为空函数
-         *
          * @example
          * // 只有内容和确定按钮
          * new Dialog('我是内容~');
@@ -84,7 +83,7 @@ define(function(require, factory) {
 
             me.__init();
         },
-        
+
         /**
          * 初始化弹窗
          */
@@ -104,7 +103,7 @@ define(function(require, factory) {
             me.ele = $('<div class="zui-dialog-wrap-mask">');
 
             me.callback = [];
-            btns.forEach(function (it, i) {
+            btns.forEach(function (it) {
                 var callback = it.callback;
                 btnsStr += '<div class="zui-dialog-btns">' + it.text + '</div>';
 
@@ -122,7 +121,7 @@ define(function(require, factory) {
                 options.content,
                 '     </div>',
                 '     <footer class="' + showStyle + '">',
-                 btnsStr,
+                    btnsStr,
                 '     </footer>',
                 '</div>'
             ].join('');
@@ -141,19 +140,19 @@ define(function(require, factory) {
             var options = me.get();
             var aniTime = options.aniTime;
 
-            me.ele.css({display:'block'}).animate({
-                opacity:1
+            me.ele.css({display: 'block'}).animate({
+                opacity: 1
             }, aniTime);
-            
+
             me.ele.find('.zui-dialog-wrap')
                 .css({
-                    transform:'translate(50%, -50%) scale3d(.7,.7,1)'
+                    transform: 'translate(50%, -50%) scale3d(.7,.7,1)'
                 })
                 .animate({
                     transform: 'translate(50%, -50%) scale3d(1,1,1)'
-            }, aniTime, function (){
-                me.trigger('show');
-            });
+                }, aniTime, function () {
+                    me.trigger('show');
+                });
         },
 
 
@@ -165,16 +164,16 @@ define(function(require, factory) {
             var options = me.get();
             var aniTime = options.aniTime;
             me.ele.animate({
-                opacity:0
+                opacity: 0
             }, aniTime);
 
             me.ele.find('.zui-dialog-wrap').animate({
-                opacity:0,
+                opacity: 0,
                 transform: 'translate(50%, -50%) scale3d(.7,.7,1)'
-            }, aniTime, function (){
+            }, aniTime, function () {
                 me.trigger('hide');
                 me.destroy();
-            })
+            });
         },
 
         /**
@@ -183,7 +182,7 @@ define(function(require, factory) {
         __bindEvt: function () {
             var me = this;
             var cbs = me.callback || [];
-            me.ele.find('.zui-dialog-btns').one('click', function (e) {
+            me.ele.find('.zui-dialog-btns').one('click', function () {
                 var $target = $(this);
                 var idx = $target.index();
                 cbs[idx] && cbs[idx].call(me, idx);
@@ -215,7 +214,7 @@ define(function(require, factory) {
     Dialog.defaults = {
         aniTime: 200,
         horizontal: true,
-        content:'',
+        content: '',
         title: '提示',
         buttons: [{
             text: '确定',

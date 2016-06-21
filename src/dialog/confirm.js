@@ -9,7 +9,7 @@ define(function (require) {
     var $ = require('zepto');
     var Dialog = require('./dialog');
 
-    var loop = function(){};
+    var loop = function () {};
 
     var Confirm = Dialog.extend({
         constructor: function (options) {
@@ -31,7 +31,7 @@ define(function (require) {
         buttons: [{
             text: '取消',
             callback: loop
-        },{
+        }, {
             text: '确定',
             callback: loop
         }]
