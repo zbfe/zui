@@ -16,6 +16,8 @@ define(function (require) {
          *
          * @class
          * @param  {Object} options 配置参数
+         * @param {number} options.duration 循环步长，单位毫秒
+         * @param {number} options.end 到期13位时间缀
          */
         constructor: function (options) {
             var self = this;
