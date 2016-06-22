@@ -193,8 +193,45 @@ define([
             });
         });
 
-        it('events queue', function () {});
-        it('event check', function () {});
-        it('event end', function () {});
+        it('events queue', function (done) {
+            var app = new Countdown({
+                end: new Date(Date.now() + 100).getTime()
+            });
+
+            var queue = [];
+
+            app.on('check', function () {
+                queue.push('check');
+            }).on('end', function () {
+                queue.push('end');
+            }).on('destroy', function () {
+                queue.push('destroy');
+            });
+
+            app.on('destroy', function () {
+                expect(queue.join(',')).toBe('check,end,destroy');
+                done();
+            });
+        });
+        it('event check', function (done) {
+            var app = new Countdown({
+                end: new Date(Date.now() + 100).getTime()
+            });
+
+            app.on('check', function (a) {
+                expect(a).toBeUndefined();
+                done();
+            });
+        });
+        it('event end', function (done) {
+            var app = new Countdown({
+                end: new Date(Date.now() + 100).getTime()
+            });
+
+            app.on('end', function (a) {
+                expect(a).toBeUndefined();
+                done();
+            });
+        });
     });
 });
