@@ -1,4 +1,4 @@
-# tools/cookie
+# tools/localStorage
 
 > schoeu <schoeu1110@gmail.com>
 
@@ -34,7 +34,7 @@ require([
 
 ```js
 /**
- * 获取cookie
+ * 获取localStorage
  *
  * @param  {string} name 名称
  *
@@ -46,7 +46,7 @@ require([
 
 ```js
 /**
- * 删除cookie
+ * 删除localStorage
  *
  * @param  {string} key 名称
  *
