@@ -52,7 +52,7 @@ Mobile ui library created by zbfe
 * validate
 * tools
     * [tools/cookie](src/tools/cookie.md)
-    * localStorage
+    * [tools/localStorage](src/tools/localStorage.md)
     * hash
 
 
