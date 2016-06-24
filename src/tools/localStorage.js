@@ -28,7 +28,7 @@ define(function (require) {
                 // catch
             }
         }
-        return value;
+        return value || '';
     };
 
     /**
