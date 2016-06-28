@@ -63,7 +63,7 @@ require([
 ], function (ls) {
     ls.set('a',1);
     ls.set('b',{"a":1});
-    alert(ls.get('a'));
-    alert(ls.get('b'));
+    console.log(ls.get('a'));
+    console.log(ls.get('b'));
 });
 ```

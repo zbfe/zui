@@ -19,19 +19,18 @@ define(function (require) {
      * */
     ls.get = function (key) {
         key = key || '';
-        var result;
         var val;
         var value = localStorage.getItem(key);
         try {
             val = JSON.parse(value);
-            if ($.isPlainObject(val) && val.__exprire < Date.now()) {
-                result = val.value;
+            if (val.__exprire < Date.now()) {
+                return val;
             }
+            return value;
         }
         catch (e) {
             // catch
         }
-        return result || '';
     };
 
     /**

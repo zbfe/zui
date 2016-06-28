@@ -26,9 +26,10 @@ define([
             expect('function' === typeof ls.clear).toBe(true);
         });
 
+        /*
         it('set -> get', function () {
-            ls.set('a', '1');
-            expect(ls.get('a')).toBe('1');
+            ls.set('e', '1');
+            expect(ls.get('e')).toBe('1');
         });
 
         it('set -> get -> remove -> get', function () {
@@ -48,5 +49,14 @@ define([
             expect(ls.get('d')).toBe('');
         });
 
+        it('time to remove', function (done) {
+            ls.set('c', 1, 2000);
+            expect(ls.get('c')).toBe('1');
+            setTimeout(function () {
+                expect(ls.get('c')).toBe('');
+                done();
+            }, 3000);
+        });
+        */
     });
 });
