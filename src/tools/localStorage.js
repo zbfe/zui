@@ -19,38 +19,43 @@ define(function (require) {
      * */
     ls.get = function (key) {
         key = key || '';
+        var result;
+        var val;
         var value = localStorage.getItem(key);
-        if (value && $.isPlainObject(value)) {
-            try {
-                value = JSON.parse(value);
-            }
-            catch (e) {
-                // catch
+        try {
+            val = JSON.parse(value);
+            if ($.isPlainObject(val) && val.__exprire < Date.now()) {
+                result = val.value;
             }
         }
-        return value || '';
+        catch (e) {
+            // catch
+        }
+        return result || '';
     };
 
     /**
      * localStorage set操作
      * @param {string} key  标志
      * @param {string|object} value  值
+     * @param {number} time  过期时间,可选
      * */
     ls.set = function (key, value, time) {
-        var me = this;
+        time = time || 0;
         if (arguments.length > 1) {
             if ($.isPlainObject(value)) {
                 try {
-                    value = JSON.stringify(value);
+                    var val = {
+                        __exprire: Date.now() + time,
+                        value: value
+                    };
+                    value = JSON.stringify(val);
                 }
                 catch (e) {
                 }
             }
             localStorage.setItem(key, value);
         }
-        setTimeout(function () {
-            me.remove(key);
-        }, time);
     };
 
     /**
