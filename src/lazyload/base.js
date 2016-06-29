@@ -25,11 +25,6 @@ define(function (require) {
                 return !$(this).data('lazyload-load');
             });
 
-            // 如果元素不存在
-            if (!$elem.length) {
-                return;
-            }
-
             // 缓存一个dom对象，以索引为key，索引也会写到lazyload-load属性上
             self.$dom = {};
 
@@ -52,6 +47,10 @@ define(function (require) {
                 });
             }
 
+            // 绑定销毁时打个标识
+            self.on('destroy', function () {
+                self.is('destroy', true);
+            });
         },
 
         /**
@@ -63,6 +62,11 @@ define(function (require) {
          */
         load: function ($elem) {
             var self = this;
+
+            // 如果已经销毁了
+            if (self.is('destroy')) {
+                return self;
+            }
 
             if ($elem) {
                 $($elem).each(function () {
