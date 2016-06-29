@@ -66,12 +66,12 @@ define(function (require) {
 
             if ($elem) {
                 $($elem).each(function () {
-                    self.__remove($(this).data('lazyload-load'));
+                    self.__load($(this).data('lazyload-load'));
                 });
             }
             else {
                 Object.keys(self.$dom).forEach(function (key) {
-                    self.__remove(key);
+                    self.__load(key);
                 });
 
                 /**
@@ -104,7 +104,7 @@ define(function (require) {
          *
          * @param  {string} key 元素key
          */
-        __remove: function (key) {
+        __load: function (key) {
             // 如果为空
             if ('undefined' === typeof key) {
                 return;
@@ -116,6 +116,8 @@ define(function (require) {
              * @event loaditem
              */
             this.trigger('loaditem', this.$dom[key]);
+
+            // 删除这个dom，以防止下次循环她
             delete this.$dom[key];
         },
 
@@ -141,7 +143,7 @@ define(function (require) {
 
                 // 高级可见必须元素在可视范围
                 if ($elem.is(':visible') && scrollTop + height >= (offset.top + options.threshold) && (offset.top + $elem.height() >= scrollTop)) {
-                    self.__remove(key);
+                    self.__load(key);
                 }
 
             }
