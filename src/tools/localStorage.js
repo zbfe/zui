@@ -20,13 +20,13 @@ define(function (require) {
     ls.get = function (key) {
         key = key || '';
         var val;
-        var value = localStorage.getItem(key);
+        var value = localStorage.getItem(key) || {};
         try {
             val = JSON.parse(value) || {};
             if (val.__exprire < Date.now()) {
                 return JSON.parse(val.value) || '';
             }
-            return value || '';
+            return value.value || '';
         }
         catch (e) {
             // catch
@@ -42,16 +42,14 @@ define(function (require) {
     ls.set = function (key, value, time) {
         time = time || 0;
         if (arguments.length > 1) {
-            if ($.isPlainObject(value)) {
-                try {
-                    var val = {
-                        __exprire: Date.now() + time,
-                        value: value
-                    };
-                    value = JSON.stringify(val);
-                }
-                catch (e) {
-                }
+            try {
+                var val = {
+                    __exprire: Date.now() + time,
+                    value: value
+                };
+                value = JSON.stringify(val);
+            }
+            catch (e) {
             }
             localStorage.setItem(key, value);
         }
