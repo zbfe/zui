@@ -8,6 +8,7 @@ define(function (require) {
     'use strict';
 
     var Zui = require('zui');
+    var $ = require('zepto');
 
     var Countdown = Zui.extend({
 
@@ -18,24 +19,29 @@ define(function (require) {
          * @param  {Object} options 配置参数
          * @param {number} options.duration 循环步长，单位毫秒
          * @param {number} options.end 到期13位时间缀
+         * @param {number} [options.start=null] 开始时间13位缀，如果为null则使用当前客户端时间
          */
         constructor: function (options) {
             var self = this;
-            var end;
 
             // 父类
             Countdown.super.constructor.call(self, Countdown.defaults, options);
 
             // 计算结束时间
-            end = parseFloat(self.get('end'), 10);
+            self._end = parseFloat(self.get('end'), 10);
 
             // 如果结束时间不是数字
-            if (String(end) === 'NaN') {
+            if (String(self._end) === 'NaN') {
                 throw new TypeError('options.end not number');
             }
 
+            // 如果开始时间不是数字
+            if (self.get('start') !== null && typeof self.get('start') !== 'number') {
+                self.set('start', null);
+            }
+
             // 计算时间偏移
-            self._diff = end - Date.now();
+            self._diff = self._end - (self.get('start') || Date.now());
 
             setTimeout(self._check.bind(self));
         },
@@ -163,6 +169,10 @@ define(function (require) {
         _check: function () {
             var self = this;
 
+            if (Math.round(Math.random())) {
+                self._asyncTime();
+            }
+
             // 如果时间到了触发end并销毁
             if (self._diff <= 0) {
                 self.trigger('end').destroy();
@@ -180,6 +190,29 @@ define(function (require) {
                     self._check();
                 }, self.get('duration'));
             }
+        },
+
+        _asyncTime: function () {
+            var self = this;
+
+            if (self.get('start')) {
+                var url = location.href + '?' + new Date().getTime();
+                $.ajax({
+                    url: url,
+                    type: 'HEAD',
+                    cache: false,
+                    complete: function (xhr) {
+                        var serverTime = xhr.getResponseHeader('Date');
+                        self._diff = self._end - new Date(serverTime).getTime();
+                        console.log(self._diff, serverTime, url)
+                    }
+                });
+            }
+            else {
+                self._diff = self._end - Date.now();
+            }
+
+            console.log('async');
         }
     });
 
@@ -190,7 +223,8 @@ define(function (require) {
      */
     Countdown.defaults = {
         end: null,
-        duration: 1000
+        duration: 1000,
+        start: null
     };
 
     return Countdown;
