@@ -26,8 +26,7 @@ define([
             expect('function' === typeof ls.clear).toBe(true);
         });
 
-        /*
-        it('set -> get', function () {
+        it('set -> get (simple)', function () {
             ls.set('e', '1');
             expect(ls.get('e')).toBe('1');
         });
@@ -57,6 +56,5 @@ define([
                 done();
             }, 3000);
         });
-        */
     });
 });

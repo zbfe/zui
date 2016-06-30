@@ -22,11 +22,11 @@ define(function (require) {
         var val;
         var value = localStorage.getItem(key);
         try {
-            val = JSON.parse(value);
+            val = JSON.parse(value) || {};
             if (val.__exprire < Date.now()) {
-                return val;
+                return JSON.parse(val.value) || '';
             }
-            return value;
+            return value || '';
         }
         catch (e) {
             // catch
