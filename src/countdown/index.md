@@ -47,7 +47,7 @@ require([
     div.on('show', function () {
         var options = {
             start: new Date('2016/6/22 08:00:00').getTime(),
-            end: new Date('2016/6/23 08:00:00').getTime()
+            end: new Date('2016/8/23 08:00:00').getTime()
         };
         var app = new Countdown(options);
         app.on('check', function () {
