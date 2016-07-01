@@ -18,13 +18,13 @@ define(function (require) {
     ls.get = function (key) {
         key = key || '';
         var val;
-        var value = localStorage.getItem(key) || {};
+        var value = localStorage.getItem(key);
         try {
             val = JSON.parse(value) || {};
             if (val.__exprire < Date.now()) {
                 return val.value || '';
             }
-            return value.value || '';
+            return value ? value.value : '';
         }
         catch (e) {
             // catch

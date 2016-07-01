@@ -28,7 +28,12 @@ define([
 
         it('set -> get (simple)', function () {
             ls.set('test', 1);
-            expect(ls.get('test')).toBe('1');
+            expect(ls.get('test')).toBe(1);
+        });
+
+        it('set(function) -> get', function () {
+            ls.set('fn', function(){});
+            expect(ls.get('fn')).toBe('');
         });
 
         it('set -> get -> remove -> get', function () {
