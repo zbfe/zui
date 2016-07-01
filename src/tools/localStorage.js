@@ -7,8 +7,6 @@
 define(function (require) {
     'use strict';
 
-    var $ = require('zepto');
-
     var localStorage = window.localStorage;
     var ls = {};
 
@@ -24,7 +22,7 @@ define(function (require) {
         try {
             val = JSON.parse(value) || {};
             if (val.__exprire < Date.now()) {
-                return JSON.parse(val.value) || '';
+                return val.value || '';
             }
             return value.value || '';
         }

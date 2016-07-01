@@ -27,8 +27,8 @@ define([
         });
 
         it('set -> get (simple)', function () {
-            ls.set('e', '1');
-            expect(ls.get('e')).toBe('1');
+            ls.set('test', 1);
+            expect(ls.get('test')).toBe('1');
         });
 
         it('set -> get -> remove -> get', function () {
