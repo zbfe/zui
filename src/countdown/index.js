@@ -169,9 +169,9 @@ define(function (require) {
         _check: function () {
             var self = this;
 
-            if (Math.round(Math.random())) {
-                self._asyncTime();
-            }
+            // if (Math.round(Math.random())) {
+            //     self._asyncTime();
+            // }
 
             // 如果时间到了触发end并销毁
             if (self._diff <= 0) {
