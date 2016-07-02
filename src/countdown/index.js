@@ -44,6 +44,9 @@ define(function (require) {
             self._diff = self._end - (self.get('start') || Date.now());
 
             setTimeout(self._check.bind(self));
+
+            // 定时同步时间
+            self._asyncTimer = setInterval(self._asyncTime.bind(self), 1000 * 60 * 10);
         },
 
         /**
@@ -108,6 +111,9 @@ define(function (require) {
 
             // 清空倒计时
             clearTimeout(this._timer);
+
+            // 清空定时同步
+            clearTimeout(this._asyncTimer);
 
             /**
              * 销毁实例
@@ -192,9 +198,16 @@ define(function (require) {
             }
         },
 
+        /**
+         * 同步时间
+         *
+         * @private
+         * @description 主要解决移动设备中窗口失去焦点后setTimeout被暂停，导致计时不准确
+         */
         _asyncTime: function () {
             var self = this;
 
+            // 如果有开始时间，则使用服务端同步
             if (self.get('start')) {
                 var url = location.href + '?' + new Date().getTime();
                 $.ajax({
@@ -211,8 +224,6 @@ define(function (require) {
             else {
                 self._diff = self._end - Date.now();
             }
-
-            console.log('async');
         }
     });
 
