@@ -43,10 +43,11 @@ define(function (require) {
             // 计算时间偏移
             self._diff = self._end - (self.get('start') || Date.now());
 
+            // 延迟下是为了给绑定的时间
             setTimeout(self._check.bind(self));
 
             // 定时同步时间
-            self._asyncTimer = setInterval(self._asyncTime.bind(self), 1000 * 60 * 10);
+            self._asyncTimer = setInterval(self._asyncTime.bind(self), 1000 * 10);
         },
 
         /**
@@ -209,15 +210,14 @@ define(function (require) {
 
             // 如果有开始时间，则使用服务端同步
             if (self.get('start')) {
-                var url = location.href + '?' + new Date().getTime();
                 $.ajax({
-                    url: url,
+                    url: location.href,
                     type: 'HEAD',
                     cache: false,
                     complete: function (xhr) {
                         var serverTime = xhr.getResponseHeader('Date');
                         self._diff = self._end - new Date(serverTime).getTime();
-                        console.log(self._diff, serverTime, url)
+                        console.log(self._diff, serverTime);
                     }
                 });
             }
