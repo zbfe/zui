@@ -50,12 +50,35 @@ require(['popup/base'], function (Base) {
         content: '测试的了'
     });
 
-    app.on('cancel', function () {
+    app.on('show', function () {
+        console.log('show');
+    }).on('cancel', function () {
         console.log('cancel');
     }).on('close', function () {
         console.log('close');
     }).on('destroy', function () {
         console.log('destroy');
+    });
+});
+```
+
+#### 弹一个全屏的层
+
+```runjs
+require(['popup/base'], function (Base) {
+    // 判断是否有样式，为了模拟className
+    if (!$('#css-popup-base-test').length) {
+        $('<style id="css-popup-base-test">.popup-base-test{height:100%;background-color:#fff;color:#09f;font-size:20px;}</style>').appendTo('head');
+    }
+
+    var app = new Base({
+        duration: 300,
+        className: 'popup-base-test',
+        content: '说真的，我就是个fe，点击关闭吧'
+    }).on('show', function () {
+        this.$wrap.find('.popup-base-test').on('click', function () {
+            app.close();
+        });
     });
 });
 ```

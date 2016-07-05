@@ -3,6 +3,7 @@
  * @author fe.xiaowu@gmail.com
  *
  * @events
+ *     show - 弹出显示完成
  *     cancel - 点击遮罩层取消事件
  *     close - 弹出层关闭（销毁dom）后事件
  *     destroy - 提示层销毁后事件
@@ -36,24 +37,26 @@ define(function (require) {
             $inner = $('<div />').addClass('zui-popup-inner ' + self.get('className')).html(self.get('content'));
 
             // 添加遮罩层
-            $wrap.append('<div class="zui-popup-mask"></div>');
-
-            $wrap.append($inner);
-
-            $wrap.appendTo('body');
-
-            $wrap.addClass('zui-popup-show');
+            $wrap.addClass('zui-popup-show').append('<div class="zui-popup-mask"></div>').append($inner).appendTo('body');
 
             $inner.animate({
                 transform: 'translateY(0)'
-            }, self.get('duration'), 'ease-out');
+            }, self.get('duration'), 'ease-out', function () {
+                // 在显示完成后才绑定点击遮罩层关闭
+                self.$wrap.find('.zui-popup-mask').on('click', function () {
+                    self.trigger('cancel');
+                    self.close();
+                }).on('touchmove', false);
 
-            $wrap.find('.zui-popup-mask').on('click', function () {
-                self.trigger('cancel');
-                self.close();
-            }).on('touchmove', false);
+                /**
+                 * 显示回调
+                 *
+                 * @event
+                 */
+                self.trigger('show');
+            });
 
-            $inner = null;
+            $inner = $wrap = null;
         },
 
         /**
@@ -77,6 +80,15 @@ define(function (require) {
                 transform: 'translateY(100%)'
             }, self.get('duration'), 'ease-out', function () {
                 self.$wrap.remove();
+
+                /**
+                 * 关闭浮层
+                 * @event close
+                 */
+                /**
+                 * 销毁浮层
+                 * @event destroy
+                 */
                 self.trigger('close destroy');
             });
 

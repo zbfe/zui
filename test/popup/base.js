@@ -37,15 +37,13 @@ define([
 
         it('mask click', function (done) {
             new Base({
-                duration: 50
-            });
-
-            $('.zui-popup-mask').trigger('click');
-
-            setTimeout(function () {
+                duration: 1
+            }).on('show', function () {
+                $('.zui-popup-mask').trigger('click');
+            }).on('close', function () {
                 expect($('.zui-popup-mask').length).toBe(0);
                 done();
-            }, 100);
+            });
         });
 
         it('.close', function () {
@@ -108,11 +106,22 @@ define([
 
         it('event cancel', function (done) {
             new Base({
-                content: 'xxoo'
+                duration: 1
             }).on('cancel', function (a) {
                 expect(a).toBeUndefined();
                 done();
-            }).$wrap.find('.zui-popup-mask').triggerHandler('click');
+            }).on('show', function () {
+                this.$wrap.find('.zui-popup-mask').triggerHandler('click');
+            });
+        });
+
+        it('event show', function (done) {
+            new Base({
+                duration: 1
+            }).on('show', function (a) {
+                expect(a).toBeUndefined();
+                done();
+            });
         });
 
         it('events queue', function (done) {
@@ -128,15 +137,18 @@ define([
             });
 
             app.on('destroy', pushQueueHandle('destroy'));
+            app.on('show', pushQueueHandle('show'));
             app.on('cancel', pushQueueHandle('cancel'));
             app.on('close', pushQueueHandle('close'));
 
             app.on('destroy', function () {
-                expect(queue.join(',')).toEqual('cancel,close,destroy');
+                expect(queue.join(',')).toEqual('show,cancel,close,destroy');
                 done();
             });
 
-            app.$wrap.find('.zui-popup-mask').triggerHandler('click');
+            app.on('show', function () {
+                app.$wrap.find('.zui-popup-mask').triggerHandler('click');    
+            });
         });
     });
 });
