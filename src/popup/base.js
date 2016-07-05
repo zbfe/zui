@@ -46,7 +46,7 @@ define(function (require) {
 
             $inner.animate({
                 transform: 'translateY(0)'
-            }, self.get('duration'));
+            }, self.get('duration'), 'ease-out');
 
             $wrap.find('.zui-popup-mask').on('click', function () {
                 self.trigger('cancel');
@@ -75,7 +75,7 @@ define(function (require) {
 
             self.$wrap.find('.zui-popup-inner').animate({
                 transform: 'translateY(100%)'
-            }, self.get('duration'), 'ease', function () {
+            }, self.get('duration'), 'ease-out', function () {
                 self.$wrap.remove();
                 self.trigger('close destroy');
             });
