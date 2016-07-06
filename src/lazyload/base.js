@@ -151,8 +151,14 @@ define(function (require) {
 
                 var offset = $elem.offset();
 
+                // 底部是否显示
+                var bottomIsVisible = top + height >= (offset.top + options.threshold);
+
+                // 顶部是否显示
+                var topIsVisible = offset.top + $elem.height()- options.threshold >= top;
+
                 // 高级可见必须元素在可视范围
-                if (top + height >= (offset.top + options.threshold) && (offset.top + $elem.height() >= top)) {
+                if (bottomIsVisible && topIsVisible) {
                     self.__load(key);
                 } 
             });
