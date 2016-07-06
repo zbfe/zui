@@ -15,7 +15,7 @@ define(function (require) {
 
     var Lazyload = Zui.extend({
         constructor: function (options) {
-            var self;
+            var self = this;
 
             // 初始化zui
             Lazyload.super.constructor.call(self, Lazyload.defaults, options);
@@ -45,6 +45,8 @@ define(function (require) {
                 self.on('loadall', function () {
                     $window.off(self.__getEventName('scroll resize'));
                 });
+
+                setTimeout(self.__check.bind(self));
             }
 
             // 绑定销毁时打个标识
@@ -119,7 +121,10 @@ define(function (require) {
              *
              * @event loaditem
              */
-            this.trigger('loaditem', this.$dom[key]);
+            this.trigger('loaditem', {
+                elem: this.$dom[key],
+                key: key
+            });
 
             // 删除这个dom，以防止下次循环她
             delete this.$dom[key];
@@ -131,26 +136,26 @@ define(function (require) {
         __check: function () {
             var self = this;
             var options = self.get();
-            var scrollTop = $window.scrollTop();
+            var top = $window.scrollTop();
             var height = $window.height();
-            var key;
-            var $elem;
-            var offset;
 
-            for (key in self.$dom) {
-                if (!self.$dom.hasOwnProperty(key)) {
-                    continue;
-                }
+            // 循环dom
+            Object.keys(self.$dom).forEach(function (key) {
+                var $elem = self.$dom[key];
 
-                $elem = self.$dom[key];
-                offset = $elem.offset();
+                // 如果没有显示
+                // 先不处理隐藏元素
+                // if ($elem.css('visibility') === 'hidden' || $elem.css('display') === 'none') {
+                //     return;
+                // }
+
+                var offset = $elem.offset();
 
                 // 高级可见必须元素在可视范围
-                if ($elem.is(':visible') && scrollTop + height >= (offset.top + options.threshold) && (offset.top + $elem.height() >= scrollTop)) {
+                if (top + height >= (offset.top + options.threshold) && (offset.top + $elem.height() >= top)) {
                     self.__load(key);
-                }
-
-            }
+                } 
+            });
 
             // 加载全部了
             if (Object.keys(self.$dom).length === 0) {
