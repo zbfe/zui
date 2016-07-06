@@ -45,6 +45,9 @@ Mobile ui library created by zbfe
 * slide
 * swipe
 * lazyload
+    * [lazyload/base](src/lazyload/base.md) - 延迟加载基类
+    * [lazyload/img](src/lazyload/img.md) - 延迟图片
+    * [lazyload/dom](src/lazyload/dom.md) - 延迟`dom`元素
 * infiniteScroll
 * calendar
 * picker
