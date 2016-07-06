@@ -11,6 +11,12 @@ define(function (require) {
     var ls = {};
 
     /**
+     * 如果禁用ls或不知道ls的浏览器上直接返回空对象
+     * **/
+    if (!localStorage) {
+        return ls;
+    }
+    /**
      * localStorage get操作
      * @param {string} key  标志
      * @return {string}    值
@@ -21,10 +27,12 @@ define(function (require) {
         var value = localStorage.getItem(key);
         try {
             val = JSON.parse(value) || {};
-            if (val.__exprire < Date.now()) {
+            if (val.__exprire && (val.__exprire > Date.now()) || !val.__exprire) {
                 return val.value || '';
             }
-            return value ? value.value : '';
+            else {
+                return '';
+            }
         }
         catch (e) {
             // catch
@@ -39,10 +47,14 @@ define(function (require) {
      * */
     ls.set = function (key, value, time) {
         time = time || 0;
+        var exprire = 0;
+        if (time) {
+            exprire = Date.now() + time;
+        }
         if (arguments.length > 1) {
             try {
                 var val = {
-                    __exprire: Date.now() + time,
+                    __exprire: exprire,
                     value: value
                 };
                 value = JSON.stringify(val);
