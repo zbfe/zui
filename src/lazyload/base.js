@@ -14,6 +14,20 @@ define(function (require) {
     var guid = 0;
 
     var Lazyload = Zui.extend({
+
+        /**
+         * 构造函数
+         *
+         * @name Lazyload
+         * @class
+         * @requires zui
+         * @requires zepto
+         *
+         * @param  {Object} options 配置参数
+         * @param {selector|HTMLElement} options.elem 目标元素
+         * @param {string|null} [options.event=scroll] 事件，如果不需要滚动加载可为空
+         * @param {number} options.threshold 滚动加载偏移值
+         */
         constructor: function (options) {
             var self = this;
 
@@ -49,6 +63,11 @@ define(function (require) {
                 setTimeout(self.__check.bind(self));
             }
 
+            // 绑定加载完成则销毁
+            self.on('loadall', function () {
+                self.trigger('destroy');
+            });
+
             // 绑定销毁时打个标识
             self.on('destroy', function () {
                 self.is('destroy', true);
@@ -58,6 +77,7 @@ define(function (require) {
         /**
          * 显式加载
          *
+         * @description 主要用于非滚动加载时主动的去加载
          * @param  {string|HTMLelement} $elem 要加载的元素，如果为空则加载所有
          *
          * @return {Object}       this
@@ -79,14 +99,10 @@ define(function (require) {
                 Object.keys(self.$dom).forEach(function (key) {
                     self.__load(key);
                 });
-
-                /**
-                 * 全部加载完成
-                 *
-                 * @event loadall
-                 */
-                self.trigger('loadall');
             }
+
+            // 检查下是否完成
+            self.__checkAll();
 
             return this;
         },
@@ -94,6 +110,7 @@ define(function (require) {
         /**
          * 获取事件空间名
          *
+         * @private
          * @param  {string} name 事件名
          *
          * @return {string}      事件名.空间名
@@ -108,6 +125,7 @@ define(function (require) {
         /**
          * 移除单个元素
          *
+         * @private
          * @param  {string} key 元素key
          */
         __load: function (key) {
@@ -131,7 +149,27 @@ define(function (require) {
         },
 
         /**
+         * 检查是否加载完成
+         *
+         * @private
+         */
+        __checkAll: function () {
+            // 加载全部了
+            if (Object.keys(this.$dom).length === 0) {
+
+                /**
+                 * 全部加载完成
+                 *
+                 * @event loadall
+                 */
+                this.trigger('loadall');
+            }
+        },
+
+        /**
          * 检查是否可见
+         *
+         * @private
          */
         __check: function () {
             var self = this;
@@ -155,25 +193,16 @@ define(function (require) {
                 var bottomIsVisible = top + height >= (offset.top + options.threshold);
 
                 // 顶部是否显示
-                var topIsVisible = offset.top + $elem.height()- options.threshold >= top;
+                var topIsVisible = offset.top + $elem.height() - options.threshold >= top;
 
                 // 高级可见必须元素在可视范围
                 if (bottomIsVisible && topIsVisible) {
                     self.__load(key);
-                } 
+                }
             });
 
-            // 加载全部了
-            if (Object.keys(self.$dom).length === 0) {
-
-                /**
-                 * 全部加载完成
-                 *
-                 * @event loadall
-                 */
-                self.trigger('loadall');
-            }
-
+            // 检查下是否完成
+            self.__checkAll();
         }
     });
 

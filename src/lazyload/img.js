@@ -11,6 +11,17 @@ define(function (require) {
     var Base = require('./base');
 
     var Img = Base.extend({
+
+        /**
+         * 构造函数
+         *
+         * @name Img
+         * @class
+         * @requires lazyload/base
+         *
+         * @param {Object} options 配置参数
+         * @param {string} options.attr 图片源所在属性
+         */
         constructor: function (options) {
             var self = this;
             var attr;
