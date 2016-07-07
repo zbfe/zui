@@ -34,10 +34,11 @@ require([
 
 #### 滚动加载
 
-```html
-<div class="demo"><img src="http://static.meishichina.com/v6/img/blank.gif" alt="延迟加载" data-src="http://dummyimage.com/300x300" width="300" height="300"></div>
-<div class="demo"><img src="http://static.meishichina.com/v6/img/blank.gif" alt="延迟加载" data-src="http://dummyimage.com/300x300" width="300" height="300"></div>
-<div class="demo"><img src="http://static.meishichina.com/v6/img/blank.gif" alt="延迟加载" data-src="http://dummyimage.com/300x300" width="300" height="300"></div>
+```runhtml
+<div class="demo"><img src="http://static.meishichina.com/v6/img/blank.gif" alt="延迟加载" data-src="http://dummyimage.com/300x301" width="300" height="300"></div>
+<div class="demo"><img src="http://static.meishichina.com/v6/img/blank.gif" alt="延迟加载" data-src="http://dummyimage.com/300x302" width="300" height="300"></div>
+<div class="demo"><img src="http://static.meishichina.com/v6/img/blank.gif" alt="延迟加载" data-src="http://dummyimage.com/300x303" width="300" height="300"></div>
+<div class="demo"><img src="http://static.meishichina.com/v6/img/blank.gif" alt="延迟加载" data-src="http://dummyimage.com/300x304" width="300" height="300"></div>
 
 
 

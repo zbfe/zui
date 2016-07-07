@@ -34,10 +34,12 @@ require([
 
 #### 滚动加载
 
-```html
+```runhtml
 <style type="text/css">
     .demo {
         height: 300px; 
+        background-color: #ccc; 
+        margin-bottom: 10px; 
     }
 
     /*默认让文本域隐藏*/
@@ -46,16 +48,19 @@ require([
     }
 </style>
 <div class="demo">
-    <textarea>123</textarea>
+    <textarea>111</textarea>
 </div>
 <div class="demo">
     <textarea>
-        <script>其实js也能加载</script>
+        222
+        <script>
+            console.log('其实js也能加载');
+        </script>
     </textarea>
 </div>
 <div class="demo">
     <script type="text/template">
-        我是模板字符串 333
+        我是模板字符串 333,看到我你就得弹个alert
         <script>
             alert(333);
         </script>
@@ -67,7 +72,7 @@ require([
         'lazyload/dom'
     ], function (Lazyload) {
         var app = new Lazyload({
-            elem: '.demo dom',
+            elem: '.demo',
             loadElem: 'textarea, script[type="text/template"]'
         });
 

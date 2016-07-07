@@ -49,7 +49,7 @@ require([
 
 #### 滚动加载
 
-```html
+```runhtml
 <div class="demo" style="height:100px">1</div>
 <div class="demo" style="height:100px">2</div>
 <div class="demo" style="height:100px">3</div>
@@ -81,7 +81,7 @@ require([
 
 常用于非默认显示元素的加载，比如`tab`切换
 
-```html
+```runhtml
 <div class="demo demo-1" style="height:100px">1</div>
 <div class="demo demo-2" style="height:100px">2</div>
 <div class="demo demo-3" style="height:100px">3</div>
