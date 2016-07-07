@@ -62,5 +62,16 @@ define([
                 done();
             }, 3000);
         });
+
+        it('ls length', function () {
+            ls.set('c', 1);
+            ls.set('d', 1);
+            ls.set('a', 1);
+            expect(ls.length()).toBe(3);
+        });
+
+        it('get()', function () {
+            expect(ls.get()).toBe('');
+        });
     });
 });
