@@ -140,7 +140,7 @@ define(function (require) {
              * @event loaditem
              */
             this.trigger('loaditem', {
-                elem: this.$dom[key],
+                elem: this.$dom[key].get(0),
                 key: key
             });
 
