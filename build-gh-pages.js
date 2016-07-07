@@ -18,6 +18,7 @@ child.execSync([
     'cp -rf src gh-pages/',
     'cp -rf test gh-pages/',
     'cp -rf index.html gh-pages/',
+    'cp -rf runhtml.html gh-pages/',
     'cp -rf README.md gh-pages/'
 ].join(' && '));
 console.log('build end!');
