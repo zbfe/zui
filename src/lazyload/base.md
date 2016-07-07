@@ -68,6 +68,8 @@ require([
 
             // 被加载元素的 HTMLElement dom对象
             console.log(data.elem);
+
+            data.elem.innerHTML += '已加载';
         });
 
         app.on('loadall', function () {
@@ -106,6 +108,8 @@ require([
 
             // 被加载元素的 HTMLElement dom对象
             console.log(data.elem);
+
+            data.elem.innerHTML += '已加载';
         });
 
         app.on('loadall', function () {
