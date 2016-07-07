@@ -27,6 +27,8 @@ require([
 /**
  * @param {string} options.content 内容
  * @param {string} options.className 自定义样式
+ * @param {number} [options.duration=200] 动画时间
+ * @param {number|string} options.height 弹出层高度
  */
 ```
 
