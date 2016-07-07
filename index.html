@@ -27,12 +27,14 @@
     html {
         min-height: 100%;
         position: relative;
+        background-color: #fff; 
     }
     .project-name a {
         color: #fff;
         text-decoration: none;
     }
-    .runjs-btn {
+    .runjs-btn,
+    .runhtml-btn {
         background-color: #04be02;
         border: none;
         border-radius: 5px;
@@ -50,8 +52,18 @@
         text-align: center;
         text-decoration: none;
     }
+    .run-iframe {
+        border: none; 
+        width: 100%; 
+        background: #fff url(http://static.meishichina.com/v6/img/loading-32-32.gif) no-repeat center center; 
+        height: 100%; 
+    }
+    .zui-popup-runcode {
+        height: 60%; 
+    }
     @media screen and (max-width: 700px) {
-        .runjs-btn {
+        .runjs-btn,
+        .runhtml-btn {
             width: 100%;
         }
     }
