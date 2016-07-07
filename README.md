@@ -38,13 +38,16 @@ Mobile ui library created by zbfe
     * [dialog2/alert](src/dialog2/alert.md)
     * [dialog2/confirm](src/dialog2/confirm.md)
 * upload
-    * [upload/base](src/upload/base.md)
-    * [upload/previewImage](src/upload/previewImage.md)
+    * [upload/base](src/upload/base.md) - html5多并发上传
+    * [upload/previewImage](src/upload/previewImage.md) - html5文件`file`预览
 * [countdown/index](src/countdown/index.md) - 倒计时
 * tab
 * slide
 * swipe
 * lazyload
+    * [lazyload/base](src/lazyload/base.md) - 延迟加载基类
+    * [lazyload/img](src/lazyload/img.md) - 延迟图片
+    * [lazyload/dom](src/lazyload/dom.md) - 延迟`dom`元素
 * infiniteScroll
 * calendar
 * picker
