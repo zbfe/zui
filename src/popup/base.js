@@ -33,11 +33,16 @@ define(function (require) {
             // 初始化zui
             Base.super.constructor.call(self, Base.defaults, options);
 
-            $wrap = self.$wrap = $('<div />').addClass('zui-popup-wrap');
+            $wrap = self.$wrap = $('<div />').addClass('zui-popup-wrap zui-popup-show');
             $inner = $('<div />').addClass('zui-popup-inner ' + self.get('className')).html(self.get('content'));
 
+            // 如果有弹出层高度
+            if (self.get('height')) {
+                $inner.height(self.get('height'));
+            }
+
             // 添加遮罩层
-            $wrap.addClass('zui-popup-show').append('<div class="zui-popup-mask"></div>').append($inner).appendTo('body');
+            $wrap.append('<div class="zui-popup-mask"></div>').append($inner).appendTo('body');
 
             $inner.animate({
                 transform: 'translateY(0)'
@@ -102,11 +107,14 @@ define(function (require) {
      * @param {Object} options 配置对象
      * @param {string} options.content 内容
      * @param {string} options.className 自定义样式
+     * @param {number} [options.duration=200] 动画时间
+     * @param {number|string} options.height 弹出层高度
      */
     Base.defaults = {
         className: '',
         content: '',
-        duration: 200
+        duration: 200,
+        height: null
     };
 
     return Base;

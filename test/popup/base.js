@@ -67,6 +67,21 @@ define([
             }, 100);
         });
 
+        it('options.height', function () {
+            var app = new Base({
+                height: 100,
+                className: 'xxoo-height'
+            });
+
+            expect($('.xxoo-height').height()).toBe(100);
+
+            var app2 = new Base({
+                className: 'xxoo-height2',
+                height: '80%'
+            });
+            expect($('.xxoo-height2').height()).toBe(window.innerHeight * .8);
+        });
+
         it('options.className', function (done) {
             expect($('.xxoo').length).toBe(0);
             var app = new Base({
