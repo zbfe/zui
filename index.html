@@ -57,11 +57,39 @@
         width: 100%; 
         background: #fff url(http://static.meishichina.com/v6/img/loading-32-32.gif) no-repeat center center; 
         height: 100%; 
+        overflow: hidden; 
+        overflow-y: auto;
+    }
+    .runhtml-log {
+        border: 1px solid  #ccc; 
+        border-radius: 5px;
+        background-color: #f0f0f0; 
+        margin-top: 20px; 
+        position: relative; 
+    }
+    .runhtml-log:after,
+    .runhtml-log:before {
+        content: '';
+        display:block;position:absolute;z-index:10000;overflow:hidden;height:0;width:0;border:10px dashed transparent;
+        top: -20px; 
+        left: 20px; 
+    }
+    .runhtml-log:after {
+        border-bottom-style:solid;border-bottom-color:#f0f0f0;
+        top: -19px; 
+    }
+    .runhtml-log:before {
+        border-bottom-style:solid;border-bottom-color:#ccc;
     }
     @media screen and (max-width: 700px) {
         .runjs-btn,
         .runhtml-btn {
             width: 100%;
+        }
+        .runhtml-log:after,
+        .runhtml-log:before {
+            left: 50%; 
+            margin-left: -10px; 
         }
     }
     @media screen and (min-width: 64em) {
