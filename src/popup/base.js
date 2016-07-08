@@ -41,6 +41,9 @@ define(function (require) {
                 $inner.height(self.get('height'));
             }
 
+            // 禁止滑动
+            $wrap.on('touchmove', false);
+
             // 添加遮罩层
             $wrap.append('<div class="zui-popup-mask"></div>').append($inner).appendTo('body');
 
@@ -51,7 +54,7 @@ define(function (require) {
                 self.$wrap.find('.zui-popup-mask').on('click', function () {
                     self.trigger('cancel');
                     self.close();
-                }).on('touchmove', false);
+                });
 
                 /**
                  * 显示回调
