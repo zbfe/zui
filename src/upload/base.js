@@ -99,10 +99,13 @@ define(function (require) {
 
             // 队列里没有数据
             if (!queued.length) {
-                return self.trigger('error', {
-                    status: Base.status.ERROR_EMPTY,
-                    msg: '上传队列为空'
-                });
+                return self.trigger('error', [
+                    {
+                        status: Base.status.ERROR_EMPTY,
+                        msg: '上传队列为空'
+                    },
+                    {}
+                ]);
             }
 
             if (self.is('ing')) {
@@ -164,6 +167,7 @@ define(function (require) {
                     error: self._errorFile
                 });
             }
+
         },
 
         /**
@@ -334,6 +338,7 @@ define(function (require) {
                     xhr.abort();
                     xhr = null;
                 }
+
             });
         },
 
@@ -349,10 +354,10 @@ define(function (require) {
             // 打上全局标识
             file.id = ++uid;
 
+            self._queued.push(file);
+
             // 触发下队列事件
             self.trigger('queued', file);
-
-            self._queued.push(file);
         },
 
         /**
