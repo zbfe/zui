@@ -98,3 +98,23 @@ function (file) {};
  * @param {number} [options.filename=image] 上传文件的域名
  */
 ```
+
+### api - #start
+
+```js
+/**
+ * 开始上传
+ *
+ * @return {Object} this
+ */
+```
+
+### api - destroy
+
+```js
+/**
+ * 销毁
+ *
+ * @return {Object} this
+ */
+```

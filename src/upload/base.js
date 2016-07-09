@@ -89,7 +89,7 @@ define(function (require) {
         },
 
         /**
-         * 开始上线
+         * 开始上传
          *
          * @return {Object} this
          */
