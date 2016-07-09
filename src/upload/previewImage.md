@@ -9,7 +9,11 @@ html5上传预览，目前只是文件`Blob`引用，后续考虑使用`canvas`�
 ```js
 require([
     'upload/previewImage'
-], function (PreviewImage) {
-    var url = new Base().createObjectURL(fileObject);
+], function (previewImage) {
+    var url = previewImage.createObjectURL(fileObject);
 });
 ```
+
+### example
+
+结合`upload/base`上传模块的例子：[upload/base#上传前预览](src/upload/base.md#上传前预览)

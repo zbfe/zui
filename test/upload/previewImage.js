@@ -20,8 +20,8 @@ define([
                 }
             };
 
-            expect(typeof new PreviewImage().createObjectURL({})).toBe('string');
-            expect(new PreviewImage().createObjectURL({})).toBe('');
+            expect(typeof PreviewImage.createObjectURL({})).toBe('string');
+            expect(PreviewImage.createObjectURL({})).toBe('');
 
             window.URL = url;
         });
@@ -38,8 +38,8 @@ define([
                 }
             };
 
-            expect(typeof new PreviewImage().createObjectURL({})).toBe('string');
-            expect(new PreviewImage().createObjectURL({})).toBe('');
+            expect(typeof PreviewImage.createObjectURL({})).toBe('string');
+            expect(PreviewImage.createObjectURL({})).toBe('');
 
             window.webkitURL = url;
             window.URL = url2;
@@ -52,8 +52,8 @@ define([
             window.URL = null;
             window.webkitURL = null;
 
-            expect(typeof new PreviewImage().createObjectURL({})).toBe('string');
-            expect(new PreviewImage().createObjectURL({})).toBe('');
+            expect(typeof PreviewImage.createObjectURL({})).toBe('string');
+            expect(PreviewImage.createObjectURL({})).toBe('');
 
             window.webkitURL = url;
             window.URL = url2;

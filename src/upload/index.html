@@ -34,7 +34,7 @@
         app.on('queued', function (file) {
             console.log('queued', file);
 
-            $('#load').html('<img src="' + new Preview().createObjectURL(file) + '">');
+            $('#load').html('<img src="' + Preview.createObjectURL(file) + '">');
         });
 
         app.on('success', function (file) {

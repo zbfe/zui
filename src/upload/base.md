@@ -109,7 +109,7 @@ function (file) {};
  */
 ```
 
-### api - destroy
+### api - #destroy
 
 ```js
 /**
@@ -117,4 +117,123 @@ function (file) {};
  *
  * @return {Object} this
  */
+```
+
+### example
+
+#### 一个多文件上传
+
+```runhtml
+
+<input id="test-upload-base-file" type="file" />
+
+<div id="test-upload-base-log"></div>
+
+<button id="test-upload-base-start">开始上传</button>
+
+<script>
+require([
+    'upload/base'
+], function (Upload) {
+    var app = new Upload({
+        elem: '#test-upload-base-file',
+        multiple: true
+    });
+    var log = function (str) {
+        $('#test-upload-base-log').append('<p>' + str + '</p>');
+    };
+
+
+    app.on('queued', function (file) {
+        log('添加到队列，文件名：' + file.name + '，大小：' + file.size);
+    });
+
+    app.on('success', function (res, file) {
+        log('上传成功，后端返回：' + JSON.stringify(res) + '，文件名：' + file.name);
+    });
+
+    app.on('complete', function (data) {
+        log('上传完成，成功' + data.success.length + '个，失败' + data.error.length + '个');
+    });
+
+    app.on('progress', function (event, file) {
+        log('进度：' + JSON.stringify(event) + '，文件名：' + file.name);
+    });
+
+    app.on('error', function (event, file) {
+        log('上传失败，错误信息：' + JSON.stringify(event) + '，文件名：' + file.name);
+    });
+
+    $('#test-upload-base-start').on('click', function () {
+        app.start();
+    });
+});
+</script>
+```
+
+#### 选择文件后自动上传
+
+```runhtml
+
+<input id="test-upload-base-file-2" type="file" />
+
+<div id="test-upload-base-log-2"></div>
+
+<script>
+require([
+    'upload/base'
+], function (Upload) {
+    var app = new Upload({
+        elem: '#test-upload-base-file-2',
+        multiple: true
+    });
+    var log = function (str) {
+        $('#test-upload-base-log-2').append('<p>' + str + '</p>');
+    };
+
+
+    app.on('queued', function (file) {
+        log('添加到队列，文件名：' + file.name + '，大小：' + file.size);
+        this.start();
+    });
+
+    app.on('complete', function (data) {
+        log('上传完成，成功' + data.success.length + '个，失败' + data.error.length + '个');
+    });
+    app.on('error', function (event, file) {
+        log('上传失败，错误信息：' + JSON.stringify(event) + '，文件名：' + file.name);
+    });
+});
+</script>
+```
+
+#### 上传前预览
+
+需要用到 [upload/previewImage](src/upload/previewImage.md) 模块
+
+```runhtml
+
+<input id="test-upload-base-file-3" type="file" />
+
+<div id="test-upload-base-log-3"></div>
+
+<script>
+require([
+    'upload/base',
+    'upload/previewImage'
+], function (Upload, Preview) {
+    var app = new Upload({
+        elem: '#test-upload-base-file-3',
+        multiple: true
+    });
+    var log = function (str) {
+        $('#test-upload-base-log-3').append('<p>' + str + '</p>');
+    };
+
+    app.on('queued', function (file) {
+        log('添加到队列，文件名：' + file.name + '，大小：' + file.size);
+        log('<img src="' + Preview.createObjectURL(file) + '" height=200>');
+    });
+});
+</script>
 ```

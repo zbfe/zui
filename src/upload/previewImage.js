@@ -7,13 +7,12 @@
 define(function (require) {
     'use strict';
 
-    var Zui = require('zui');
-
-    var Preview = Zui.extend({
-        constructor: function () {
-            // 初始化
-            Preview.super.constructor.call(this);
-        },
+    /**
+     * 预览
+     *
+     * @type {Object}
+     */
+    var Preview = {
 
         /**
          * 转换对象为blob链接
@@ -31,7 +30,7 @@ define(function (require) {
 
             return '';
         }
-    });
+    };
 
     return Preview;
 });

@@ -209,8 +209,11 @@ define([
                 elem: $('<div />')
             });
 
-            app.on('error', function (data) {
+            app.on('error', function (data, file) {
                 expect(data.status).toBe(Base.status.ERROR_EMPTY);
+                expect($.isEmptyObject(file)).toBe(true);
+                expect(file.name).toBeUndefined();
+                expect(file.size).toBeUndefined();
                 done();
             });
 
