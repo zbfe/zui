@@ -107,6 +107,7 @@ function (file) {};
  *
  * @return {Object} this
  */
+app.start();
 ```
 
 ### api - #destroy
@@ -117,6 +118,34 @@ function (file) {};
  *
  * @return {Object} this
  */
+app.destroy();
+```
+
+### api - #selectFile
+
+该方法是触发第0个`input`元素的`click`事件，并会携带额外的数据以方便用来判断触发源。触发`input`的`click`事件会使浏览器自动弹出上传文件窗口
+
+```js
+/**
+ * 弹出选择文件框
+ *
+ * @return {Object} this
+ */
+app.selectFile();
+```
+
+额外数据如：
+
+```js
+var $input = $('<input />');
+var app = new Base({
+    elem: $input
+});
+
+$input.on('click', function (event, data) {
+    // event => 事件对象
+    // data => {target: 'zui/upload/base'}
+});
 ```
 
 ### example
@@ -174,7 +203,6 @@ require([
 #### 选择文件后自动上传
 
 ```runhtml
-
 <input id="test-upload-base-file-2" type="file" />
 
 <div id="test-upload-base-log-2"></div>
@@ -207,16 +235,18 @@ require([
 </script>
 ```
 
-#### 上传前预览
+#### 上传前预览+selectFile
 
-需要用到 [upload/previewImage](src/upload/previewImage.md) 模块
+需要用到 [upload/previewImage](src/upload/previewImage.md) 模块。
+
+默认让`input`元素隐藏，给其他元素绑定点击事件，并解决`app.selectFile`方法。
 
 ```runhtml
-
-<input id="test-upload-base-file-3" type="file" />
+<input id="test-upload-base-file-3" type="file" style="display:none" />
 
 <div id="test-upload-base-log-3"></div>
 
+<button id="test-upload-base-selectFile-4">点我添加文件</button>
 <script>
 require([
     'upload/base',
@@ -232,7 +262,11 @@ require([
 
     app.on('queued', function (file) {
         log('添加到队列，文件名：' + file.name + '，大小：' + file.size);
-        log('<img src="' + Preview.createObjectURL(file) + '" height=200>');
+        log('<img src="' + Preview.createObjectURL(file) + '" height=100>');
+    });
+
+    $('#test-upload-base-selectFile-4').on('click', function() {
+        app.selectFile();
     });
 });
 </script>

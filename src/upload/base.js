@@ -120,6 +120,19 @@ define(function (require) {
         },
 
         /**
+         * 弹出选择文件框
+         *
+         * @return {Object} this
+         */
+        selectFile: function () {
+            // 添加额外的触发信息
+            this.$elem.eq(0).trigger('click', {
+                target: 'zui/upload/base'
+            });
+            return this;
+        },
+
+        /**
          * 销毁
          *
          * @return {Object} this

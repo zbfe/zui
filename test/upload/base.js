@@ -266,6 +266,21 @@ define([
 
             app.destroy();
         });
+        it('selectFile()', function (done) {
+            var $input = $('<input />');
+            var app = new Base({
+                elem: $input
+            });
+
+            $input.on('click', function (event, data) {
+                expect(typeof event).toBe('object');
+                expect(typeof data).toBe('object');
+                expect(data.target).toBe('zui/upload/base');
+                done();
+            });
+
+            app.selectFile();
+        });
         it('_changeHandle()', function (done) {
             var app = new Base({
                 elem: $('<input />'),
