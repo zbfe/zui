@@ -81,7 +81,7 @@ define(function (require) {
 
 每个模块必须有完整的测试用例，目录在：`test/[module]/`下对应你的模块的文件名
 
-测试使用 [jasmine2.4.1](https://jasmine.github.io/) 编写用例，使用 [phantomjs](http://phantomjs.org/) 基于 [karma](https://karma-runner.github.io/) 进行`node`端测试，浏览器端测试在`test/index.html`，目前需要把自己的测试用户`手动`的添加到该文件，后续做成自动抽离的
+测试使用 [jasmine2.4.1](https://jasmine.github.io/) 编写用例，使用 [phantomjs](http://phantomjs.org/) 基于 [karma](https://karma-runner.github.io/) 进行`node`端测试
 
 ## 注意
 
