@@ -54,7 +54,34 @@ define(function (require) {
      * @return {boolean}       是否通过
      */
     Form.checkRule = function (key, value) {
+        var data = Form.rulesData[key];
 
+        // 如果没有规则数据
+        if (!data || !value) {
+            return false;
+        }
+
+        // 如果规则是字符串则必须相等
+        if ('string' === typeof data.check) {
+            return value === data.check;
+        }
+
+        // 如果是数字
+        else if ('number' === typeof data.check) {
+            return Number(data.check) === value;
+        }
+
+        // 如果是正则
+        else if (data.check instanceof RegExp) {
+            return data.check.test(value);
+        }
+
+        // 如果是方法
+        else if ('function' === typeof data.check) {
+            return data.check(value);
+        }
+
+        return false;
     };
 
     /**
