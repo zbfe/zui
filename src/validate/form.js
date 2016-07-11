@@ -23,10 +23,10 @@ define(function (require) {
      */
     Form.rulesData = {
         required: {
-            check: function () {
-
+            check: function (value) {
+                return !!value;
             },
-            message: ''
+            message: '必须'
         },
 
         email: {
@@ -35,12 +35,15 @@ define(function (require) {
         },
 
         minlength: {
+            check: function (value, rule) {
+                return String(value).length >= rule;
+            },
             check: 1
         },
 
         maxlength: {
             check: function (value, rule) {
-
+                return String(value).length <= rule;
             }
         }
     };
