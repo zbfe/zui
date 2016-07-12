@@ -78,8 +78,35 @@ define([
 
         //     // window.scrollTo(window.innerHeight + 1000);
         // });
-        // options.elem
         // options.event
+        it('options.event null', function (done) {
+            var $elem = $('<div />');
+            var app = new Lazyload({
+                elem: $elem,
+                event: null
+            });
+
+            app.on('loaditem', function (data) {
+                expect(data.elem).toEqual($elem.get(0));
+                done();
+            });
+
+            app.load($elem);
+        });
+        it('options.event null HTMLElement', function (done) {
+            var elem = $('<div />').get(0);
+            var app = new Lazyload({
+                elem: elem,
+                event: null
+            });
+
+            app.on('loaditem', function (data) {
+                expect(data.elem).toEqual(elem);
+                done();
+            });
+
+            app.load(elem);
+        });
         // options.threshold
 
         // lazyload-load
