@@ -111,10 +111,60 @@ define([
 
         // lazyload-load
         // window.scroll, resize
-        // scroll.namespace
+        // it('scroll.namespace', function (done) {
+        //     var num = 0;
+        //     $(window).on('scroll', function () {
+        //         num += 1;
+        //     });
+
+        //     $(window).trigger('scroll');
+
+            
+
+        //     var $elem = $('<div class="lazyload-base-test"></div><div class="lazyload-base-test"></div>');
+
+        //     $elem.eq(0).height(window.innerHeight + 500).width(100);
+
+
+        //     // 插入到页面中
+        //     $elem.appendTo('body');
+
+        //     var app = new Lazyload({
+        //         elem: $elem
+        //     });
+
+        //     $(window).trigger('scroll');
+
+        //     window.scrollTo(0, 10000);
+        //     $(window).trigger('scroll');
+
+        //     app.on('loaditem', function () {
+        //         console.log(1)
+        //     });
+
+        //     setTimeout(function () {
+        //         app.on('destroy', function () {
+        //             console.log(num);
+        //             done();
+        //         });
+        //     }, 1000);
+            
+            
+        // });
 
         // #load, destroy之后
-        // #__getEventName
+        it('#__getEventName', function () {
+            var app = new Lazyload({
+                elem: $('<div />')
+            });
+
+            expect(typeof app.__getEventName('a')).toBe('string');
+            expect(app.__getEventName('a').indexOf('a.') > -1).toBe(true);
+            expect(typeof app.__getEventName('a b')).toBe('string');
+            expect(app.__getEventName('a b').indexOf('a.') > -1).toBe(true);
+            expect(app.__getEventName('a b').indexOf('b.') > -1).toBe(true);
+            expect(app.__getEventName('a b').indexOf(' ') > -1).toBe(true);
+        });
         // #__load
         // #__checkAll
         // #__check
