@@ -92,6 +92,7 @@ define(function (require) {
      *
      * @param {string|Object} key  规则名或者数据
      * @param {string|RegExt|Function} check 验证数据
+     * @return {Object} Form
      */
     Form.addRule = function (key, check, message) {
         if ('string' !== typeof key || !check) {
@@ -110,9 +111,12 @@ define(function (require) {
      * 删除规则
      *
      * @param  {string} key 规则名称
+     * @return {Object} Form
      */
     Form.removeRule = function (key) {
         delete Form.rulesData[key];
+
+        return Form;
     };
 
     /**
