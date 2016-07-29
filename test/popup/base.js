@@ -68,14 +68,14 @@ define([
         });
 
         it('options.height', function () {
-            var app = new Base({
+            new Base({
                 height: 100,
                 className: 'xxoo-height'
             });
 
             expect($('.xxoo-height').height()).toBe(100);
 
-            var app2 = new Base({
+            new Base({
                 className: 'xxoo-height2',
                 height: '80%'
             });
@@ -162,7 +162,7 @@ define([
             });
 
             app.on('show', function () {
-                app.$wrap.find('.zui-popup-mask').triggerHandler('click');    
+                app.$wrap.find('.zui-popup-mask').triggerHandler('click');
             });
         });
     });

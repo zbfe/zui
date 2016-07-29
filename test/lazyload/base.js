@@ -119,7 +119,6 @@ define([
 
         //     $(window).trigger('scroll');
 
-            
 
         //     var $elem = $('<div class="lazyload-base-test"></div><div class="lazyload-base-test"></div>');
 
@@ -148,8 +147,6 @@ define([
         //             done();
         //         });
         //     }, 1000);
-            
-            
         // });
 
         // #load, destroy之后
