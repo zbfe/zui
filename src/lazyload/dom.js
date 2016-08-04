@@ -24,7 +24,6 @@ define(function (require) {
          */
         constructor: function (options) {
             var self = this;
-            var attr;
 
             // 初始化super
             Dom.super.constructor.call(self, $.extend({}, Dom.defaults, options));

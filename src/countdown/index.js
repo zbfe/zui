@@ -217,7 +217,6 @@ define(function (require) {
                     complete: function (xhr) {
                         var serverTime = xhr.getResponseHeader('Date');
                         self._diff = self._end - new Date(serverTime).getTime();
-                        console.log(self._diff, serverTime);
                     }
                 });
             }

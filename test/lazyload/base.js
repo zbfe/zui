@@ -3,6 +3,7 @@
  * @author xiaowu <fe.xiaowu@gmail.com>
  */
 
+/* eslint-disable max-nested-callbacks */
 define([
     'lazyload/base',
     'zepto'
