@@ -444,10 +444,16 @@ define([
 
         it('.get(key)', function () {
             var a = {
-                a: 1
+                a: 1,
+                b: {
+                    c: {
+                        d: 1
+                    }
+                }
             };
             var app = new Zui(a);
             expect(app.get('a')).toBe(1);
+            expect(app.get('b.c.d')).toBe(1);
             expect(app.get('b')).toBeUndefined();
         });
 
@@ -456,9 +462,12 @@ define([
 
             app.set('a', 1);
             app.set('b', undefined);
+            app.set('c.d.e.f', 1);
 
             expect(app.get('a')).toBe(1);
+            expect(app.get('c.d.e.f')).toBe(1);
             expect(app.get('b')).toBeUndefined();
+            expect(app.get('b.a.x.x.3')).toBeUndefined();
         });
 
         it('is', function () {
