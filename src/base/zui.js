@@ -267,7 +267,29 @@ define(function (require) {
          * @return {*}     值
          */
         get: function (key) {
-            return key ? this._options[key] : this._options;
+            var self = this;
+            var res = self._options;
+
+            // 如果没有参数
+            if ('undefined' === typeof key) {
+                return res;
+            }
+
+            // 如果不是字符串则忽略
+            if ('string' !== typeof key) {
+                return undefined;
+            }
+
+            // 分隔循环
+            key.split('.').some(function (k) {
+                if ('undefined' === typeof res[k]) {
+                    res = undefined;
+                    return true;
+                }
+                res = res[k];
+            });
+
+            return res;
         },
 
         /**
@@ -278,9 +300,23 @@ define(function (require) {
          * @return {Object} this
          */
         set: function (key, value) {
-            if (key && 'string' === typeof key && 'undefined' !== typeof value) {
-                this._options[key] = value;
+            var self = this;
+
+            // 如果没有设置内容
+            if ('string' !== typeof key || 'undefined' === typeof value) {
+                return self;
             }
+
+            key = key.split('.');
+
+            var temp = key.pop();
+            var res = self._options;
+
+            key.forEach(function (k) {
+                res = res[k] = res[k] || {};
+            });
+
+            res[key] = value;
 
             return this;
         },
