@@ -292,6 +292,7 @@ define(function (require) {
             return res;
         },
 
+
         /**
          * 设置配置
          *
@@ -316,7 +317,7 @@ define(function (require) {
                 res = res[k] = res[k] || {};
             });
 
-            res[key] = value;
+            res[temp] = value;
 
             return this;
         },

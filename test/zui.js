@@ -454,7 +454,7 @@ define([
             var app = new Zui(a);
             expect(app.get('a')).toBe(1);
             expect(app.get('b.c.d')).toBe(1);
-            expect(app.get('b')).toBeUndefined();
+            expect(app.get('dba')).toBeUndefined();
         });
 
         it('.set', function () {
