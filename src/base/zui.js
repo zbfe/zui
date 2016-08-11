@@ -281,8 +281,8 @@ define(function (require) {
             }
 
             // 分隔循环
-            key.split('.').some(function (k) {
-                if ('undefined' === typeof res[k]) {
+            key.trim().split(/\s*\.\s*/).some(function (k) {
+                if (!$.isPlainObject(res[k])) {
                     res = undefined;
                     return true;
                 }
@@ -308,7 +308,7 @@ define(function (require) {
                 return self;
             }
 
-            key = key.split('.');
+            key = key.trim().split(/\s*\.\s*/);
 
             var temp = key.pop();
             var res = self._options;
