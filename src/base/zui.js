@@ -282,7 +282,7 @@ define(function (require) {
 
             // 分隔循环
             key.trim().split(/\s*\.\s*/).some(function (k) {
-                if (!$.isPlainObject(res[k])) {
+                if (!res.hasOwnProperty(k)) {
                     res = undefined;
                     return true;
                 }
@@ -313,11 +313,16 @@ define(function (require) {
             var temp = key.pop();
             var res = self._options;
 
-            key.forEach(function (k) {
+            key.some(function (k) {
+                if (!$.isPlainObject(res)) {
+                    return true;
+                }
                 res = res[k] = res[k] || {};
             });
 
-            res[temp] = value;
+            if ($.isPlainObject(res)) {
+                res[temp] = value;
+            }
 
             return this;
         },

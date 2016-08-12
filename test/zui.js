@@ -464,8 +464,19 @@ define([
             app.set('a', 1);
             app.set('a.b', 1);
             app.set('b', undefined);
+            expect(app.get('b')).toBeUndefined();
             app.set('c.d.e.f', 1);
             app.set('  d.      d .   e.f', 1);
+
+            app.set('1.0.1', 1);
+            app.set('1.0.1.1.1.1', 1);
+            expect(app.get('1.0.1')).toBe(1);
+            expect(app.get('1.0.1.1.1.1')).toBeUndefined();
+
+            app.set('1.0.1.1.1.1', 1);
+            app.set('1.0.1', 1);
+            expect(app.get('1.0.1')).toBe(1);
+            expect(app.get('1.0.1.1.1.1')).toBeUndefined();
 
             expect(app.get('a')).toBe(1);
             expect(app.get('c.d.e.f')).toBe(1);
