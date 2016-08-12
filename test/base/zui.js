@@ -456,12 +456,19 @@ define([
             expect(app.get('b.c.d')).toBe(1);
             expect(app.get('   b .   c.d')).toBe(1);
             expect(app.get('dba')).toBeUndefined();
+            expect(app.get(1)).toBeUndefined();
+            expect(app.get(true)).toBeUndefined();
+            expect(app.get(null)).toBeUndefined();
+            expect(app.get({})).toBeUndefined();
+            expect(app.get(null)).toBeUndefined();
         });
 
         it('.set', function () {
             var app = new Zui();
 
             app.set('a', 1);
+            app.set('null', null);
+            app.set('false', false);
             app.set('a.b', 1);
             app.set('b', undefined);
             expect(app.get('b')).toBeUndefined();
@@ -479,6 +486,8 @@ define([
             expect(app.get('1.0.1.1.1.1')).toBeUndefined();
 
             expect(app.get('a')).toBe(1);
+            expect(app.get('null')).toBe(null);
+            expect(app.get('false')).toBe(false);
             expect(app.get('c.d.e.f')).toBe(1);
             expect(app.get('d.d.e.f')).toBe(1);
             expect(app.get('b')).toBeUndefined();
