@@ -265,6 +265,13 @@ define(function (require) {
          * @param  {string=} key 配置key，如果为空则获取整个配置
          *
          * @return {*}     值
+         *
+         * @example
+         * // 获取数据
+         * get('key');
+         *
+         * // 获取多级数据
+         * get('data.post.key');
          */
         get: function (key) {
             var self = this;
@@ -299,6 +306,13 @@ define(function (require) {
          * @param {string} key   配置key
          * @param {*} value 配置值
          * @return {Object} this
+         *
+         * @example
+         * // 设置数据
+         * set('key', 'value');
+         *
+         * // 设置多级数据
+         * set('data.post.key', 'value');
          */
         set: function (key, value) {
             var self = this;
