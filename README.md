@@ -40,6 +40,7 @@ Mobile ui library created by zbfe
     * [upload/base](src/upload/base.md) - html5多并发上传
     * [upload/previewImage](src/upload/previewImage.md) - html5文件`file`预览
 * [countdown/index](src/countdown/index.md) - 倒计时
+* [request/base](src/request/base.md) - 异步请求基类
 * tab
 * slide
 * swipe
@@ -47,6 +48,7 @@ Mobile ui library created by zbfe
     * [lazyload/base](src/lazyload/base.md) - 延迟加载基类
     * [lazyload/img](src/lazyload/img.md) - 延迟图片
     * [lazyload/dom](src/lazyload/dom.md) - 延迟`dom`元素
+
 * infiniteScroll
 * calendar
 * picker
