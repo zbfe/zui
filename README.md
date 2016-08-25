@@ -56,6 +56,7 @@ Mobile ui library created by zbfe
 * tools
     * [tools/cookie](src/tools/cookie.md)
     * [tools/localStorage](src/tools/localStorage.md)
+    * [tools/scrollTo](src/tools/scrollTo.md) - 动画滚动页面
     * hash
 
 ## develop
