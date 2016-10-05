@@ -32,7 +32,7 @@ define(function (require) {
             }
 
             self._index = random(0, self._length - 1);
-            self._start();
+            setTimeout(self._start.bind(self));
         },
 
         /**
