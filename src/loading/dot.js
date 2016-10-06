@@ -26,7 +26,7 @@ define(function (require) {
             Dot.super.constructor.call(self, Dot.defaults, options);
 
             self._index = 1;
-            
+
             setTimeout(self._start.bind(self));
         },
 

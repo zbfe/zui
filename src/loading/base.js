@@ -50,13 +50,13 @@ define(function (require) {
 
             self._timer = setTimeout(function () {
                 if (self._length > 1) {
-                    while(true) {
+                    while (true) {
                         var index = random(0, self._length - 1);
                         if (index !== self._index) {
                             self._index = index;
                             break;
                         }
-                    };
+                    }
                 }
                 self._start();
             }, self.get('duration'));
