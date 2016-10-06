@@ -8,7 +8,6 @@ define(function (require) {
     'use strict';
 
     var Zui = require('zui');
-    var random = require('tools/random');
 
     var Dot = Zui.extend({
 
@@ -66,17 +65,17 @@ define(function (require) {
             }
 
             // 打上标识
-            this.is('destroy', 1);
+            self.is('destroy', 1);
 
             // 清空倒计时
-            clearTimeout(this._timer);
+            clearTimeout(self._timer);
 
             /**
              * 销毁实例
              *
              * @event destroy
              */
-            return this.trigger('destroy');
+            return self.trigger('destroy');
         }
     });
 
