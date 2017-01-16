@@ -40,8 +40,9 @@ require([
 require([
     'popup/radio'
 ], function (Radio) {
-    var options = {
-        data: [
+    // 为了模拟对象
+    if (!window.popup_radio) {
+        window.popup_radio = [
             {
                 text: '菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1',
                 value: '1',
@@ -59,7 +60,11 @@ require([
                 text: '菜单4',
                 value: '4'
             }
-        ]
+        ];
+    }
+
+    var options = {
+        data: window.popup_radio
     };
     new Radio(options).on('select', function (data) {
         console.log(data);
@@ -75,9 +80,8 @@ require([
 require([
     'popup/radio'
 ], function (Radio) {
-    var options = {
-        title: '自定义',
-        data: [
+    if (!window.popup_radio_2) {
+        window.popup_radio_2 = [
             {
                 text: '菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1',
                 value: '1',
@@ -95,7 +99,11 @@ require([
                 text: '菜单4',
                 value: '4'
             }
-        ]
+        ];
+    }
+    var options = {
+        title: '自定义',
+        data: window.popup_radio_2
     };
     new Radio(options).on('select', function (data) {
         console.log(data);

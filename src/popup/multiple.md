@@ -43,8 +43,8 @@ require([
 require([
     'popup/multiple'
 ], function (Multiple) {
-    var options = {
-        data: [
+    if (!window.popup_multiple) {
+        window.popup_multiple = [
             {
                 text: '菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1',
                 value: '1',
@@ -63,7 +63,10 @@ require([
                 text: '菜单4',
                 value: '4'
             }
-        ]
+        ];
+    }
+    var options = {
+        data: window.popup_multiple
     };
     new Multiple(options).on('select', function (data) {
         console.log(data);
@@ -79,9 +82,8 @@ require([
 require([
     'popup/multiple'
 ], function (Multiple) {
-    var options = {
-        title: '自定义',
-        data: [
+    if (!window.popup_multiple_2) {
+        window.popup_multiple_2 = [
             {
                 text: '菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1菜单1',
                 value: '1',
@@ -100,7 +102,11 @@ require([
                 text: '菜单4',
                 value: '4'
             }
-        ]
+        ];
+    }
+    var options = {
+        title: '自定义',
+        data: window.popup_multiple_2
     };
     new Multiple(options).on('select', function (data) {
         console.log(data);
