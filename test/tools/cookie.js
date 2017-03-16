@@ -44,6 +44,8 @@ define([
             expect(cookie.get('set -> get')).toBe('');
             cookie.set('set -> get', 1);
             expect(cookie.get('set -> get')).toBe('1');
+            cookie.set('测试', '成功');
+            expect(cookie.get('测试')).toBe('成功');
         });
 
         it('set -> get -> remove -> get', function () {
