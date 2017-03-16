@@ -1,10 +1,10 @@
 /**
- * @file 移动端动画scrollTo
+ * @file 随机数
  * @author fe.xiaowu@gmail.com
- * @module tools/scrollTo
+ * @module tools/random
  */
 
-define(function (require) {
+define(function () {
     'use strict';
 
     var cache = {};
@@ -37,7 +37,7 @@ define(function (require) {
             len = 6;
         }
 
-        return random(1 + new Array(len).join('0'), 1 + new Array(len + 1).join('0') - 1);
+        return random(1 + new Array(len).join('0') - 0, 1 + new Array(len + 1).join('0') - 1);
     };
 
     /**
