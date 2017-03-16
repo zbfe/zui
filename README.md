@@ -7,7 +7,7 @@ Mobile ui library created by zbfe
 [![code style fecs](https://img.shields.io/badge/code%20style-fecs-brightgreen.svg)](https://github.com/ecomfe/fecs)
 [![Build Status](https://travis-ci.org/zbfe/zui.svg?branch=master)](https://travis-ci.org/zbfe/zui)
 [![Test Coverage](https://img.shields.io/coveralls/zbfe/zui/master.svg)](https://coveralls.io/r/zbfe/zui)
-[![DevDependencies](https://img.shields.io/david/dev/zbfe/zui.svg?style=flat)](https://david-dm.org/zbfe/zui#info=devDependencies)
+[![MIT license](https://img.shields.io/github/license/zbfe/zui.svg)](https://github.com/zbfe/zui)
 
 ## docs
 
@@ -56,8 +56,9 @@ Mobile ui library created by zbfe
 * tools
     * [tools/cookie](src/tools/cookie.md)
     * [tools/localStorage](src/tools/localStorage.md)
-    * [tools/scrollTo](src/tools/scrollTo.md) - 动画滚动页面
+    * [tools/scrollTo](src/tools/scrollTo.md) - 动画滚动页面 - ing
     * hash
+    * parseQuery
 
 ## develop
 
