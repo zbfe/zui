@@ -5,14 +5,13 @@ var uglify = require('gulp-uglify');
 gulp.task('default', function () {
     gulp.src([
         'src/**/*.js',
-        'lib/zepto.js',
-        'lib/Class.js'
+        'deps/zepto.js'
     ])
     .pipe(concat({
         baseUrl: 'src/',
         paths: {
-            zepto: 'lib/zepto',
-            Class: 'lib/Class'
+            zepto: 'deps/zepto',
+            Class: 'base/Class'
         },
         shim: {
             zepto: {

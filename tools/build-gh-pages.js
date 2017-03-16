@@ -14,7 +14,7 @@ child.execSync([
     'rm -rf gh-pages',
     'mkdir gh-pages',
     'cp -rf docs gh-pages/',
-    'cp -rf lib gh-pages/',
+    'cp -rf deps gh-pages/',
     'cp -rf src gh-pages/',
     'cp -rf test gh-pages/',
     'cp -rf index.html gh-pages/',

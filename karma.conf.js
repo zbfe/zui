@@ -75,11 +75,11 @@ var httpServer = function (req, res, next) {
 
 var files = [
     {
-        pattern: 'lib/zepto.js',
+        pattern: 'deps/zepto.js',
         included: false
     },
     {
-        pattern: 'lib/requirejs/plugins/*.js',
+        pattern: 'deps/requirejs/plugins/*.js',
         included: false
     },
     {
@@ -90,9 +90,9 @@ var files = [
         pattern: 'test/**/*.js',
         included: false
     },
-    'lib/requirejs/config.js',
+    'deps/requirejs/config.js',
     // 加载初始化视图测试
-    'karma.conf.require.js'
+    'deps/karma.conf.require.js'
 ];
 
 if (process.argv.slice(-1)[0].match(/--test\=(.*)$/)) {

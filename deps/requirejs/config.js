@@ -23,10 +23,10 @@
     requirejs.config({
         baseUrl: baseUrl,
         paths: {
-            text: '../lib/requirejs/plugins/text',
-            tpl: '../lib/requirejs/plugins/text',
-            css: '../lib/requirejs/plugins/css',
-            zepto: '../lib/zepto',
+            text: '../deps/requirejs/plugins/text',
+            tpl: '../deps/requirejs/plugins/text',
+            css: '../deps/requirejs/plugins/css',
+            zepto: '../deps/zepto',
             Class: 'base/Class',
             zui: 'base/zui',
             test: '../test'

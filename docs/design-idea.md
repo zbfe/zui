@@ -40,8 +40,8 @@ test/popup/select.js
 
 ```html
 <!-- html页面中引用加载器和配置文件 -->
-<script src="lib/requirejs/require.js"></script>
-<script src="lib/requirejs/config.js"></script>
+<script src="deps/requirejs/require.js"></script>
+<script src="deps/requirejs/config.js"></script>
 
 <!-- 加载 -->
 <script>
