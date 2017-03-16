@@ -26,11 +26,11 @@
   "devDependencies": {
     "fecs": ">=0.6.3",
     "http-server": ">=0.9.0",
-    "jasmine-core": "2.4.1",
+    "jasmine-core": "^2.5.2",
     "jsdoc": "^3.4.0",
     "karma": ">=0.13.22",
     "karma-coverage": ">=0.5.5",
-    "karma-jasmine": ">=0.3.7",
+    "karma-jasmine": "^1.1.0",
     "karma-phantomjs-launcher": ">=1.0.0",
     "karma-requirejs": "^1.0.0",
     "minami": "^1.1.1",

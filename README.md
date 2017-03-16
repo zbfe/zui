@@ -54,6 +54,7 @@ Mobile ui library created by zbfe
 * player
 * validate
 * tools
+    * [tools/random](src/tools/random.md) - 随机数
     * [tools/cookie](src/tools/cookie.md)
     * [tools/localStorage](src/tools/localStorage.md)
     * [tools/scrollTo](src/tools/scrollTo.md) - 动画滚动页面 - ing
