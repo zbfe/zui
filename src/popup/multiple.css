@@ -1,0 +1,105 @@
+/**
+ * @file 下浮层基类
+ * @author fe.xiaowu@gmail.com
+ */
+.zui-popup-multiple {
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+}
+.zui-popup-multiple-list,
+.zui-popup-multiple-list > li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.zui-popup-multiple-header {
+    -webkit-align-content: flex-start;
+    -webkit-align-items: stretch;
+    background-color: #f0f0f0;
+    -webkit-box-align: stretch;
+    -webkit-box-direction: normal;
+    -webkit-box-lines: single;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: justify;
+    color: #333;
+    display: -webkit-flex;
+    display: -webkit-box;
+    -webkit-flex-direction: row;
+    -webkit-flex-wrap: nowrap;
+    font-size: 18px;
+    height: 42px;
+    -webkit-justify-content: space-between;
+    line-height: 42px;
+    overflow: hidden;
+    padding-left: 21px;
+    padding-right: 21px;
+    width: auto;
+}
+.zui-popup-multiple-header-done,
+.zui-popup-multiple-header-all {
+    -webkit-box-flex: 0;
+    -webkit-flex: none;
+}
+.zui-popup-multiple-header-disabled {
+    color: #999;
+}
+.zui-popup-multiple-header-title {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    overflow: hidden;
+    padding: 0 10px;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.zui-popup-multiple-list > li {
+    border-bottom: 1px solid #ebebeb;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 21px;
+    position: relative;
+}
+.zui-popup-multiple-list > li:last-child {
+    border-bottom: none;
+}
+
+.zui-popup-multiple-text {
+    margin-right: 24px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.zui-popup-multiple-icon {
+    border: 1px solid #ddd;
+    height: 16px;
+    margin-top: 12px;
+    overflow: hidden;
+    position: absolute;
+    right: 21px;
+    top: 0;
+    width: 16px;
+}
+.zui-popup-multiple-selected .zui-popup-multiple-icon:after {
+    background-color: #3fa1ff;
+    content: "";
+    height: 6px;
+    left: 4px;
+    position: absolute;
+    top: 6px;
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+    width: 1px;
+}
+.zui-popup-multiple-selected .zui-popup-multiple-icon:before {
+    background: #3fa1ff;
+    content: "";
+    height: 10px;
+    left: 9px;
+    position: absolute;
+    top: 2px;
+    -webkit-transform: rotate(36deg);
+            transform: rotate(36deg);
+    width: 1px;
+}

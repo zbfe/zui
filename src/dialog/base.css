@@ -1,0 +1,111 @@
+/**
+ * @file Dialog基本样式
+ * @author schoeu1110@gmail.com
+ */
+
+.zui-dialog-wrap-mask{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.6);
+    display: none;
+}
+.zui-dialog-wrap{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    background: rgba(255,255,255, 1);
+    transform: translate(50%, -50%);
+    border-radius: 6px;
+    width: 60%;
+    z-index: 10;
+}
+.zui-dialog-header{
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 17px;
+}
+.zui-dialog-header:after{
+    border-bottom: 1px solid #D5D5D6;
+}
+
+/* 横向按钮样式 */
+.zui-dialog-btngroup-h{
+    height: 35px;
+    line-height: 35px;
+    display: flex;
+}
+.zui-dialog-btngroup-h div{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    text-align: center;
+    color: #353535;
+}
+.zui-dialog-btngroup-h div:not(:first-child){
+    position: relative;
+}
+.zui-dialog-btngroup-h div:not(:first-child):after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    border-left: 1px solid #D5D5D6;
+    -webkit-transform: scaleX(0.5);
+    transform: scaleX(0.5);
+}
+
+/* 纵向按钮样式 */
+.zui-dialog-btngroup-v{
+    line-height: 35px;
+}
+.zui-dialog-btngroup-v div{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+    text-align: center;
+    color: #353535;
+}
+.zui-dialog-btngroup-v div:not(:first-child){
+    position: relative;
+}
+.zui-dialog-btngroup-v div:not(:first-child):after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    border-top: 1px solid #D5D5D6;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+
+.zui-dialog-btngroup-h,.zui-dialog-btngroup-v{
+    cursor: pointer;
+}
+
+.zui-dialog-content{
+    position: relative;
+    padding: 10px 20px;
+    color: #888;
+    line-height: 1.4em;
+    font-size: 15px;
+}
+.zui-dialog-content:after,.zui-dialog-header:after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+.zui-dialog-content:after{
+    border-top: 1px solid #D5D5D6;
+}

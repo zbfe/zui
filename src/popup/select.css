@@ -1,0 +1,42 @@
+/**
+ * @file 弹出下浮层，模拟下拉
+ * @author fe.xiaowu@gmail.com
+ */
+
+/*reset*/
+.zui-popup-select-list,
+.zui-popup-select-item {
+    margin: 0;
+    padding: 0;
+}
+.zui-popup-select-list {
+    list-style: none;
+}
+
+.zui-popup-select {
+    background-color: #fff;
+    font-size: 14px;
+    color: #333; 
+}
+.zui-popup-select-item {
+    border-top: 1px solid #d9d9d9;
+    height: 42px;
+    line-height: 42px;
+    padding: 0 10px;
+    position: relative;
+    text-align: center;
+}
+.zui-popup-select-item:first-child {
+    border-top: none;
+}
+.zui-popup-select-item:active {
+    background-color: #ececec;
+}
+.zui-popup-select-cancel {
+    border-top: 5px solid  #ececec;
+}
+.zui-popup-select-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
